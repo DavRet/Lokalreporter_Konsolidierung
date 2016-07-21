@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3a4879ec-e4b4-43d8-bd87-10eef520fa56" name="majone" url="http://newsmap.majone.de">
+        <fileTransfer host="newsmap.majone.de" port="21" password="dfebdfe7dfcfdfc3dff9dfef" username="newsmap">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
