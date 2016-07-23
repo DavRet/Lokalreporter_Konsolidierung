@@ -47,6 +47,9 @@ NewsMap.NewsMapView = (function () {
             $("#close-radius-box").on("click", closeRadiusBox);
             $("#close-search-wrapper").on("click", closeSearchWrapper);
 
+            $("#close-map-button").on("click", closeMap);
+            $("#show-map-button").on("click", showMap);
+
             $("#autocomplete").bind("clickoutside", function (event) {
                 $(this).hide();
             });
@@ -58,6 +61,16 @@ NewsMap.NewsMapView = (function () {
 
             $radiusBox.hide();
             return this;
+        },
+
+        closeMap = function() {
+            $('#newsmap-content').hide();
+            $("#show-map-button").show();
+        },
+
+        showMap = function() {
+            $(this).hide();
+            $('#newsmap-content').show();
         },
 
         removeQuery = function () {
