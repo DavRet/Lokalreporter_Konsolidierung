@@ -70,7 +70,6 @@ NewsMap.DrawMap = (function () {
                         markersSet = false;
                         foundArticles = JSON.parse(data);
                         addMarker(foundArticles);
-
                     }
 
                 },
@@ -112,7 +111,8 @@ NewsMap.DrawMap = (function () {
                 markers.clearLayers();
 
 
-                for (i = 0; i < data.length; i++) {
+                //for (i = 0; i < data.length; i++) {
+                for (i = 0; i < 100; i++) {
 
 
                     if (radiusSelect.val() == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect.val()) {

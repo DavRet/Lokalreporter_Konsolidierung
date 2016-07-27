@@ -2,17 +2,18 @@ html, body > * {
     font-family: 'Open Sans', sans-serif !important;
 }
 
-#show-map-button {
-    margin-top: 6rem;
-    margin-left: 40%;
-}
-
 #newsmap-content {
     position: absolute;
     top: 5rem;
     left: 0;
     height: 80%;
-    width: 100%;
+    width: 70%;
+    margin-left: 15%;
+    padding: 1%;
+}
+
+.not-visible-for-init {
+    visibility: hidden;
 }
 
 #lokalreporter-content {
@@ -21,32 +22,31 @@ html, body > * {
 }
 
 #lokalreporter-header {
-    position: absolute;
-    left: 0;
     display: block;
     width: 100%;
     height: 5rem;
-    border-bottom: 1px solid black;
-}
-
-#image-container {
-    position: absolute;
-    margin-left: 5%;
-    margin-top: 2.4px;
+    box-shadow: 0 7px 10px -7px gray;
+    width: 70%;
+    margin-left: 15%;
 }
 
 #lokalreporter-image {
-
+    width: 30%;
+    margin-bottom: 1rem;
 }
 
-.main-menu-item {
-    list-style-type: none;
-    position: fixed;
-    z-index: 100;
-    display: block;
-    text-align: center;
-    line-height: 5rem;
+#image-container {
+    padding: 0;
+}
+
+#main-menu li {
+    display: inline;
     cursor: pointer;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    line-height: 5rem;
+    padding: 1.8rem;
 }
 
 .main-menu-item:hover {
@@ -54,13 +54,19 @@ html, body > * {
     background: #3a9bd8;
 }
 
-#main-menu {
-    height: 3rem;
-    width: 70%;
-    margin-left: 30%;
+.first-headline {
+    font-size: 1.8rem;
+    color: #3a9bd8;
 }
 
-#close-map-button {
+#main {
+    margin-left: 15%;
+    width: 70%;
+    padding: 1%;
+}
+
+.main-content {
+    display: none;
 }
 
 #animDiv {
@@ -179,8 +185,8 @@ a:hover {
     color: #ffffff;
     position: fixed;
     z-index: 1000;
-    width: 100%;
-    height: 85px;
+    width: 68%;
+    height: 4rem;
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -355,8 +361,7 @@ a:hover {
     list-style-type: none;
     width: 140%;
     margin-left: 0 !important;
-    text-align: center;
-    line-height: 110px;
+    line-height: 5rem;
 }
 
 #menu-list h5 {
@@ -402,7 +407,7 @@ a:hover {
     height: 100%;
     width: 100%;
     line-height: 3rem;
-    font-size: 3rem;
+    font-size: 2rem;
     text-align: center;
     padding-left: .5rem;
     padding-right: .5rem;

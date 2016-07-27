@@ -49,6 +49,9 @@ NewsMap.NewsMapView = (function () {
 
             $("#close-map-button").on("click", closeMap);
             $("#show-map-button").on("click", showMap);
+            $('#live-button').on('click', showLive);
+            $('#news-button').on('click', showNews);
+            $('#mediathek-button').on('click', showMediathek);
 
             $("#autocomplete").bind("clickoutside", function (event) {
                 $(this).hide();
@@ -63,16 +66,42 @@ NewsMap.NewsMapView = (function () {
             return this;
         },
 
-        closeMap = function() {
+        closeMap = function () {
             $('#newsmap-content').hide();
-            $("#show-map-button").show();
         },
 
-        showMap = function() {
-            $(this).hide();
-            $('#newsmap-content').show();
+        showMap = function () {
+            $('.main-content').hide();
+
+            if ($('#newsmap-content').hasClass('not-visible-for-init')) {
+                $('#newsmap-content').removeClass('not-visible-for-init');
+                $('#newsmap-content').toggle();
+            }
+
+            $('#newsmap-content').toggle();
+
         },
 
+        showLive = function () {
+            $('.main-content').hide();
+            $('#newsmap-content').hide();
+
+            $('#live-content').toggle();
+        },
+
+        showNews = function () {
+            $('.main-content').hide();
+            $('#newsmap-content').hide();
+
+            $('#news-content').toggle();
+        },
+
+        showMediathek = function () {
+            $('.main-content').hide();
+            $('#newsmap-content').hide();
+
+            $('#mediathek-content').toggle();
+        },
         removeQuery = function () {
             $('body').on('click', '.remove-query', function () {
                 var query = $(this).closest('li').attr("data-show");
