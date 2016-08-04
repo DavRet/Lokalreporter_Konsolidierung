@@ -37,20 +37,81 @@
 
 <div id="lokalreporter-content">
     <header id="lokalreporter-header" role="banner">
-        <nav id="main-navigation" role="navigation">
-            <div class="main-menu-container">
-                <ul class="large-12 columns" id="main-menu">
-                    <li id="image-container"><img id="lokalreporter-image" border="0"
-                                                  alt="lokalreporter"
-                                                  src="img/lokalreporter-header.png"></li>
-                    <li id="live-button" class="main-menu-item">LIVE</li>
-                    <li id="news-button" class="main-menu-item">NACHRICHTEN</li>
-                    <li id="mediathek-button" class="main-menu-item">MEDIATHEK</li>
-                    <li id="show-map-button" class="main-menu-item">KARTE</li>
-                </ul>
-            </div>
-        </nav>
+        <div class="row">
+            <nav id="main-navigation-top" role="navigation">
+                <div class="large-12 columns" id="top-menu">
+                    <ul class="large-6 columns" id="user-menu">
+                        <li class="top-menu-items" id="login-open">LOGIN</li>
+                        <li class="top-menu-items" id="register-open">REGISTRIEREN</li>
+                        <li class="top-menu-items" id="kontakt-open">KONTAKT</li>
+                    </ul>
+                    <div class="large-4 columns" id="search-container">
+                            <input class="large-3 columns" id="search-input" type="search">
+                            <div class="large-1 columns"><i class="fi-magnifying-glass" id="search-button-top"></i></div>
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div class="row">
+            <nav id="main-navigation" role="navigation">
+                <div class="main-menu-container">
+                    <ul class="large-12 columns" id="main-menu">
+                        <li id="image-container"><img id="lokalreporter-image" border="0"
+                                                      alt="lokalreporter"
+                                                      src="img/lokalreporter-header.png"></li>
+                        <li id="live-button" class="main-menu-item">LIVE</li>
+                        <li id="news-button" class="main-menu-item">NACHRICHTEN</li>
+                        <li id="mediathek-button" class="main-menu-item">MEDIATHEK</li>
+                        <li id="show-map-button" class="main-menu-item">KARTE</li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
     </header>
+
+    <div id="login-modal" class="modal">
+
+        <form class="modal-content animate">
+            <div class="container">
+                <label><b>Benutzername</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+
+                <label><b>Passwort</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <button type="submit">Login</button>
+                <input type="checkbox" checked="checked"> Login merken
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button id="cancel-login"type="button" class="cancelbtn">Abbrechen</button>
+                <span class="psw"><a href="#">Passwort vergessen?</a></span>
+            </div>
+        </form>
+    </div>
+
+    <div id="register-modal" class="modal">
+
+        <form class="modal-content animate">
+            <div class="container">
+                <label><b>Benutzername</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+
+                <label><b>Passwort</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+                <label><b>Passwort wiederholen</b></label>
+                <input type="password" placeholder="Enter Password again" name="psw-again" required>
+
+                <button type="submit">Registrieren</button>
+
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button id="cancel-register"type="button" class="cancelbtn">Abbrechen</button>
+            </div>
+        </form>
+    </div>
 
     <div id="main">
         <div class="main-content" id="live-content">
@@ -71,7 +132,8 @@
 
             </div>
             <span id="tooltip"></span>
-            <div id="myModal" class="reveal-modal text-center" data-reveal aria-labelledby="modalTitle" aria-hidden="true"
+            <div id="myModal" class="reveal-modal text-center" data-reveal aria-labelledby="modalTitle"
+                 aria-hidden="true"
                  role="dialog">
 
                 <h2 id="modalTitle">Artikel teilen auf</h2>
@@ -216,7 +278,8 @@
                 <div class="pub-date">DATUM</div>
                 <br>
                 <div class="entry-summary">
-                    Dies betrifft auch die Kraftfahrzeugzulassungsstelle, die Infothek, den Fachbereich Gesundheitswesen und
+                    Dies betrifft auch die Kraftfahrzeugzulassungsstelle, die Infothek, den Fachbereich Gesundheitswesen
+                    und
                     die
                     Volkshochschule Bamberg-Land. (…)
                 </div>

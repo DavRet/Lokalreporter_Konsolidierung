@@ -53,6 +53,12 @@ NewsMap.NewsMapView = (function () {
             $('#news-button').on('click', showNews);
             $('#mediathek-button').on('click', showMediathek);
 
+            $('#login-open').on('click', showLogin);
+            $('#register-open').on('click', showRegister);
+            $('#cancel-login').on('click', hideLogin);
+            $('#cancel-register').on('click', hideRegister);
+            $(document).on('click', hideLoginBodyClick);
+
             $("#autocomplete").bind("clickoutside", function (event) {
                 $(this).hide();
             });
@@ -64,6 +70,31 @@ NewsMap.NewsMapView = (function () {
 
             $radiusBox.hide();
             return this;
+        },
+
+        showLogin = function () {
+            $('.modal').hide();
+            $('#login-modal').show();
+        },
+        showRegister = function () {
+            $('.modal').hide();
+            $('#register-modal').show();
+        },
+
+        hideRegister = function () {
+            $('#register-modal').hide();
+        },
+
+        hideLoginBodyClick = function (event) {
+            var modal = $('#login-modal');
+
+        },
+
+        hideLogin = function () {
+
+            $('#login-modal').hide();
+
+
         },
 
         closeMap = function () {
