@@ -26,14 +26,14 @@ NewsMap.lokalreporterView = (function () {
                 pubDate = data[i].pub_date;
                 region = data[i].region;
 
-                var artikelDiv = $('<li>' +
+                var artikelListElements = $('<li>' +
                     '<a href="#' + EIDI + '">' + '<div>' + pubDate + '</div>' + artikelTitel + '</a>' +
                     '<div' + ' id="' + EIDI + '">' + artikelOrt + ',' + region + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                     '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
                     '</div> </li>');
 
-                $("#news-list").append(artikelDiv);
+                $("#news-list").append(artikelListElements);
             }
             $(document).foundation();
 

@@ -1083,6 +1083,8 @@ label {
     }
 }
 
-#news-div{
-    overflow-y: auto;
+#news-list{
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 800px;
 }
