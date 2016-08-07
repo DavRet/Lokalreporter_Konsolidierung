@@ -144,6 +144,7 @@ NewsMap.DrawMap = (function () {
                 }
 
                 setChronoView(tempData);
+                NewsMap.lokalreporterView.setNachrichten(tempData);
                 tempData.length = 0;
                 markersSet = true;
 
