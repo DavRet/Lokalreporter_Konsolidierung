@@ -6,7 +6,7 @@ NewsMap.lokalreporterView = (function () {
         init = function () {
 
         },
-        setNachrichten = function(data){
+        setNachrichten = function (data) {
 
             var EIDI,
                 artikelTitel,
@@ -28,21 +28,28 @@ NewsMap.lokalreporterView = (function () {
                 region = data[i].region;
                 content = data[i].content;
 
-                var artikelListElements = $('<li>' +
+
+                var articleListElement = $('<li>' + '<article id="' + EIDI + '">' + '<img src="http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg" width="485" height="209">'
+                        + '<h2 class="article-title">' + artikelTitel + '</h2>' + '<div class="pub-date">' + pubDate + ', ' + artikelOrt + ', ' + region + '</div>' + '<br>' + '<div class="article-entry-summary">' + content + '</div>'
+                        + '<button class="read-more-button">' + '<a class="more-link" target="_blank" href = "' + artikelLink + '" >Weiterlesen' + '</a>' + '</button>' + '</article>' + '</li> <hr>'
+                    )
+                    ;
+
+               /* var artikelListElements = $('<li>' +
                     '<a href="#' + EIDI + '">' + '<div>' + pubDate + '</div>' + artikelTitel + '</a>' +
                     '<div' + ' id="' + EIDI + '">' + artikelOrt + ',' + region + '<br/><p>' + content + '</p><br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                     '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
-                    '</div> </li> <hr>');
+                    '</div> </li> <hr>');*/
 
-                $("#news-list").append(artikelListElements);
+                $("#news-list").append(articleListElement);
             }
             $(document).foundation();
 
         };
 
-    that.init=init;
-    that.setNachrichten=setNachrichten;
+    that.init = init;
+    that.setNachrichten = setNachrichten;
     return that;
 
 }());

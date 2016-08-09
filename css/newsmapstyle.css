@@ -85,6 +85,12 @@ span.psw {
     }
 }
 
+.article-entry-summary {
+    margin-bottom: 1rem;
+    overflow-y: auto;
+    max-height: 15rem;
+}
+
 #newsmap-content {
     position: absolute;
     top: 7rem;
