@@ -15,6 +15,7 @@ NewsMap.lokalreporterView = (function () {
                 artikelOrt,
                 artikelRegion,
                 pubDate,
+                content,
                 region;
             for (i = 0; i < data.length; i++) {
 
@@ -25,13 +26,14 @@ NewsMap.lokalreporterView = (function () {
                 artikelOrt = data[i].city;
                 pubDate = data[i].pub_date;
                 region = data[i].region;
+                content = data[i].content;
 
                 var artikelListElements = $('<li>' +
                     '<a href="#' + EIDI + '">' + '<div>' + pubDate + '</div>' + artikelTitel + '</a>' +
-                    '<div' + ' id="' + EIDI + '">' + artikelOrt + ',' + region + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                    '<div' + ' id="' + EIDI + '">' + artikelOrt + ',' + region + '<br/><p>' + content + '</p><br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                     '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
-                    '</div> </li>');
+                    '</div> </li> <hr>');
 
                 $("#news-list").append(artikelListElements);
             }

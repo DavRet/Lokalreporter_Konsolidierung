@@ -30,6 +30,8 @@ NewsMap.NewsMapView = (function () {
             removeQuery();
             setRadiusBoxPosition();
 
+            $('#live-content').toggle();
+
 
             $buttonIdentifyLocation.on("click", identifyLocation);
             $("#close-menu").on("click", _closeMenu);
@@ -52,6 +54,7 @@ NewsMap.NewsMapView = (function () {
             $('#live-button').on('click', showLive);
             $('#news-button').on('click', showNews);
             $('#mediathek-button').on('click', showMediathek);
+            $('#category-button').on('click', showCategories);
 
             $('#login-open').on('click', showLogin);
             $('#register-open').on('click', showRegister);
@@ -98,22 +101,30 @@ NewsMap.NewsMapView = (function () {
         },
 
         closeMap = function () {
+            $('.main-menu-item').removeClass('menu-item-activated');
             $('#newsmap-content').hide();
         },
 
         showMap = function () {
+            $('.main-menu-item').removeClass('menu-item-activated');
+            $(this).addClass('menu-item-activated');
+
             $('.main-content').hide();
 
             if ($('#newsmap-content').hasClass('not-visible-for-init')) {
                 $('#newsmap-content').removeClass('not-visible-for-init');
+                $('#newsmap-content').show();
+            }
+            else {
                 $('#newsmap-content').toggle();
             }
 
-            $('#newsmap-content').toggle();
-
         },
 
-        showLive = function () {
+        showLive = function (e) {
+            $('.main-menu-item').removeClass('menu-item-activated');
+            $(this).addClass('menu-item-activated');
+
             $('.main-content').hide();
             $('#newsmap-content').hide();
 
@@ -121,13 +132,27 @@ NewsMap.NewsMapView = (function () {
         },
 
         showNews = function () {
+            $('.main-menu-item').removeClass('menu-item-activated');
+            $(this).addClass('menu-item-activated');
+
             $('.main-content').hide();
             $('#newsmap-content').hide();
 
             $('#news-content').toggle();
         },
 
+        showCategories = function() {
+            $('.main-menu-item').removeClass('menu-item-activated');
+            $(this).addClass('menu-item-activated');
+            $('.main-content').hide();
+            $('#newsmap-content').hide();
+
+            $('#category-content').toggle();
+        },
+
         showMediathek = function () {
+            $('.main-menu-item').removeClass('menu-item-activated');
+            $(this).addClass('menu-item-activated');
             $('.main-content').hide();
             $('#newsmap-content').hide();
 

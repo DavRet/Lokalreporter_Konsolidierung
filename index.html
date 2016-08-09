@@ -39,15 +39,15 @@
     <header id="lokalreporter-header" role="banner">
         <div class="row">
             <nav id="main-navigation-top" role="navigation">
-                <div class="large-12 columns" id="top-menu">
-                    <ul class="large-6 columns" id="user-menu">
+                <div class="large-12 small-4 columns" id="top-menu">
+                    <ul class="large-6  small-4 columns" id="user-menu">
                         <li class="top-menu-items" id="login-open">LOGIN</li>
                         <li class="top-menu-items" id="register-open">REGISTRIEREN</li>
                         <li class="top-menu-items" id="kontakt-open">KONTAKT</li>
                     </ul>
-                    <div class="large-4 columns" id="search-container">
-                            <input class="large-3 columns" id="search-input" type="search">
-                            <div class="large-1 columns"><i class="fi-magnifying-glass" id="search-button-top"></i></div>
+                    <div class="large-4 small-2 columns" id="search-container">
+                        <input class="large-3 columns" id="search-input" type="search">
+                        <div class="large-1 columns"><i class="fi-magnifying-glass" id="search-button-top"></i></div>
                     </div>
                 </div>
 
@@ -55,13 +55,14 @@
         </div>
         <div class="row">
             <nav id="main-navigation" role="navigation">
-                <div class="main-menu-container">
-                    <ul class="large-12 columns" id="main-menu">
+                <div class="main-menu-container large-12 small-4 columns">
+                    <ul id="main-menu">
                         <li id="image-container"><img id="lokalreporter-image" border="0"
                                                       alt="lokalreporter"
                                                       src="img/lokalreporter-header.png"></li>
-                        <li id="live-button" class="main-menu-item">LIVE</li>
+                        <li id="live-button" class="main-menu-item menu-item-activated">TOP-NEWS</li>
                         <li id="news-button" class="main-menu-item">NACHRICHTEN</li>
+                        <li id="category-button" class="main-menu-item">KATEGORIEN</li>
                         <li id="mediathek-button" class="main-menu-item">MEDIATHEK</li>
                         <li id="show-map-button" class="main-menu-item">KARTE</li>
                     </ul>
@@ -85,7 +86,7 @@
             </div>
 
             <div class="container" style="background-color:#f1f1f1">
-                <button id="cancel-login"type="button" class="cancelbtn">Abbrechen</button>
+                <button id="cancel-login" type="button" class="cancelbtn">Abbrechen</button>
                 <span class="psw"><a href="#">Passwort vergessen?</a></span>
             </div>
         </form>
@@ -108,23 +109,27 @@
             </div>
 
             <div class="container" style="background-color:#f1f1f1">
-                <button id="cancel-register"type="button" class="cancelbtn">Abbrechen</button>
+                <button id="cancel-register" type="button" class="cancelbtn">Abbrechen</button>
             </div>
         </form>
     </div>
 
     <div id="main">
         <div class="main-content" id="live-content">
-            <h1 class="first-headline">LIVE</h1>
+            <h1 class="first-headline">TOP-NEWS</h1>
         </div>
 
         <div class="main-content" id="news-content">
             <h1 class="first-headline">ALLGEMEIN</h1>
 
-                <ul id="news-list">
+            <ul id="news-list">
 
-                </ul>
+            </ul>
 
+        </div>
+
+        <div class="main-content" id="category-content">
+            <h1 class="first-headline">KATEGORIEN</h1>
         </div>
 
         <div class="main-content" id="mediathek-content">
@@ -318,7 +323,7 @@
 <script type="text/javascript" src="src/index/NewsMapView.js"></script>
 <script type="text/javascript" src="src/index/DrawMap.js"></script>
 <script type="text/javascript" src="src/lokalreporterView.js"></script>
-<script type="text/javascript" src="src/lokalreporterDraw.js"></script>
+<script type="text/javascript" src="src/lokalreporterModel.js"></script>
 
 <script>
     $(document).foundation();
