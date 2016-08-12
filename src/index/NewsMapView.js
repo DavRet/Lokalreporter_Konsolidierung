@@ -30,7 +30,7 @@ NewsMap.NewsMapView = (function () {
             removeQuery();
             setRadiusBoxPosition();
 
-            $('#live-content').toggle();
+            $('#news-content').toggle();
 
 
             $buttonIdentifyLocation.on("click", identifyLocation);

@@ -29,18 +29,19 @@ NewsMap.lokalreporterView = (function () {
                 content = data[i].content;
 
 
-                var articleListElement = $('<li>' + '<article id="' + EIDI + '">' + '<img src="http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg" width="485" height="209">'
-                        + '<h2 class="article-title">' + artikelTitel + '</h2>' + '<div class="pub-date">' + pubDate + ', ' + artikelOrt + ', ' + region + '</div>' + '<br>' + '<div class="article-entry-summary">' + content + '</div>'
-                        + '<button class="read-more-button">' + '<a class="more-link" target="_blank" href = "' + artikelLink + '" >Weiterlesen' + '</a>' + '</button>' + '</article>' + '</li> <hr>'
+                var articleListElement = $('<li class="large-12 columns article-list">' + '<article id="' + EIDI + '">'
+                        + '<h2 class="article-title">' + artikelTitel + '</h2>' + '<div class="pub-date">' + pubDate + ', ' + artikelOrt + ', ' + region + '</div>' + '<br>'
+                        + '<div class="row">' +'<div class="large-4 columns"><img class="article-image" src="http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg"></div>' + '<div class="large-8 columns article-entry-summary">' + content + '</div>'
+                        + '</div>' + '<button class="read-more-button">' + '<a class="more-link" target="_blank" href = "' + artikelLink + '" >Weiterlesen' + '</a>' + '</button>' + '</article>' + '</li>'
                     )
                     ;
 
-               /* var artikelListElements = $('<li>' +
-                    '<a href="#' + EIDI + '">' + '<div>' + pubDate + '</div>' + artikelTitel + '</a>' +
-                    '<div' + ' id="' + EIDI + '">' + artikelOrt + ',' + region + '<br/><p>' + content + '</p><br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                /* var artikelListElements = $('<li>' +
+                 '<a href="#' + EIDI + '">' + '<div>' + pubDate + '</div>' + artikelTitel + '</a>' +
+                 '<div' + ' id="' + EIDI + '">' + artikelOrt + ',' + region + '<br/><p>' + content + '</p><br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
-                    '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
-                    '</div> </li> <hr>');*/
+                 '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
+                 '</div> </li> <hr>');*/
 
                 $("#news-list").append(articleListElement);
             }

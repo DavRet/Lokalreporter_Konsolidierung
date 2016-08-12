@@ -88,7 +88,25 @@ span.psw {
 .article-entry-summary {
     margin-bottom: 1rem;
     overflow-y: auto;
-    max-height: 15rem;
+    float: right!important;
+    max-height: 11rem;
+}
+
+.read-more-button {
+    float: right;
+    margin-right: 25%;
+}
+
+.article-image {
+    max-height: 11rem;
+}
+
+.article-list {
+    list-style-type: none;
+    border: 1px solid #3a9bd8;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
 }
 
 #newsmap-content {
@@ -1098,4 +1116,6 @@ label {
     overflow: hidden;
     overflow-y: scroll;
     height: 800px;
+    padding-right: 1rem;
+    margin: 0;
 }
