@@ -28,13 +28,12 @@ NewsMap.lokalreporterView = (function () {
                 region = data[i].region;
                 content = data[i].content;
 
-                content = truncateOnWord(content, 450) + '...';
+                content = truncateOnWord(content, 300) + '...';
 
 
                 var articleListElement = $('<li class="large-12 columns article-list">' + '<article id="' + EIDI + '">'
-                        + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate + ', ' + artikelOrt + ', ' + region + '</div>' + '<br>'
-                        + '<div class="row">' + '<div class="large-4 columns"><img class="article-image" src="http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg"></div>' + '<div class="large-8 columns article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '</div>' + '<button class="read-more-button">' + '<a class="more-link" target="_blank" href = "' + artikelLink + '" >Weiterlesen' + '</a>' + '</button>' + '</article>' + '</li>'
+                        + '<div class="row">' + '<div class="large-6 columns"><img class="article-image" src="http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg"></div>' + '<div class="large-6 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate + ', ' + artikelOrt + ', ' + region + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>' + '</div>'
+                        + '</div>' + '<div class="row">' +'<button class="read-more-button">' + '<a class="more-link" target="_blank" href = "' + artikelLink + '" >Weiterlesen' + '</a>' + '</button>' + '</div>' + '</article>' + '</li>'
                     )
                     ;
 
