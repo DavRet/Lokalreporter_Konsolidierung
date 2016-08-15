@@ -9,7 +9,6 @@ html, body > * {
     background-color: #f44336;
 }
 
-
 .container {
     padding: 16px;
 }
@@ -29,8 +28,8 @@ span.psw {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
     padding-top: 60px;
 }
 
@@ -65,13 +64,21 @@ span.psw {
 }
 
 @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)}
-    to {-webkit-transform: scale(1)}
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
 }
 
 @keyframes animatezoom {
-    from {transform: scale(0)}
-    to {transform: scale(1)}
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
 }
 
 /* Change styles for span and cancel button on extra small screens */
@@ -80,6 +87,7 @@ span.psw {
         display: block;
         float: none;
     }
+
     .cancelbtn {
         width: 100%;
     }
@@ -87,14 +95,10 @@ span.psw {
 
 .article-entry-summary {
     margin-bottom: 1rem;
-    float: right!important;
+    float: right !important;
     max-height: 11rem;
 }
 
-.read-more-button {
-    float: right;
-    margin-right: 20%;
-}
 
 .article-image {
 
@@ -106,6 +110,10 @@ span.psw {
 
 .top-image {
 
+}
+
+#search-container {
+    float: right;
 }
 
 #top-menu-row {
@@ -138,16 +146,31 @@ span.psw {
 
 #lokalreporter-content {
     height: 100%;
-    width: 80%;
-    margin-left: 10%;
-    box-shadow: 0 0 35px 5px gray;
+}
 
+@media (min-width: 40em) {
+    #lokalreporter-content {
+        width: 80%;
+        margin-left: 10%;
+        box-shadow: 0 0 35px 5px gray;
+    }
+}
+
+
+.small-menu-item {
+    color: white;
+    float: right;
+    color: white;
+    float: right;
+    line-height: 2rem;
+    font-size: 1.8rem;
+    padding-left: 1rem;
+    cursor: pointer;
 }
 
 #lokalreporter-header {
     display: block;
-    height: 7rem;
-    box-shadow: 0 7px 10px -7px gray;
+    /*box-shadow: 0 7px 10px -7px gray;*/
 }
 
 #lokalreporter-image {
@@ -156,7 +179,7 @@ span.psw {
 }
 
 #image-container {
-    padding: 0!important;
+    padding: 0 !important;
 }
 
 #main-menu li {
@@ -169,7 +192,11 @@ span.psw {
     padding: 1.8rem 1.2rem 1.8rem 1.2rem;
 }
 
-#user-menu li{
+#main-menu {
+    margin: 0;
+}
+
+#user-menu li {
     display: inline;
     cursor: pointer;
     text-align: center;
@@ -181,7 +208,13 @@ span.psw {
     color: white;
 }
 
-#user-menu li:hover{
+@media (max-width: 40em) {
+    #user-menu li {
+        padding: 0.5rem;
+    }
+}
+
+#user-menu li:hover {
     color: #3a9bd8;
 }
 
@@ -191,18 +224,34 @@ span.psw {
 }
 
 #user-menu {
-    text-align: right;
+
     line-height: 1.7rem;
-    margin-left: 24%;
-    position: absolute;
+    margin: 0;
+    padding: 0;
     z-index: 10000;
+
+
+}
+
+@media (min-width: 40em) {
+    #user-menu {
+        margin-left: 24%;
+        position: absolute;
+        text-align: right;
+        padding: inherit;
+    }
 }
 
 #search-input {
     max-height: 1.6rem;
     margin-top: 0.2rem;
     max-width: 60%;
-    margin-left: 4rem;
+}
+
+@media (min-width: 40em) {
+    #user-menu {
+        margin-left: 4rem;
+    }
 }
 
 #search-button-top:hover {
@@ -215,8 +264,6 @@ span.psw {
     font-size: 1.5rem;
     line-height: 2rem;
 }
-
-
 
 .main-menu-item:hover {
     color: #f5f5f5;
@@ -239,12 +286,17 @@ span.psw {
     height: 100%;
 }
 
+@media (max-width: 40em) {
+    #main {
+        padding: 1rem;
+    }
+}
+
 .main-content {
     display: none;
 }
 
 #animDiv {
-
 
     width: 200px;
     height: 130px;
@@ -508,11 +560,15 @@ a:hover {
     text-decoration: none;
 }
 
-#read-more-button {
-    background: white;
+.read-more-button {
     text-align: center;
-    color: #3a9bd8;
     margin-top: 1rem;
+}
+
+@media (max-width: 40em) {
+    .read-more-button {
+        margin-top: 5rem;
+    }
 }
 
 #read-more-button:hover {
@@ -1079,7 +1135,6 @@ label {
     margin-left: 0.5rem;
 }
 
-
 #query-row {
     position: absolute;
     margin-top: 6rem;
@@ -1126,7 +1181,7 @@ label {
     }
 }
 
-#news-list{
+#news-list {
     overflow: hidden;
     overflow-y: scroll;
     height: 800px;
