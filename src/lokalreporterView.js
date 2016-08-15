@@ -28,10 +28,12 @@ NewsMap.lokalreporterView = (function () {
                 region = data[i].region;
                 content = data[i].content;
 
+                content = truncateOnWord(content, 450) + '...';
+
 
                 var articleListElement = $('<li class="large-12 columns article-list">' + '<article id="' + EIDI + '">'
-                        + '<h2 class="article-title">' + artikelTitel + '</h2>' + '<div class="pub-date">' + pubDate + ', ' + artikelOrt + ', ' + region + '</div>' + '<br>'
-                        + '<div class="row">' +'<div class="large-4 columns"><img class="article-image" src="http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg"></div>' + '<div class="large-8 columns article-entry-summary">' + content + '</div>'
+                        + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate + ', ' + artikelOrt + ', ' + region + '</div>' + '<br>'
+                        + '<div class="row">' + '<div class="large-4 columns"><img class="article-image" src="http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg"></div>' + '<div class="large-8 columns article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '</div>' + '<button class="read-more-button">' + '<a class="more-link" target="_blank" href = "' + artikelLink + '" >Weiterlesen' + '</a>' + '</button>' + '</article>' + '</li>'
                     )
                     ;
@@ -44,9 +46,23 @@ NewsMap.lokalreporterView = (function () {
                  '</div> </li> <hr>');*/
 
                 $("#news-list").append(articleListElement);
+
+
             }
             $(document).foundation();
 
+
+        },
+
+        truncateOnWord = function (str, limit) {
+            var trimmable = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u2028\u2029\u3000\uFEFF';
+            var reg = new RegExp('(?=[' + trimmable + '])');
+            var words = str.split(reg);
+            var count = 0;
+            return words.filter(function (word) {
+                count += word.length;
+                return count <= limit;
+            }).join('');
         };
 
     that.init = init;
