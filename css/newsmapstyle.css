@@ -148,7 +148,7 @@ span.psw {
     height: 100%;
 }
 
-@media (min-width: 40em) {
+@media (min-width: 64em) {
     #lokalreporter-content {
         width: 80%;
         margin-left: 10%;
@@ -250,7 +250,7 @@ span.psw {
 
 @media (min-width: 40em) {
     #user-menu {
-        margin-left: 9rem;
+        margin-left: 13rem;
     }
 }
 
