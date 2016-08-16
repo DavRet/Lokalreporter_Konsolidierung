@@ -152,7 +152,7 @@ span.psw {
     #lokalreporter-content {
         width: 80%;
         margin-left: 10%;
-        box-shadow: 0 0 35px 5px gray;
+        box-shadow: 0 0 55px 5px gray;
     }
 }
 
@@ -1181,7 +1181,7 @@ label {
     }
 }
 
-#news-list {
+#news-list, #top-list {
     overflow: hidden;
     overflow-y: scroll;
     height: 800px;
