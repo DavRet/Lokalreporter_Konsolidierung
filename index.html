@@ -67,7 +67,25 @@
                                                       src="img/lokalreporter-header.png"></li>
                         <li id="live-button" class="main-menu-item">TOP-NEWS</li>
                         <li id="news-button" class="main-menu-item menu-item-activated">NACHRICHTEN</li>
-                        <li id="category-button" class="main-menu-item">KATEGORIEN</li>
+                        <!--<li id="category-button" class="main-menu-item">KATEGORIEN</li> -->
+                        <li id="category-button" class="main-menu-item" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" >KATEGORIEN
+                            <ul id="drop1" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
+                                <li>Wetter</li>
+                                <li>Sport</li>
+                                <li>Politik</li>
+                                <li>Religion</li>
+                                <li>Kultur</li>
+                                <li id="region-button" data-dropdown="drop2" aria-controls="drop2" aria-expanded="false">Region
+                                    <ul id="drop2" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
+                                        <li>Oberbayern</li>
+                                        <li>Niederbayern</li>
+                                        <li>Franken</li>
+                                        <li>Schwaben</li>
+                                        <li>Oberpfalz</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                         <li id="mediathek-button" class="main-menu-item">MEDIATHEK</li>
                         <li id="show-map-button" class="main-menu-item">KARTE</li>
                     </ul>
