@@ -245,12 +245,12 @@ span.psw {
 #search-input {
     max-height: 1.6rem;
     margin-top: 0.2rem;
-    max-width: 60%;
+    max-width: 80%;
 }
 
 @media (min-width: 40em) {
     #user-menu {
-        margin-left: 4rem;
+        margin-left: 9rem;
     }
 }
 
