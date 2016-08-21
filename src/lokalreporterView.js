@@ -4,9 +4,21 @@
 NewsMap.lokalreporterView = (function () {
     var that = {},
         init = function () {
+            ajaxTest();
+        },
+        ajaxTest = function () {
+            console.log("test");
 
         },
         setNachrichten = function (data) {
+
+            $.ajax({
+                url: "http://localhost:9000/districts",
+                type: 'GET',
+                dataType: 'jsonp',
+                success: function (data) {
+                    console.log(data);
+                }});
 
             var EIDI,
                 artikelTitel,

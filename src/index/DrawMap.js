@@ -112,7 +112,7 @@ NewsMap.DrawMap = (function () {
 
 
                 //for (i = 0; i < data.length; i++) {
-                for (i = 0; i < 100; i++) {
+                for (i = 0; i < 10; i++) {
 
 
                     if (radiusSelect.val() == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect.val()) {
