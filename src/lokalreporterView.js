@@ -4,21 +4,71 @@
 NewsMap.lokalreporterView = (function () {
     var that = {},
         init = function () {
-            ajaxTest();
+
         },
-        ajaxTest = function () {
-            console.log("test");
+        apiTest = function () {
+
+            var settings = {
+                "async": true,
+                "url": "http://localhost:9000/news?limit=20&istopstory=true",
+                "method": "GET",
+                "headers": {
+                    "content-type": "application/json",
+                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            }).error(function (response) {
+                console.log("error");
+            });
+            return false;
 
         },
         setNachrichten = function (data) {
 
-            $.ajax({
-                url: "http://localhost:9000/districts",
-                type: 'GET',
-                dataType: 'jsonp',
-                success: function (data) {
-                    console.log(data);
-                }});
+            apiTest();
+
+            /* var tokenSettings = {
+             "async": true,
+             "crossDomain": true,
+             "url": "http://localhost:9100/token",
+             "method": "PUT",
+             "headers": {
+             "cache-control": "no-cache",
+             "postman-token": "6b0c083d-9782-8595-e086-145514c7db3e",
+             "content-type": "application/x-www-form-urlencoded"
+             },
+             "data": {
+             "grant_type": "client_credentials",
+             "client_id": "asdfasdf"
+             }
+             };
+
+             $.ajax(tokenSettings).done(function (response) {
+             console.log(response);
+             var access_token = response['access_token'];
+
+             var tokenString = "Bearer " + access_token;
+
+             var settings = {
+             "async": true,
+             "crossDomain": true,
+             "url": "http://localhost:9000/districts",
+             "method": "GET",
+             "dataType": "jsonp",
+             "headers": {
+             "accept-encoding": "gzip, deflate",
+             "authorization": tokenString,
+             "cache-control": "no-cache"
+             }
+             };
+
+             $.ajax(settings).done(function (response) {
+             console.log(response);
+             });
+             });*/
 
             var EIDI,
                 artikelTitel,
