@@ -5,11 +5,17 @@ NewsMap.lokalreporterView = (function () {
     var that = {},
         init = function () {
             getTopNews();
-            getNews();
+            getNews(20);
             $('#search-button-top').on('click', getSearchQuery);
             $('#search-input').keypress(function (e) {
                 if (e.which == 13) {
                     getSearchQuery();
+                    return false;
+                }
+            });
+            $('#news-radius-box').keypress(function (e) {
+                if (e.which == 13) {
+                    getNews($('#news-radius-box').val());
                     return false;
                 }
             });
@@ -38,11 +44,11 @@ NewsMap.lokalreporterView = (function () {
 
         },
 
-        getNews = function () {
+        getNews = function (radius) {
 
             var settings = {
                 "async": true,
-                "url": "http://localhost:9000/news?radius=20&centerpoint=lat49.008852:lng12.085179",
+                "url": "http://localhost:9000/news?radius=" + radius + "&centerpoint=lat49.008852:lng12.085179",
                 "method": "GET",
                 "headers": {
                     "Accept": "application/json",
@@ -73,7 +79,6 @@ NewsMap.lokalreporterView = (function () {
             };
 
             $.ajax(regionSettings).done(function (response) {
-                console.log(response);
 
                 for (i = 0; i < response.length; i++) {
                     if(response[i]['name'] == query) {
@@ -251,6 +256,7 @@ NewsMap.lokalreporterView = (function () {
         },
 
         setNews = function (data) {
+            $("#news-list").empty();
             var EIDI,
                 artikelTitel,
                 artikelLink,
