@@ -2,12 +2,15 @@ NewsMap.MainController = (function () {
     var that = {},
         newsMapView = null,
         drawMap = null,
+        lokalreporterView = null,
         currentClickedArticle = null,
 
 
         init = function () {
             newsMapView = NewsMap.NewsMapView.init();
             drawMap = NewsMap.DrawMap.init();
+            lokalreporterView = NewsMap.lokalreporterView.init();
+
 
             $(newsMapView).on("locationFound", setLocation);
             $(newsMapView).on("markerPopupClick", getClickedArticlePopup);

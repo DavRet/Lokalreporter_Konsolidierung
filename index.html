@@ -52,7 +52,8 @@
                         </div>
                     </div>
                     <div class="show-for-medium-down"><i class="small-menu-item fi-list" id="menu-button-top"></i></div>
-                    <div class="show-for-medium-down"><i class="small-menu-item fi-magnifying-glass" id="search-button-top-small"></i></div>
+                    <div class="show-for-medium-down"><i class="small-menu-item fi-magnifying-glass"
+                                                         id="search-button-top-small"></i></div>
 
                 </div>
 
@@ -62,29 +63,42 @@
             <nav id="main-navigation" role="navigation">
                 <div class="main-menu-container large-12 columns hide-for-medium-down">
                     <ul id="main-menu">
-                        <li id="image-container"><img id="lokalreporter-image" border="0"
-                                                      alt="lokalreporter"
-                                                      src="img/lokalreporter-header.png"></li>
+                        <li id="image-container" class="main-menu-item"><img id="lokalreporter-image" border="0"
+                                                                             alt="lokalreporter"
+                                                                             src="img/lokalreporter-header.png"></li>
                         <li id="live-button" class="main-menu-item menu-item-activated">TOP-NEWS</li>
                         <li id="news-button" class="main-menu-item">NACHRICHTEN</li>
                         <!--<li id="category-button" class="main-menu-item">KATEGORIEN</li> -->
-                        <li id="category-button" class="main-menu-item" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" >KATEGORIEN
+                        <li id="category-button" class="has-dropdown main-menu-item" data-dropdown="drop1">KATEGORIEN
                             <ul id="drop1" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
-                                <li>Wetter</li>
-                                <li>Sport</li>
-                                <li>Politik</li>
-                                <li>Religion</li>
-                                <li>Kultur</li>
-                                <li id="region-button" data-dropdown="drop2" aria-controls="drop2" aria-expanded="false">Region
-                                    <ul id="drop2" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
-                                        <li>Oberbayern</li>
-                                        <li>Niederbayern</li>
-                                        <li>Franken</li>
-                                        <li>Schwaben</li>
-                                        <li>Oberpfalz</li>
+                                <li class="dropdown-item dropdown-item-category">Wetter</li>
+                                <li class="dropdown-item dropdown-item-category">Sport</li>
+                                <li class="dropdown-item dropdown-item-category">Verkehr</li>
+                                <li class="dropdown-item dropdown-item-category">Polizei</li>
+                                <li class="dropdown-item dropdown-item-category">Ratgeber</li>
+                                <li class="dropdown-item dropdown-item-category">Kultur</li>
+                                <li class="dropdown-item dropdown-item-category">Religion</li>
+                                <!--<li class="has-dropdown dropdown-item" id="region-button" data-dropdown="drop2"
+                                    aria-controls="drop2" aria-expanded="false">Region
+                                    <ul id="drop2" class="f-dropdown" data-dropdown-content aria-hidden="true"
+                                        tabindex="-1">
+                                        <li class="dropdown-item">>Oberbayern</li>
+                                        <li class="dropdown-item">>Niederbayern</li>
+                                        <li class="dropdown-item">>Franken</li>
+                                        <li class="dropdown-item">>Schwaben</li>
+                                        <li class="dropdown-item">>Oberpfalz</li>
                                     </ul>
-                                </li>
+                                </li>-->
+
+                                <li class="dropdown-item dropdown-item-region">Oberbayern</li>
+                                <li class="dropdown-item dropdown-item-region">Niederbayern</li>
+                                <li class="dropdown-item dropdown-item-region">Mittelfranken</li>
+                                <li class="dropdown-item dropdown-item-region">Oberfranken</li>
+                                <li class="dropdown-item dropdown-item-region">Unterfranken</li>
+                                <li class="dropdown-item dropdown-item-region">Schwaben</li>
+                                <li class="dropdown-item dropdown-item-region">Oberpfalz</li>
                             </ul>
+
                         </li>
                         <li id="mediathek-button" class="main-menu-item">MEDIATHEK</li>
                         <li id="show-map-button" class="main-menu-item">KARTE</li>
@@ -139,28 +153,41 @@
 
     <div id="main">
         <div class="main-content" id="live-content">
-            <h1 class="first-headline">TOP-NEWS</h1>
+            <h1 class="first-headline">Top-News</h1>
 
-            <ul id="top-list">
+            <ul class="results-list" id="top-list">
 
             </ul>
         </div>
 
         <div class="main-content" id="news-content">
-            <h1 class="first-headline">ALLGEMEIN</h1>
+            <h1 class="first-headline">Nachrichten in ihrer Umgebung</h1>
 
-            <ul id="news-list">
+            <ul class="results-list" id="news-list">
+
+            </ul>
+
+        </div>
+
+        <div class="main-content" id="search-content">
+            <h1 class="first-headline" id="search-headline">Suche:</h1>
+
+            <ul class="results-list" id="search-list">
 
             </ul>
 
         </div>
 
         <div class="main-content" id="category-content">
-            <h1 class="first-headline">KATEGORIEN</h1>
+            <h1 class="first-headline" id="category-headline">Kategorien</h1>
+
+            <ul class="results-list" id="category-list">
+
+            </ul>
         </div>
 
         <div class="main-content" id="mediathek-content">
-            <h1 class="first-headline">MEDIATHEK</h1>
+            <h1 class="first-headline">Mediathek</h1>
         </div>
         <div id="newsmap-content" class="not-visible-for-init">
 

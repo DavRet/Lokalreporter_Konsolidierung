@@ -144,10 +144,10 @@ NewsMap.NewsMapView = (function () {
         showCategories = function() {
             $('.main-menu-item').removeClass('menu-item-activated');
             $(this).addClass('menu-item-activated');
-            $('.main-content').hide();
-            $('#newsmap-content').hide();
+            //$('.main-content').hide();
+            //$('#newsmap-content').hide();
 
-            $('#category-content').toggle();
+            //$('#category-content').toggle();
         },
 
         showMediathek = function () {

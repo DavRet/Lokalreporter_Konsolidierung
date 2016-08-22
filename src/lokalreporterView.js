@@ -4,8 +4,19 @@
 NewsMap.lokalreporterView = (function () {
     var that = {},
         init = function () {
-
+            getTopNews();
+            getNews();
+            $('#search-button-top').on('click', getSearchQuery);
+            $('#search-input').keypress(function (e) {
+                if (e.which == 13) {
+                    getSearchQuery();
+                    return false;
+                }
+            });
+            $('.dropdown-item-category').on('click', getCategory);
+            $('.dropdown-item-region').on('click', getRegionId);
         },
+
         getTopNews = function () {
 
             var settings = {
@@ -48,8 +59,198 @@ NewsMap.lokalreporterView = (function () {
 
         },
 
+        getRegionId = function () {
+            var query = $(this).html();
+
+            var regionSettings = {
+                "async": true,
+                "url": "http://localhost:9000/districts",
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                }
+            };
+
+            $.ajax(regionSettings).done(function (response) {
+                console.log(response);
+
+                for (i = 0; i < response.length; i++) {
+                    if(response[i]['name'] == query) {
+                        getRegion(response[i]['id'], query);
+                    }
+                }
+                    }).error(function (response) {
+                console.log("error");
+            });
+        },
+
+        getRegion = function(id, query) {
+            var settings = {
+                "async": true,
+                "url": "http://localhost:9000/news?geodataid=" + id,
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                var type = "Region";
+                setCategoryResults(response, query, type);
+            }).error(function (response) {
+                console.log("error");
+            });
+            return false;
+        },
+
+        getCategory = function () {
+            var query = $(this).html().toLowerCase();
+
+            var settings = {
+                "async": true,
+                "url": "http://localhost:9000/news/meta/" + query,
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                var type = "Kategorie";
+                setCategoryResults(response, query, type);
+            }).error(function (response) {
+                console.log("error");
+            });
+            return false;
+        },
+
+        getSearchQuery = function () {
+            var query = $('#search-input').val().toLowerCase();
+
+            var settings = {
+                "async": true,
+                "url": "http://localhost:9000/news?metadataid=" + query,
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                setSearchResults(response, query);
+            }).error(function (response) {
+                console.log("error");
+            });
+            return false;
+        },
+
+        setCategoryResults = function (data, query, type) {
+            query = query.charAt(0).toUpperCase() + query.slice(1);
+
+            $('#category-headline').html(type + ' "' + query + '":');
+
+            $('.main-content').hide();
+            $('#category-content').show();
+            $('.main-menu-item').removeClass('menu-item-activated');
+            $('#category-button').addClass('menu-item-activated');
+
+            $('#category-list').empty();
+
+            var EIDI,
+                artikelTitel,
+                artikelLink,
+                accord,
+                artikelOrt,
+                artikelRegion,
+                pubDate,
+                content,
+                region,
+                imageSrc;
+            for (i = 0; i < data['items'].length; i++) {
+
+                if (data['items'][i]['geoData'].length) {
+                    artikelOrt = data['items'][i]['geoData'][0]['name'];
+                }
+                EIDI = data['items'][i]['id']
+                artikelTitel = data['items'][i]['title'];
+                artikelLink = data['items'][i]['originalLink'];
+                pubDate = data['items'][i]['date'];
+                content = data['items'][i]['abstract'];
+                imageSrc = data['items'][i]['thumbnail']['source'];
+
+                if (imageSrc == '') {
+                    imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
+                }
+
+                pubDate = pubDate.split("T");
+                pubDate[1] = pubDate[1].substring(0, 8);
+
+                var articleListElement = $('<li class="large-12 columns article-list">' + '<article id="' + EIDI + '">'
+                        + '<div class="row">' + '<div class="large-6 columns"><img class="article-image" src="' + imageSrc + '"></div>' + '<div class="large-6 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
+                        + '<div class="row text-center">' + '<button class="read-more-button">' + '<a class="more-link" target="_blank" href = "' + artikelLink + '" >Weiterlesen' + '</a>' + '</button>' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
+                    )
+                    ;
+
+                $("#category-list").append(articleListElement);
+
+            }
+        },
+
+        setSearchResults = function (data, query) {
+            $('.main-content').hide();
+            $('#search-content').show();
+
+            $('#search-headline').html('Suchergebnisse für "' + query + '":');
+
+            $('#search-list').empty();
+
+            $('.main-menu-item').removeClass('menu-item-activated');
+
+            var EIDI,
+                artikelTitel,
+                artikelLink,
+                accord,
+                artikelOrt,
+                artikelRegion,
+                pubDate,
+                content,
+                region,
+                imageSrc;
+            for (i = 0; i < data['items'].length; i++) {
+
+                if (data['items'][i]['geoData'].length) {
+                    artikelOrt = data['items'][i]['geoData'][0]['name'];
+                }
+                EIDI = data['items'][i]['id']
+                artikelTitel = data['items'][i]['title'];
+                artikelLink = data['items'][i]['originalLink'];
+                pubDate = data['items'][i]['date'];
+                content = data['items'][i]['abstract'];
+                imageSrc = data['items'][i]['thumbnail']['source'];
+
+                if (imageSrc == '') {
+                    imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
+                }
+
+                pubDate = pubDate.split("T");
+                pubDate[1] = pubDate[1].substring(0, 8);
+
+                var articleListElement = $('<li class="large-12 columns article-list">' + '<article id="' + EIDI + '">'
+                        + '<div class="row">' + '<div class="large-6 columns"><img class="article-image" src="' + imageSrc + '"></div>' + '<div class="large-6 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
+                        + '<div class="row text-center">' + '<button class="read-more-button">' + '<a class="more-link" target="_blank" href = "' + artikelLink + '" >Weiterlesen' + '</a>' + '</button>' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
+                    )
+                    ;
+
+                $("#search-list").append(articleListElement);
+
+            }
+        },
+
         setNews = function (data) {
-            console.log(data['items']);
             var EIDI,
                 artikelTitel,
                 artikelLink,
@@ -134,10 +335,6 @@ NewsMap.lokalreporterView = (function () {
         },
 
         setNachrichten = function (data) {
-
-            getTopNews();
-            getNews();
-
 
             var EIDI,
                 artikelTitel,

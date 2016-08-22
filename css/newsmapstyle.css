@@ -180,7 +180,17 @@ span.psw {
     padding: 0 !important;
 }
 
-#main-menu li {
+/*#main-menu li {
+    display: inline;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    line-height: 5rem;
+    padding: 1.8rem 1.2rem 1.8rem 1.2rem;
+}*/
+
+.main-menu-item {
     display: inline;
     cursor: pointer;
     text-align: center;
@@ -292,6 +302,7 @@ span.psw {
 
 .main-content {
     display: none;
+    height: 100%;
 }
 
 #animDiv {
@@ -1179,12 +1190,11 @@ label {
     }
 }
 
-#news-list, #top-list {
-    overflow: hidden;
-    overflow-y: scroll;
-    height: 800px;
+.results-list {
     padding-right: 1rem;
     margin: 0;
+    overflow-y: scroll;
+    height: 800px;
 }
 
 #drop1{
@@ -1192,4 +1202,14 @@ label {
 }
 #drop2{
     color:#000000;
+}
+
+
+.dropdown-item {
+    padding: 0.5rem;
+}
+
+.dropdown-item:hover  {
+    background-color: #3a9bd8!important;
+    color: white;
 }
