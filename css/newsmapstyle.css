@@ -103,8 +103,11 @@ span.psw {
     max-height: 15rem;
 }
 
-.image-box {
-    min-height: 13rem;
+
+@media screen and (min-width: 40em) {
+    .image-box {
+        min-height: 13rem;
+    }
 }
 
 .article-title {
@@ -310,6 +313,7 @@ span.psw {
 
 #main {
     padding: 2rem;
+    padding-top: 1rem;
     background: #f2f2f1;
     height: 100%;
 }
@@ -322,7 +326,7 @@ span.psw {
 
 .main-content {
     display: none;
-    height: 100%;
+    height: 75%;
 }
 
 #animDiv {
@@ -1214,7 +1218,8 @@ label {
     padding: 0;
     margin: 0;
     overflow-y: scroll;
-    height: 800px;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 #drop1{
