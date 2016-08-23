@@ -171,7 +171,6 @@ span.psw {
 }
 
 .news-row {
-    padding-left: 0!important;
     padding-right: 0!important;
 
 }
@@ -309,6 +308,7 @@ span.psw {
 .first-headline {
     font-size: 1.8rem;
     color: #3a9bd8;
+    padding-left: 0.9375rem;
 }
 
 #main {
