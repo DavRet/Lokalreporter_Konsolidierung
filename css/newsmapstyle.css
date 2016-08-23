@@ -1195,3 +1195,6 @@ label {
 #drop2{
     color:#000000;
 }
+
+.has-dropdown ul{display:none;}
+.has-dropdown:hover ul{display:block;}
