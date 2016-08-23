@@ -151,8 +151,9 @@ NewsMap.DrawMap = (function () {
                 for (i = 0; i < data.length; i++) {
 
 
-                   // if (radiusSelect.val() == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect.val()) {
-                    //    tempData.push(data[i]);
+                  // Radius Selection einbauen via Api und Vergleich mit Select Feld in Newsmap
+
+                         tempData.push(data[i]);
 
                         //Nimmt Geo Information 2, falls nicht vorhanden -> 0, falls auch nicht vorhanden 1.
 
@@ -195,12 +196,6 @@ NewsMap.DrawMap = (function () {
                         }
 
 
-
-
-
-
-
-
                         var id= data[i].id;
 
                         console.log("ID: " +data[i].id);
@@ -214,7 +209,7 @@ NewsMap.DrawMap = (function () {
 
                         marker.bindPopup(markerPopup);
 
-                        $(markerPopup).attr("id", data[i].post_id);
+                        $(markerPopup).attr("id", data[i].id);
 
                         markers.addLayer(marker);
                   //  }
@@ -229,11 +224,11 @@ NewsMap.DrawMap = (function () {
                     initLoading = false;
                 }
                 else {
-                    map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
+                    map.setView(new L.LatLng(lat, lon));
                 }
 
                 setChronoView(tempData);
-                NewsMap.lokalreporterView.setNachrichten(tempData);
+
                 tempData.length = 0;
                 markersSet = true;
 
@@ -311,12 +306,29 @@ NewsMap.DrawMap = (function () {
             for (i = 0; i < data.length; i++) {
 
               //  if (i != 0 && data[i - 1].title != data[i].title) {  //|| data.length == 2 mit in schleife ?
+
                     EIDI = "a" + i;
                     artikelTitel = data[i].title;
                     artikelLink = data[i].link;
-                    artikelOrt = data[i].city;
-                    pubDate = data[i].pub_date;
-                    region = data[i].region;
+
+                        if(data[i].geoData[2] != undefined){
+                            if(data[i].geoData[2].name != undefined){
+                                artikelOrt= data[i].geoData[2].name;
+                            }
+                            else artikelOrt= "Unbekannt";
+                        }
+                        else artikelOrt= "Unbekannt";
+
+                    pubDate = data[i].date;
+
+                        if(data[i].geoData[0] != undefined){
+                            if(data[i].geoData[0].name != undefined){
+                                region= data[i].geoData[0].name;
+                            }
+                            else region= "Unbekannt";
+                        }
+                        else region= "Unbekannt";
+
                     accord = $('<li class="accordion-navigation">' +
                         '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
                         '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + ',' + region + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
