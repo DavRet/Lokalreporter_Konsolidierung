@@ -11,6 +11,8 @@ NewsMap.MainController = (function () {
             drawMap = NewsMap.DrawMap.init();
             lokalreporterView = NewsMap.lokalreporterView.init();
 
+            checkForUrlChange();
+
 
             $(newsMapView).on("locationFound", setLocation);
             $(newsMapView).on("markerPopupClick", getClickedArticlePopup);
@@ -29,30 +31,40 @@ NewsMap.MainController = (function () {
             return this;
         },
 
-        removeQuery = function(e, query) {
+        checkForUrlChange = function () {
+            $(window).hashchange(function () {
+
+                console.log(location.hash);
+
+                NewsMap.lokalreporterView.showContent();
+            });
+
+            $(window).hashchange();
+        },
+
+        removeQuery = function (e, query) {
             drawMap.removeQuery(query);
         },
 
-        showFavArticle = function(e, index) {
+        showFavArticle = function (e, index) {
             drawMap.showFavArticle(index);
         },
 
 
-
-        showFavorites = function() {
+        showFavorites = function () {
             drawMap.showFavorites();
         },
 
-        addToFavorites = function() {
+        addToFavorites = function () {
             drawMap.addToFavorites(currentClickedArticle);
         },
 
-        showMenuLeftforFavorite = function(e, article) {
+        showMenuLeftforFavorite = function (e, article) {
             currentClickedArticle = article;
             newsMapView._setArticleContent(article);
         },
 
-        changeSearchSelect = function() {
+        changeSearchSelect = function () {
             drawMap.selectChanged();
         },
 
@@ -63,7 +75,7 @@ NewsMap.MainController = (function () {
         setLocation = function (e, lat, long) {
             drawMap._setLocation(lat, long);
         },
-        setAutocompletePosition = function(){
+        setAutocompletePosition = function () {
             newsMapView.setAutocompletePosition();
             newsMapView.setRadiusBoxPosition();
         },
@@ -72,7 +84,7 @@ NewsMap.MainController = (function () {
             newsMapView._closeMenu();
         },
 
-        getTagsFromArticles = function(e) {
+        getTagsFromArticles = function (e) {
             drawMap.tagSearchClicked();
         },
 
