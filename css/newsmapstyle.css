@@ -95,13 +95,24 @@ span.psw {
 
 .article-entry-summary {
     margin-bottom: 1rem;
-    float: right !important;
-    max-height: 11rem;
+    font-size: .8125rem;
 }
 
 
 .article-image {
+    max-height: 15rem;
+}
 
+
+@media screen and (min-width: 40em) {
+    .image-box {
+        min-height: 13rem;
+    }
+}
+
+.article-title {
+    font-size: 1.25rem;
+    font-weight: normal;
 }
 
 .top-read-more-button {
@@ -128,6 +139,9 @@ span.psw {
     margin-top: 1rem;
     padding: 1rem;
     background: white;
+    float: left!important;
+    margin-right: 2rem;
+    max-width: 30%;
 }
 
 #newsmap-content {
@@ -150,12 +164,21 @@ span.psw {
 
 @media (min-width: 64em) {
     #lokalreporter-content {
-        width: 80%;
-        margin-left: 10%;
+        width: 90%;
+        margin-left: 5%;
         box-shadow: 0 0 55px 5px gray;
     }
 }
 
+.news-row {
+    padding-left: 0!important;
+    padding-right: 0!important;
+
+}
+
+.row {
+    max-width: none!important;
+}
 
 .small-menu-item {
     color: white;
@@ -290,6 +313,7 @@ span.psw {
 
 #main {
     padding: 2rem;
+    padding-top: 1rem;
     background: #f2f2f1;
     height: 100%;
 }
@@ -302,7 +326,7 @@ span.psw {
 
 .main-content {
     display: none;
-    height: 100%;
+    height: 75%;
 }
 
 #animDiv {
@@ -1191,10 +1215,11 @@ label {
 }
 
 .results-list {
-    padding-right: 1rem;
+    padding: 0;
     margin: 0;
     overflow-y: scroll;
-    height: 800px;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 #drop1{
