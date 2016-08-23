@@ -52,9 +52,44 @@ NewsMap.DrawMap = (function () {
         },
 
 
+        getArticlesFromApi = function (radius,limit) {
+
+            var settings = {
+                "async": true,
+                "url": "http://localhost:9000/news?radius=" + radius + "&centerpoint=lat49.008852:lng12.085179&limit="+limit,
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                console.log(response.items);
+                setArticlesFromApi(response.items)
+
+            }).error(function (response) {
+                console.log("error");
+            }).complete(function(){
+                $loading.hide();
+            });
+
+            return false;
+        },
+
+        setArticlesFromApi = function (artikelArray) {
+            console.log(artikelArray);
+            addMarker(artikelArray);
+
+
+        },
+
         getAllArticles = function () {
             foundArticles = [];
-            $.ajax({
+            getArticlesFromApi(100,30);
+
+           $.ajax({
                 type: "GET",
                 url: "http://" + location.host + "/NewsMap/get_data.php",
                 data: {func: "article", date: dateSelectionVal},
@@ -111,24 +146,77 @@ NewsMap.DrawMap = (function () {
                 markers.clearLayers();
 
 
-                //for (i = 0; i < data.length; i++) {
-                for (i = 0; i < 10; i++) {
+                //for (i = 0; i < 10; i++) {
+                for (i = 0; i < data.length; i++) {
 
 
-                    if (radiusSelect.val() == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect.val()) {
-                        tempData.push(data[i]);
+                   // if (radiusSelect.val() == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect.val()) {
+                    //    tempData.push(data[i]);
+
+                        //Nimmt Geo Information 2, falls nicht vorhanden -> 0, falls auch nicht vorhanden 1.
+
+                        if(data[i].geoData[2] != undefined){
+                            if(data[i].geoData[2].geoPoint != undefined || null){
+                                var lat= data[i].geoData[2].geoPoint.latitutde;
+                            }
+                        }
+                        else if(data[i].geoData[0] != undefined){
+                            if(data[i].geoData[0].geoPoint != undefined || null){
+                                var lat= data[i].geoData[0].geoPoint.latitutde;
+                            }
+                        }
+                        else if(data[i].geoData[1] != undefined){
+                            if(data[i].geoData[1].geoPoint != undefined || null){
+                                var lat= data[i].geoData[1].geoPoint.latitutde;
+                            }
+                        }
+                        else{
+                            alert("ERROR NO GEO INFORMATION AVAILIBLE -- LAT");
+                        }
+
+                        if(data[i].geoData[2] != undefined){
+                            if(data[i].geoData[2].geoPoint != undefined || null){
+                                var lon= data[i].geoData[2].geoPoint.longitude;
+                            }
+                        }
+                        else if(data[i].geoData[0] != undefined){
+                            if(data[i].geoData[0].geoPoint != undefined || null){
+                                var lon= data[i].geoData[0].geoPoint.longitude;
+                            }
+                        }
+                        else if(data[i].geoData[1] != undefined){
+                            if(data[i].geoData[1].geoPoint != undefined || null){
+                                var lon= data[i].geoData[1].geoPoint.longitude;
+                            }
+                        }
+                        else{
+                            alert("ERROR NO GEO INFORMATION AVAILIBLE -- Lon");
+                        }
 
 
-                        var marker = L.marker([data[i].lat, data[i].lon]);
-                        $(marker).attr("data-id", data[i].post_id);
-                        var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
+
+
+
+
+
+
+                        var id= data[i].id;
+
+                        console.log("ID: " +data[i].id);
+                        var title= data[i].title;
+                        console.log("Titel: " +data[i].title);
+
+
+                        var marker = L.marker([lat,lon]);
+                        $(marker).attr("data-id", id);
+                        var markerPopup = "<div class='marker-popup' data-id='" + id + "' ><h3 class='marker-title'>" + title + "</h3></div>";
 
                         marker.bindPopup(markerPopup);
 
                         $(markerPopup).attr("id", data[i].post_id);
 
                         markers.addLayer(marker);
-                    }
+                  //  }
                 }
                 if(markers != null && map != null) {
                     map.addLayer(markers);
