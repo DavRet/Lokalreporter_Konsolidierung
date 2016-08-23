@@ -87,7 +87,7 @@ NewsMap.DrawMap = (function () {
 
         getAllArticles = function () {
             foundArticles = [];
-            getArticlesFromApi(100,30);
+
 
            $.ajax({
                 type: "GET",
@@ -134,6 +134,7 @@ NewsMap.DrawMap = (function () {
             map.setView(new L.LatLng(48.9533, 11.3973), 8).addLayer(osm);
 
             getAllArticles();
+            getArticlesFromApi(500,40);
         },
 
         addMarker = function (data) {
