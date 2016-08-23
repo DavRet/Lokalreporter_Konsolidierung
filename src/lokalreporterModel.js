@@ -41,6 +41,7 @@ NewsMap.lokalreporterModel = (function () {
             };
 
             $.ajax(settings).done(function (response) {
+
                 NewsMap.lokalreporterView.setNews(response);
             }).error(function (response) {
                 console.log("error");
