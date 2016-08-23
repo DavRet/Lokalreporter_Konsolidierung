@@ -25,24 +25,35 @@ NewsMap.lokalreporterView = (function () {
             $('#live-button').on('click', function () {
                 $('.main-menu-item').removeClass('menu-item-activated');
                 $(this).addClass('menu-item-activated');
-                document.location.hash = "top-news"
+                document.location.hash = "top-news";
             });
             $('#news-button').on('click', function () {
                 $('.main-menu-item').removeClass('menu-item-activated');
                 $(this).addClass('menu-item-activated');
-                document.location.hash = "nachrichten"
+                document.location.hash = "nachrichten";
             });
             $('#mediathek-button').on('click', function () {
                 $('.main-menu-item').removeClass('menu-item-activated');
                 $(this).addClass('menu-item-activated');
-                document.location.hash = "mediathek"
+                document.location.hash = "mediathek";
             });
 
             $("#show-map-button").on("click", function () {
                 $('.main-menu-item').removeClass('menu-item-activated');
                 $(this).addClass('menu-item-activated');
-                document.location.hash = "karte"
+                document.location.hash = "karte";
             });
+
+
+            $(document).on("click", '.article-title', function () {
+                var id = $(this).closest('article').attr('id');
+                document.location.hash = "artikel-" + id;
+            });
+            $(document).on("click", '.article-image', function () {
+                var id = $(this).closest('article').attr('id');
+                document.location.hash = "artikel-" + id;
+            });
+
         },
 
 
@@ -88,7 +99,7 @@ NewsMap.lokalreporterView = (function () {
                 pubDate[1] = pubDate[1].substring(0, 8);
 
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article id="' + EIDI + '">'
-                        + '<div class="row">' + '<div class="large-12 columns image-box"><a class="more-link" target="_blank" href = "' + artikelLink + '" ><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '</a>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
+                        + '<div class="row">' + '<div class="large-12 columns image-box"><a class="more-link" target="_blank" href = ""><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '</a>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
                     )
                     ;
@@ -187,7 +198,7 @@ NewsMap.lokalreporterView = (function () {
                  )
                  ;*/
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article id="' + EIDI + '">'
-                        + '<div class="row">' + '<div class="large-12 columns image-box"><a class="more-link" target="_blank" href = "' + artikelLink + '" ><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '</a>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
+                        + '<div class="row">' + '<div class="large-12 columns image-box"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
                     )
                     ;
@@ -329,8 +340,11 @@ NewsMap.lokalreporterView = (function () {
 
         showContent = function () {
             var toShow = location.hash;
+            var res = toShow.split("-");
 
-            console.log("switch " + toShow);
+            if (res[0] == "#artikel") {
+                showSingleArticle(res[1]);
+            }
             switch (toShow) {
                 case "":
                     showTop();
@@ -347,14 +361,19 @@ NewsMap.lokalreporterView = (function () {
                 case "#karte":
                     showMap();
                     break;
-
             }
+
+        },
+
+
+        showSingleArticle = function(id) {
+            console.log("show article " + id);
+
+            $('.main-content').hide();
+            $('#newsmap-content').hide();
         },
 
         showNews = function () {
-            $('.main-menu-item').removeClass('menu-item-activated');
-            $(this).addClass('menu-item-activated');
-
             $('.main-content').hide();
             $('#newsmap-content').hide();
 
@@ -362,8 +381,6 @@ NewsMap.lokalreporterView = (function () {
         },
 
         showTop = function (e) {
-            $('.main-menu-item').removeClass('menu-item-activated');
-            $(this).addClass('menu-item-activated');
 
             $('.main-content').hide();
             $('#newsmap-content').hide();
@@ -372,8 +389,6 @@ NewsMap.lokalreporterView = (function () {
         },
 
         showMediathek = function () {
-            $('.main-menu-item').removeClass('menu-item-activated');
-            $(this).addClass('menu-item-activated');
             $('.main-content').hide();
             $('#newsmap-content').hide();
 
@@ -381,9 +396,6 @@ NewsMap.lokalreporterView = (function () {
         },
 
         showMap = function () {
-            $('.main-menu-item').removeClass('menu-item-activated');
-            $(this).addClass('menu-item-activated');
-
             $('.main-content').hide();
 
             if ($('#newsmap-content').hasClass('not-visible-for-init')) {

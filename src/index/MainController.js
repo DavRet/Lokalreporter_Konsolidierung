@@ -33,9 +33,6 @@ NewsMap.MainController = (function () {
 
         checkForUrlChange = function () {
             $(window).hashchange(function () {
-
-                console.log(location.hash);
-
                 NewsMap.lokalreporterView.showContent();
             });
 
