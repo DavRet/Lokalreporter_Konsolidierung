@@ -132,6 +132,7 @@ NewsMap.lokalreporterModel = (function () {
 
             $.ajax(settings).done(function (response) {
                 NewsMap.lokalreporterView.setSearchResults(response, query);
+                NewsMap.DrawMap.setArticlesFromApi(response.items);
             }).error(function (response) {
                 console.log("error");
             });

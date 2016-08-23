@@ -54,6 +54,9 @@ NewsMap.DrawMap = (function () {
 
         getArticlesFromApi = function (radius,limit) {
 
+            // weitere Kriterien einbauen/ für Sortierung(relevanz,datum) da Sortierung vom server gemacht wird/
+            // Radius und Limit müssen von Select Feldern auf Nachrichten Seite übergeben werden
+
             var settings = {
                 "async": true,
                 "url": "http://localhost:9000/news?radius=" + radius + "&centerpoint=lat49.008852:lng12.085179&limit="+limit,
@@ -80,15 +83,19 @@ NewsMap.DrawMap = (function () {
 
         setArticlesFromApi = function (artikelArray) {
             console.log(artikelArray);
+            markersSet=false,
             addMarker(artikelArray);
 
 
         },
 
         getAllArticles = function () {
-            foundArticles = [];
+
+            // 500 radius und 40 limit testweise gewählt später über select oder so
+            getArticlesFromApi(500,40);
 
 
+           /* foundArticles = [];
            $.ajax({
                 type: "GET",
                 url: "http://" + location.host + "/NewsMap/get_data.php",
@@ -115,7 +122,7 @@ NewsMap.DrawMap = (function () {
                 complete: function () {
                     $loading.hide();
                 }
-            });
+            }); */
         },
 
 
@@ -134,7 +141,8 @@ NewsMap.DrawMap = (function () {
             map.setView(new L.LatLng(48.9533, 11.3973), 8).addLayer(osm);
 
             getAllArticles();
-            getArticlesFromApi(500,40);
+
+
         },
 
         addMarker = function (data) {
@@ -143,15 +151,13 @@ NewsMap.DrawMap = (function () {
             }
 
             if (!markersSet) {
-
+                console.log("in !markersSet");
                 markers.clearLayers();
 
 
                 //for (i = 0; i < 10; i++) {
                 for (i = 0; i < data.length; i++) {
 
-
-                  // Radius Selection einbauen via Api und Vergleich mit Select Feld in Newsmap
 
                          tempData.push(data[i]);
 
@@ -174,6 +180,9 @@ NewsMap.DrawMap = (function () {
                         }
                         else{
                             alert("ERROR NO GEO INFORMATION AVAILIBLE -- LAT");
+                            // Setzen einer Standart Location falls keine Vorhanden!
+                            var lat= 50.14567;
+
                         }
 
                         if(data[i].geoData[2] != undefined){
@@ -193,6 +202,8 @@ NewsMap.DrawMap = (function () {
                         }
                         else{
                             alert("ERROR NO GEO INFORMATION AVAILIBLE -- Lon");
+                            // Setzen einer Standart Location falls keine Vorhanden!
+                            var lon= 11.05928;
                         }
 
 
@@ -234,6 +245,7 @@ NewsMap.DrawMap = (function () {
 
 
             }
+
             map.on('popupopen', function (e) {
                 $(".marker-popup").dotdotdot();
 
@@ -784,6 +796,8 @@ NewsMap.DrawMap = (function () {
             }
         };
 
+    that.getArticlesFromApi = getArticlesFromApi;
+    that.setArticlesFromApi = setArticlesFromApi;
     that.setUpEmailLink = setUpEmailLink;
     that.twitterCurrentArticle = twitterCurrentArticle;
     that.fbshareCurrentPage = fbshareCurrentPage;
