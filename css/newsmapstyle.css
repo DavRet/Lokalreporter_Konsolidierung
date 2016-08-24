@@ -101,6 +101,7 @@ span.psw {
 
 .article-image {
     max-height: 15rem;
+    cursor: pointer;
 }
 
 
@@ -113,6 +114,7 @@ span.psw {
 .article-title {
     font-size: 1.25rem;
     font-weight: normal;
+    cursor: pointer;
 }
 
 .top-read-more-button {

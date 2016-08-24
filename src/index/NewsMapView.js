@@ -30,7 +30,7 @@ NewsMap.NewsMapView = (function () {
             removeQuery();
             setRadiusBoxPosition();
 
-            $('#live-content').toggle();
+            //$('#live-content').toggle();
 
 
             $buttonIdentifyLocation.on("click", identifyLocation);
@@ -50,10 +50,11 @@ NewsMap.NewsMapView = (function () {
             $("#close-search-wrapper").on("click", closeSearchWrapper);
 
             $("#close-map-button").on("click", closeMap);
-            $("#show-map-button").on("click", showMap);
+            /*$("#show-map-button").on("click", showMap);
             $('#live-button').on('click', showLive);
             $('#news-button').on('click', showNews);
             $('#mediathek-button').on('click', showMediathek);
+            */
             $('#category-button').on('click', showCategories);
 
             $('#login-open').on('click', showLogin);
@@ -106,6 +107,8 @@ NewsMap.NewsMapView = (function () {
         },
 
         showMap = function () {
+            document.location.hash = "map";
+
             $('.main-menu-item').removeClass('menu-item-activated');
             $(this).addClass('menu-item-activated');
 
@@ -122,6 +125,8 @@ NewsMap.NewsMapView = (function () {
         },
 
         showLive = function (e) {
+            document.location.hash = "top-news";
+
             $('.main-menu-item').removeClass('menu-item-activated');
             $(this).addClass('menu-item-activated');
 
@@ -132,6 +137,8 @@ NewsMap.NewsMapView = (function () {
         },
 
         showNews = function () {
+            document.location.hash = "news";
+
             $('.main-menu-item').removeClass('menu-item-activated');
             $(this).addClass('menu-item-activated');
 
@@ -151,6 +158,7 @@ NewsMap.NewsMapView = (function () {
         },
 
         showMediathek = function () {
+            document.location.hash = "mediathek";
             $('.main-menu-item').removeClass('menu-item-activated');
             $(this).addClass('menu-item-activated');
             $('.main-content').hide();
