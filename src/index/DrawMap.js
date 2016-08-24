@@ -164,17 +164,17 @@ NewsMap.DrawMap = (function () {
                         //Nimmt Geo Information 2, falls nicht vorhanden -> 0, falls auch nicht vorhanden 1.
 
                         if(data[i].geoData[2] != undefined){
-                            if(data[i].geoData[2].geoPoint != undefined || null){
+                            if(data[i].geoData[2].geoPoint != undefined || data[i].geoData[2].geoPoint != null){
                                 var lat= data[i].geoData[2].geoPoint.latitutde;
                             }
                         }
                         else if(data[i].geoData[0] != undefined){
-                            if(data[i].geoData[0].geoPoint != undefined || null){
+                            if(data[i].geoData[0].geoPoint != undefined ||data[i].geoData[0].geoPoint != null){
                                 var lat= data[i].geoData[0].geoPoint.latitutde;
                             }
                         }
                         else if(data[i].geoData[1] != undefined){
-                            if(data[i].geoData[1].geoPoint != undefined || null){
+                            if(data[i].geoData[1].geoPoint != undefined ||data[i].geoData[1].geoPoint != null){
                                 var lat= data[i].geoData[1].geoPoint.latitutde;
                             }
                         }
@@ -186,17 +186,17 @@ NewsMap.DrawMap = (function () {
                         }
 
                         if(data[i].geoData[2] != undefined){
-                            if(data[i].geoData[2].geoPoint != undefined || null){
+                            if(data[i].geoData[2].geoPoint != undefined || data[i].geoData[2].geoPoint != null){
                                 var lon= data[i].geoData[2].geoPoint.longitude;
                             }
                         }
                         else if(data[i].geoData[0] != undefined){
-                            if(data[i].geoData[0].geoPoint != undefined || null){
+                            if(data[i].geoData[0].geoPoint != undefined ||data[i].geoData[0].geoPoint != null){
                                 var lon= data[i].geoData[0].geoPoint.longitude;
                             }
                         }
                         else if(data[i].geoData[1] != undefined){
-                            if(data[i].geoData[1].geoPoint != undefined || null){
+                            if(data[i].geoData[1].geoPoint != undefined || data[i].geoData[1].geoPoint != null){
                                 var lon= data[i].geoData[1].geoPoint.longitude;
                             }
                         }

@@ -43,6 +43,7 @@ NewsMap.lokalreporterModel = (function () {
             $.ajax(settings).done(function (response) {
 
                 NewsMap.lokalreporterView.setNews(response);
+                NewsMap.DrawMap.setArticlesFromApi(response.items);
             }).error(function (response) {
                 console.log("error");
             });
@@ -89,6 +90,7 @@ NewsMap.lokalreporterModel = (function () {
             $.ajax(settings).done(function (response) {
                 var type = "Region";
                 NewsMap.lokalreporterView.setCategoryResults(response, query, type);
+                NewsMap.DrawMap.setArticlesFromApi(response.items);
             }).error(function (response) {
                 console.log("error");
             });
@@ -111,6 +113,7 @@ NewsMap.lokalreporterModel = (function () {
             $.ajax(settings).done(function (response) {
                 var type = "Kategorie";
                 NewsMap.lokalreporterView.setCategoryResults(response, query, type);
+                NewsMap.DrawMap.setArticlesFromApi(response.items);
             }).error(function (response) {
                 console.log("error");
             });
