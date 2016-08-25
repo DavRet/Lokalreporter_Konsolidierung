@@ -98,12 +98,10 @@ span.psw {
     font-size: .8125rem;
 }
 
-
 .article-image {
     max-height: 15rem;
     cursor: pointer;
 }
-
 
 @media screen and (min-width: 40em) {
     .image-box {
@@ -112,7 +110,7 @@ span.psw {
 }
 
 #single-news-content {
-    overflow-y: scroll;
+
 }
 
 .article-title {
@@ -138,10 +136,21 @@ span.psw {
     max-width: none;
 }
 
-.single-article-title {
+.single-article-title, .comment-headline {
     font-size: 1.375em;
     font-weight: normal;
     margin: 0 0 .4375em 0;
+}
+
+.commentator {
+    font-size: 1em;
+    color: #3a9bd8;
+}
+
+.single-comment {
+    background: #f2f2f1;
+    padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 .single-article-image {
@@ -153,10 +162,38 @@ span.psw {
 #single-news-content {
     background: white;
     padding: 2rem;
-    width: 50%;
-    padding-left: 4rem;
-    padding-right: 4rem;
     overflow-y: hidden;
+}
+
+#comment-list {
+    list-style-type: none;
+    margin-left: 0!important;
+}
+
+.comment-divider {
+    margin-top: 0.5rem!important;
+    margin-bottom: 0.5rem!important;
+
+}
+
+.comment-paragraph  {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.comment-title {
+    font-size: 0.9rem;
+}
+
+#single-news-comments {
+    background: white;
+    padding: 2rem;
+    margin-right: 10%;
+    overflow-y: hidden;
+}
+
+#single-news-page {
+    height: 200rem;
 }
 
 .article-list {
@@ -166,7 +203,7 @@ span.psw {
     margin-top: 1rem;
     padding: 1rem;
     background: white;
-    float: left!important;
+    float: left !important;
     margin-right: 2rem;
     max-width: 30%;
 }
@@ -201,7 +238,7 @@ span.psw {
 }
 
 .row {
-    max-width: none!important;
+    max-width: none !important;
 }
 
 .small-menu-item {
@@ -284,7 +321,6 @@ span.psw {
     margin: 0;
     padding: 0;
     z-index: 10000;
-
 
 }
 
@@ -428,7 +464,7 @@ span.psw {
 }
 
 body {
-    overflow-y: scroll!important;
+    overflow-y: scroll !important;
 }
 
 html, body {
@@ -1253,19 +1289,19 @@ label {
     overflow-x: hidden;
 }
 
-#drop1{
+#drop1 {
     color: #000000;
 }
-#drop2{
-    color:#000000;
-}
 
+#drop2 {
+    color: #000000;
+}
 
 .dropdown-item {
     padding: 0.5rem;
 }
 
-.dropdown-item:hover  {
-    background-color: #3a9bd8!important;
+.dropdown-item:hover {
+    background-color: #3a9bd8 !important;
     color: white;
 }
