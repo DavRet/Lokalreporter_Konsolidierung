@@ -428,7 +428,6 @@ NewsMap.lokalreporterView = (function () {
         },
 
         setSingleNews = function (article, content, comments, related) {
-            console.log(related);
             $('.main-menu-item').removeClass('menu-item-activated');
             $('.main-content').hide();
             $('#newsmap-content').hide();
@@ -474,7 +473,8 @@ NewsMap.lokalreporterView = (function () {
 
             for (i = 2; i < content.length - 1; i++) {
 
-                if (content[i]['contents'][0]['text'].length) {
+                var type = typeof content[i]['contents'];
+                if (type != "undefined") {
                     var paragraph = content[i]['contents'][0]['text'];
 
                     var articleElement = $('<p>' + paragraph + '</p>');
