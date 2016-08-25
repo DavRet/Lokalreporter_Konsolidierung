@@ -105,7 +105,7 @@ span.psw {
 
 @media screen and (min-width: 40em) {
     .image-box {
-        min-height: 13rem;
+        /*min-height: 13rem;*/
     }
 }
 
@@ -170,6 +170,19 @@ span.psw {
     margin-left: 0!important;
 }
 
+#related-news-list {
+    list-style-type: none;
+    margin-left: 0!important;
+}
+
+#related-news-list li{
+    display: inline;
+    float: left;
+}
+
+.related-list-item {
+}
+
 .comment-divider {
     margin-top: 0.5rem!important;
     margin-bottom: 0.5rem!important;
@@ -188,8 +201,25 @@ span.psw {
 #single-news-comments {
     background: white;
     padding: 2rem;
-    margin-right: 10%;
+    right: 1rem;
     overflow-y: hidden;
+    position: absolute;
+    margin-right: 10%;
+    height: 50rem;
+    overflow-y: scroll;
+}
+
+.related-list-item {
+    background: #f2f2f1!important;
+}
+
+#related-news-content {
+    background: white;
+    padding: 2rem;
+    overflow-y: hidden;
+    margin-top: 3rem;
+    overflow-y: scroll;
+    height: 35rem;
 }
 
 #single-news-page {
@@ -235,6 +265,7 @@ span.psw {
 }
 
 .news-row {
+    float: left!important;
 }
 
 .row {

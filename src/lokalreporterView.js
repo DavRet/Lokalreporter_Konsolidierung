@@ -397,10 +397,24 @@ NewsMap.lokalreporterView = (function () {
                     "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
                 }
             };
+
+            var relatedSettings = {
+                "async": true,
+                "url": "http://localhost:9000/news/" + id + "/related",
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                }
+            };
             $.ajax(settings).done(function (article) {
                 $.ajax(contentSettings).done(function (content) {
                     $.ajax(commentSettings).done(function (comments) {
-                        setSingleNews(article, content, comments);
+                        $.ajax(relatedSettings).done(function (related) {
+                            setSingleNews(article, content, comments, related);
+                        }).error(function (response) {
+                            console.log("error");
+                        });
                     }).error(function (response) {
                         console.log("error");
                     });
@@ -413,13 +427,15 @@ NewsMap.lokalreporterView = (function () {
 
         },
 
-        setSingleNews = function (article, content, comments) {
-            console.log(comments);
+        setSingleNews = function (article, content, comments, related) {
+            console.log(related);
             $('.main-menu-item').removeClass('menu-item-activated');
             $('.main-content').hide();
             $('#newsmap-content').hide();
 
             $('#single-news-content').empty();
+            $('#comment-list').empty();
+            $('#related-news-list').empty();
 
             $('#single-news-page').show();
 
@@ -471,7 +487,7 @@ NewsMap.lokalreporterView = (function () {
 
             }
 
-            for (i = 0; i < comments['items'].length - 1; i++) {
+            for (i = 0; i < comments['items'].length; i++) {
                 var commentDate =  comments['items'][i]['createDate'];
                 commentDate = commentDate.split("T");
                 commentDate[1] = commentDate[1].substring(0, 8);
@@ -481,6 +497,52 @@ NewsMap.lokalreporterView = (function () {
                 $("#comment-list").append(commentListItem);
 
             }
+
+
+            for (i = 0; i < related['items'].length; i++) {
+
+                var EIDI,
+                    artikelTitel,
+                    artikelLink,
+                    accord,
+                    artikelOrt,
+                    artikelRegion,
+                    pubDate,
+                    content,
+                    region,
+                    imageSrc;
+
+                if (related['items'][i]['geoData'].length) {
+                    artikelOrt = related['items'][i]['geoData'][0]['name'];
+                }
+                EIDI = related['items'][i]['id'];
+                artikelTitel = related['items'][i]['title'];
+                artikelLink = related['items'][i]['originalLink'];
+                pubDate = related['items'][i]['date'];
+                content = related['items'][i]['abstract'];
+                imageSrc = related['items'][i]['thumbnail']['source'];
+
+                if (imageSrc == '') {
+                    imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
+                }
+
+                pubDate = pubDate.split("T");
+                pubDate[1] = pubDate[1].substring(0, 8);
+
+                //var relatedListItem = $('<li class="related-list-item" id="'+ related['items'][i]['id'] +'">' + '<h3 class="related-title">'+  related['items'][i]['title'] +'</h3>' + '</li>');
+
+
+                var relatedListItem = $('<li class="large-4 columns article-list related-list-item">' + '<article id="' + EIDI + '">'
+                        + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
+                    )
+                    ;
+
+
+                $("#related-news-list").append(relatedListItem);
+
+            }
+
 
         },
 
