@@ -68,8 +68,8 @@ NewsMap.DrawMap = (function () {
             };
 
             $.ajax(settings).done(function (response) {
-                console.log(response);
-                console.log(response.items);
+                //console.log(response);
+                //console.log(response.items);
                 setArticlesFromApi(response.items)
 
             }).error(function (response) {
@@ -82,7 +82,7 @@ NewsMap.DrawMap = (function () {
         },
 
         setArticlesFromApi = function (artikelArray) {
-            console.log(artikelArray);
+            //console.log(artikelArray);
             markersSet=false,
             addMarker(artikelArray);
 
@@ -151,7 +151,7 @@ NewsMap.DrawMap = (function () {
             }
 
             if (!markersSet) {
-                console.log("in !markersSet");
+                //console.log("in !markersSet");
                 markers.clearLayers();
 
 
@@ -209,9 +209,9 @@ NewsMap.DrawMap = (function () {
 
                         var id= data[i].id;
 
-                        console.log("ID: " +data[i].id);
+                        //console.log("ID: " +data[i].id);
                         var title= data[i].title;
-                        console.log("Titel: " +data[i].title);
+                        //console.log("Titel: " +data[i].title);
 
 
                         var marker = L.marker([lat,lon]);

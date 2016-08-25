@@ -99,7 +99,7 @@ NewsMap.lokalreporterView = (function () {
                 pubDate[1] = pubDate[1].substring(0, 8);
 
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article id="' + EIDI + '">'
-                        + '<div class="row">' + '<div class="large-12 columns image-box"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' +  '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
+                        + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
                     )
                     ;
@@ -149,7 +149,7 @@ NewsMap.lokalreporterView = (function () {
                 pubDate = pubDate.split("T");
                 pubDate[1] = pubDate[1].substring(0, 8);
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article id="' + EIDI + '">'
-                        + '<div class="row">' + '<div class="large-12 columns image-box"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
+                        + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
                     )
                     ;
@@ -198,7 +198,7 @@ NewsMap.lokalreporterView = (function () {
                  )
                  ;*/
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article id="' + EIDI + '">'
-                        + '<div class="row">' + '<div class="large-12 columns image-box"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
+                        + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
                     )
                     ;
@@ -241,7 +241,7 @@ NewsMap.lokalreporterView = (function () {
                 pubDate[1] = pubDate[1].substring(0, 8);
 
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article id="' + EIDI + '">'
-                        + '<div class="row">' + '<div class="large-12 columns image-box"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' +  '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
+                        + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
                     )
                     ;
@@ -343,10 +343,11 @@ NewsMap.lokalreporterView = (function () {
             var res = toShow.split("-");
 
             if (res[0] == "#artikel") {
-                showSingleArticle(res[1]);
+                getSingleArticle(res[1]);
             }
             switch (toShow) {
                 case "":
+                    document.location.hash = "top-news";
                     showTop();
                     break;
                 case "#nachrichten":
@@ -366,11 +367,93 @@ NewsMap.lokalreporterView = (function () {
         },
 
 
-        showSingleArticle = function(id) {
-            console.log("show article " + id);
+        getSingleArticle = function (id) {
+            var settings = {
+                "async": true,
+                "url": "http://localhost:9000/news?ids=" + id,
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                }
+            };
 
+
+            var contentSettings = {
+                "async": true,
+                "url": "http://localhost:9000/news/" + id + "/content",
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                }
+            };
+            $.ajax(settings).done(function (article) {
+                $.ajax(contentSettings).done(function (content) {
+                    setSingleNews(article, content);
+                }).error(function (response) {
+                    console.log("error");
+                });
+            }).error(function (response) {
+                console.log("error");
+            });
+
+        },
+
+        setSingleNews = function (article, content) {
+            $('.main-menu-item').removeClass('menu-item-activated');
             $('.main-content').hide();
             $('#newsmap-content').hide();
+
+            $('#single-news-content').show();
+            $('#single-news-content').empty();
+
+
+            var title = article['items'][0]['title'];
+            var date = article['items'][0]['date'];
+            var imageSrc = article['items'][0]['thumbnail']['source'];
+            var topContent = content[0]['contents'][0]['text'];
+            var location;
+
+            for (i = 0; i < article['items'][0]['geoData'].length; i++) {
+                if (i == 0) {
+                    location = article['items'][0]['geoData'][i]['name'];
+                }
+                else
+                    location = location + ', ' + article['items'][0]['geoData'][i]['name'];
+            }
+
+            if (imageSrc == '') {
+                imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
+            }
+
+
+            date = date.split("T");
+            date[1] = date[1].substring(0, 8);
+
+            var headLine = $('<h2 class="single-article-title">' + title + '</h2>');
+            var dateLine = $('<div class="pub-date">' + date[0] + ' ' + date[1] + ', ' + location + '</div>');
+            var content1 = $('<p class="top-paragraph">' + topContent + '</p>');
+            var image = $('<img class="single-article-image" src="' + imageSrc + '">');
+            $("#single-news-content").append(headLine, content1, dateLine, image);
+
+
+            var previousParagraph;
+
+            for (i = 2; i < content.length - 1; i++) {
+
+                if (content[i]['contents'][0]['text'].length) {
+                    var paragraph = content[i]['contents'][0]['text'];
+
+                    var articleElement = $('<p>' + paragraph + '</p>');
+
+                    if (previousParagraph != paragraph)
+                        $("#single-news-content").append(articleElement);
+
+                    previousParagraph = paragraph;
+                }
+
+            }
         },
 
         showNews = function () {

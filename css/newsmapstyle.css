@@ -111,6 +111,10 @@ span.psw {
     }
 }
 
+#single-news-content {
+    overflow-y: scroll;
+}
+
 .article-title {
     font-size: 1.25rem;
     font-weight: normal;
@@ -132,6 +136,27 @@ span.psw {
 #top-menu-row {
     margin: 0;
     max-width: none;
+}
+
+.single-article-title {
+    font-size: 1.375em;
+    font-weight: normal;
+    margin: 0 0 .4375em 0;
+}
+
+.single-article-image {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+}
+
+#single-news-content {
+    background: white;
+    padding: 2rem;
+    width: 50%;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    overflow-y: hidden;
 }
 
 .article-list {
@@ -161,7 +186,7 @@ span.psw {
 }
 
 #lokalreporter-content {
-    height: 100%;
+    height: initial;
 }
 
 @media (min-width: 64em) {
@@ -326,7 +351,6 @@ span.psw {
 
 .main-content {
     display: none;
-    height: 75%;
 }
 
 #animDiv {
@@ -401,6 +425,10 @@ span.psw {
         left: 0px;
         top: 0px;
     }
+}
+
+body {
+    overflow-y: scroll!important;
 }
 
 html, body {
@@ -961,8 +989,12 @@ li.accordion-navigation {
 }
 
 .pub-date {
-    font-style: italic;
     font-size: 70%;
+}
+
+.top-paragraph {
+    font-size: .875em;
+    margin: 0 0 .875em 0;
 }
 
 #location-start-wrapper {
@@ -1217,7 +1249,6 @@ label {
 .results-list {
     padding: 0;
     margin: 0;
-    overflow-y: scroll;
     height: 100%;
     overflow-x: hidden;
 }
