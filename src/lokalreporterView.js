@@ -498,6 +498,8 @@ NewsMap.lokalreporterView = (function () {
 
             }
 
+            $('#single-news-comments').height( $('#single-news-content').height());
+
 
             for (i = 0; i < related['items'].length; i++) {
 
