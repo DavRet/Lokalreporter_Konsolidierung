@@ -6,10 +6,17 @@ NewsMap.lokalreporterView = (function () {
         init = function () {
             NewsMap.lokalreporterModel.getTopNews(); //getTopNews();
             NewsMap.lokalreporterModel.getNews(20); //getNews(20);
-            $('#search-button-top').on('click', NewsMap.lokalreporterModel.getSearchQuery); //getSearchQuery);
+            $('#search-button-top').on('click', function() {
+                var query = $('#search-input').val().toLowerCase();
+
+                document.location.hash = "suche-" + query;
+                });
             $('#search-input').keypress(function (e) {
                 if (e.which == 13) {
-                    NewsMap.lokalreporterModel.getSearchQuery(); //getSearchQuery();
+                    //NewsMap.lokalreporterModel.getSearchQuery(); //getSearchQuery();
+                    var query = $('#search-input').val().toLowerCase();
+
+                    document.location.hash = "suche-" + query;
                     return false;
                 }
             });
@@ -19,8 +26,20 @@ NewsMap.lokalreporterView = (function () {
                     return false;
                 }
             });
-            $('.dropdown-item-category').on('click', NewsMap.lokalreporterModel.getCategory); //getCategory);
-            $('.dropdown-item-region').on('click', NewsMap.lokalreporterModel.getRegionId); // getRegionId);
+            $('.dropdown-item-category').on('click', function(e) {
+                //NewsMap.lokalreporterModel.getCategory;
+                var query = $(this).html().toLowerCase();
+
+                document.location.hash = "kategorie-" + query;
+            });
+
+            $('.dropdown-item-region').on('click', function(e) {
+                //NewsMap.lokalreporterModel.getRegionId
+                var query = $(this).html().toLowerCase();
+
+                document.location.hash = "region-" + query;
+            });
+
 
             $('#live-button').on('click', function () {
                 $('.main-menu-item').removeClass('menu-item-activated');
@@ -54,11 +73,45 @@ NewsMap.lokalreporterView = (function () {
                 document.location.hash = "artikel-" + id;
             });
 
+            $('#comment-submit').on('click', function () {
+                sendComment();
+            });
+
         },
 
+        sendComment = function() {
+            var comment = $('#comment-text').val();
+            var name = $('#comment-user-name').val();
+            var articleHash = location.hash;
+            var id = articleHash.split("-");
+            var articleId = id[1];
+
+            var commentSetting = {
+                "name": name,
+                "title": "…",
+                "content": comment,
+                "articleId": articleId,
+
+                "async": true,
+                "url": "http://localhost:9000/news/" + articleId + "/comments",
+                "method": "PUT",
+                "headers": {
+                    "Accept": "application/json",
+                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                }
+            };
+
+            $.ajax(commentSetting).done(function (response) {
+                console.log(response);
+            }).error(function (response) {
+                console.log("error");
+            });
+        },
 
         setCategoryResults = function (data, query, type) {
             query = query.charAt(0).toUpperCase() + query.slice(1);
+
+            console.log("query");
 
             $('#category-headline').html(type + ' "' + query + '":');
 
@@ -107,7 +160,11 @@ NewsMap.lokalreporterView = (function () {
                 $("#category-list").append(articleListElement);
 
             }
-            putRowInList();
+            $('#category-list > li').each(function(i) {
+                if( i % 3 == 0 ) {
+                    $(this).nextAll().andSelf().slice(0,3).wrapAll('<div class="row large-12 columns news-row"></div>');
+                }
+            });
         },
 
         setSearchResults = function (data, query) {
@@ -158,7 +215,13 @@ NewsMap.lokalreporterView = (function () {
 
             }
 
-            putRowInList();
+            $('#search-list > li').each(function(i) {
+                if( i % 3 == 0 ) {
+                    $(this).nextAll().andSelf().slice(0,3).wrapAll('<div class="row large-12 columns news-row"></div>');
+                }
+            });
+
+            commentCount();
         },
 
         setNews = function (data) {
@@ -197,20 +260,56 @@ NewsMap.lokalreporterView = (function () {
                  + '<div class="row text-center">' + '<button class="read-more-button">' + '<a class="more-link" target="_blank" href = "' + artikelLink + '" >Weiterlesen' + '</a>' + '</button>' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
                  )
                  ;*/
-                var articleListElement = $('<li class="large-4 columns article-list">' + '<article id="' + EIDI + '">'
+                var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count"></div></div>' + '</article>' + '</li>'
                     )
                     ;
 
                 $("#news-list").append(articleListElement);
 
+
             }
 
-            putRowInList();
+            $('#news-list > li').each(function(i) {
+                if( i % 3 == 0 ) {
+                    $(this).nextAll().andSelf().slice(0,3).wrapAll('<div class="row large-12 columns news-row"></div>');
+                }
+            });
+
+            commentCount();
+        },
+
+        commentCount = function() {
+            $('.news-article').each(function(i) {
+                var id = $(this).attr('id');
+                console.log(id);
+                var commentCount = "#comment-count-" + id;
+
+                //console.log(commentCount);
+
+                var commentSettings = {
+                    "async": true,
+                    "url": "http://localhost:9000/news/" + id + "/comments",
+                    "method": "GET",
+                    "limit": "200",
+                    "headers": {
+                        "Accept": "application/json",
+                        "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                    }
+                };
+
+                $.ajax(commentSettings).done(function (comments) {
+                    //console.log(commentCount);
+                    $(commentCount).html(comments['items'].length);
+                }).error(function (response) {
+                    console.log("error");
+                });
+            });
         },
 
         setTopNews = function (data) {
+            $("#top-list").empty();
             var EIDI,
                 artikelTitel,
                 artikelLink,
@@ -240,7 +339,7 @@ NewsMap.lokalreporterView = (function () {
                 pubDate = pubDate.split("T");
                 pubDate[1] = pubDate[1].substring(0, 8);
 
-                var articleListElement = $('<li class="large-4 columns article-list">' + '<article id="' + EIDI + '">'
+                var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
                     )
@@ -249,7 +348,11 @@ NewsMap.lokalreporterView = (function () {
                 $("#top-list").append(articleListElement);
 
             }
-            putRowInList();
+            $('#top-list > li').each(function(i) {
+                if( i % 3 == 0 ) {
+                    $(this).nextAll().andSelf().slice(0,3).wrapAll('<div class="row large-12 columns news-row"></div>');
+                }
+            });
         },
 
         setNachrichten = function (data) {
@@ -306,13 +409,15 @@ NewsMap.lokalreporterView = (function () {
 
         },
 
-        putRowInList = function () {
-            var listItems = $(".article-list");
+        putRowInList = function (type) {
 
-            for (var i = 0; i < listItems.length; i += 3) {
+
+           /* for (var i = 0; i < listItems.length; i += 3) {
                 //listItems.css('margin-right', '1rem');
                 listItems.slice(i, i + 3).wrapAll("<div class='row large-12 columns news-row'></div>");
-            }
+            }*/
+
+
 
             var highest = null;
             var hi = 0;
@@ -345,6 +450,23 @@ NewsMap.lokalreporterView = (function () {
             if (res[0] == "#artikel") {
                 getSingleArticle(res[1]);
             }
+
+            if (res[0] == "#suche") {
+                console.log("suche");
+                NewsMap.lokalreporterModel.getSearchQuery(res[1].toLowerCase());
+            }
+
+            if (res[0] == "#kategorie") {
+                console.log("kategorie");
+
+                NewsMap.lokalreporterModel.getCategory(res[1]);
+            }
+
+            if (res[0] == "#region") {
+                console.log("region");
+
+                NewsMap.lokalreporterModel.getRegionId(res[1]);
+            }
             switch (toShow) {
                 case "":
                     document.location.hash = "top-news";
@@ -363,6 +485,8 @@ NewsMap.lokalreporterView = (function () {
                     showMap();
                     break;
             }
+
+
 
         },
 

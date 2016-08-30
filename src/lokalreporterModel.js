@@ -50,8 +50,9 @@ NewsMap.lokalreporterModel = (function () {
 
         },
 
-        getRegionId = function () {
-            var query = $(this).html();
+        getRegionId = function (query) {
+            //var query = $(this).html();
+            console.log(query);
 
             var regionSettings = {
                 "async": true,
@@ -65,8 +66,10 @@ NewsMap.lokalreporterModel = (function () {
 
             $.ajax(regionSettings).done(function (response) {
 
+                console.log(response);
                 for (i = 0; i < response.length; i++) {
-                    if(response[i]['name'] == query) {
+                    var name = response[i]['name'].toLowerCase();
+                    if(name == query) {
                         getRegion(response[i]['id'], query);
                     }
                 }
@@ -76,6 +79,7 @@ NewsMap.lokalreporterModel = (function () {
         },
 
         getRegion = function(id, query) {
+
             var settings = {
                 "async": true,
                 "url": "http://localhost:9000/news?geodataid=" + id,
@@ -95,8 +99,10 @@ NewsMap.lokalreporterModel = (function () {
             return false;
         },
 
-        getCategory = function () {
-            var query = $(this).html().toLowerCase();
+        getCategory = function (query) {
+            //var query = $(this).html().toLowerCase();
+
+
 
             var settings = {
                 "async": true,
@@ -117,8 +123,8 @@ NewsMap.lokalreporterModel = (function () {
             return false;
         },
 
-        getSearchQuery = function () {
-            var query = $('#search-input').val().toLowerCase();
+        getSearchQuery = function (query) {
+            //var query = $('#search-input').val().toLowerCase();
 
             var settings = {
                 "async": true,

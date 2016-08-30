@@ -105,7 +105,7 @@ span.psw {
 
 @media screen and (min-width: 40em) {
     .image-box {
-        /*min-height: 13rem;*/
+        min-height: 10rem;
     }
 }
 
@@ -151,6 +151,14 @@ span.psw {
     background: #f2f2f1;
     padding: 1rem;
     margin-bottom: 1rem;
+}
+
+#comment-user-name {
+    width: 30%;
+}
+
+#comment-submit {
+    padding: 1rem;
 }
 
 .single-article-image {
@@ -204,7 +212,7 @@ span.psw {
     right: 1rem;
     overflow-y: hidden;
     position: absolute;
-    margin-right: 10%;
+    margin-right: 5rem;
     height: 50rem;
     overflow-y: scroll;
 }
@@ -223,7 +231,7 @@ span.psw {
 }
 
 #single-news-page {
-    height: 200rem;
+
 }
 
 .article-list {
@@ -266,6 +274,7 @@ span.psw {
 
 .news-row {
     float: left!important;
+    width: 100%!important;
 }
 
 .row {
