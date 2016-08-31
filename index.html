@@ -39,7 +39,6 @@
     <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>-->
 
 
-
 </head>
 
 <div id="lokalreporter-content">
@@ -195,6 +194,29 @@
             </ul>
         </div>
 
+        <div class="main-content" id="single-news-page">
+
+            <div class="row">
+                <div class="large-7 columns" id="single-news-content"></div>
+                <div class="large-4 columns" id="single-news-comments">
+                    <h3 class="comment-headline">Kommentare:</h3>
+                    <div id="write-comment-section">
+                        Name: <input type="text" id="comment-user-name">
+                        <textarea rows="4" cols="50" id="comment-text"></textarea>
+                        <div class="button" id="comment-submit">Absenden</div>
+                    </div>
+                    <ul id="comment-list"></ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="large-12 columns" id="related-news-content">
+                    <h3 class="comment-headline">Verwandte Artikel:</h3>
+                    <ul id="related-news-list"></ul>
+                </div>
+            </div>
+        </div>
+
         <div class="main-content" id="mediathek-content">
             <h1 class="first-headline">Mediathek</h1>
         </div>
@@ -263,8 +285,8 @@
                             </li>
                             <li data-function="Chronologische Ansicht" data-show="chrono" id="right-menu-button"><i
                                     class="fi-list-thumbnails"></i></li>
-                            <li data-function="Map schließen" data-show="close-map" id="close-map-button"><i
-                                    class="fi-x"></i></li>
+                            <!--<li data-function="Map schließen" data-show="close-map" id="close-map-button"><i
+                                    class="fi-x"></i></li>-->
                         </ul>
 
                     </div>
@@ -390,6 +412,7 @@
 
 <script>
     $(document).foundation();
+
     $(function () {
         NewsMap.init();
     });
