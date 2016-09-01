@@ -115,9 +115,7 @@ NewsMap.lokalreporterView = (function () {
 
         setCategoryResults = function (data, query, type) {
             query = query.charAt(0).toUpperCase() + query.slice(1);
-
-            console.log("query");
-
+            
             $('#category-headline').html(type + ' "' + query + '":');
 
             $('.main-content').hide();
@@ -136,7 +134,8 @@ NewsMap.lokalreporterView = (function () {
                 pubDate,
                 content,
                 region,
-                imageSrc;
+                imageSrc,
+                commentCount;
             for (i = 0; i < data['items'].length; i++) {
 
                 if (data['items'][i]['geoData'].length) {
@@ -148,6 +147,8 @@ NewsMap.lokalreporterView = (function () {
                 pubDate = data['items'][i]['date'];
                 content = data['items'][i]['abstract'];
                 imageSrc = data['items'][i]['thumbnail']['source'];
+                commentCount = data['items'][i]['properties']['comments.count'];
+
 
                 if (imageSrc == '') {
                     imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
@@ -158,7 +159,7 @@ NewsMap.lokalreporterView = (function () {
 
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">10</div></div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
                     )
                     ;
 
@@ -170,8 +171,6 @@ NewsMap.lokalreporterView = (function () {
                     $(this).nextAll().andSelf().slice(0,3).wrapAll('<div class="row large-12 columns news-row"></div>');
                 }
             });
-
-            commentCount();
         },
 
         setSearchResults = function (data, query) {
@@ -193,7 +192,8 @@ NewsMap.lokalreporterView = (function () {
                 pubDate,
                 content,
                 region,
-                imageSrc;
+                imageSrc,
+                commentCount;
             for (i = 0; i < data['items'].length; i++) {
 
                 if (data['items'][i]['geoData'].length) {
@@ -205,6 +205,8 @@ NewsMap.lokalreporterView = (function () {
                 pubDate = data['items'][i]['date'];
                 content = data['items'][i]['abstract'];
                 imageSrc = data['items'][i]['thumbnail']['source'];
+                commentCount = data['items'][i]['properties']['comments.count'];
+
 
                 if (imageSrc == '') {
                     imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
@@ -214,7 +216,7 @@ NewsMap.lokalreporterView = (function () {
                 pubDate[1] = pubDate[1].substring(0, 8);
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count"></div></div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
                     )
                     ;
 
@@ -228,7 +230,6 @@ NewsMap.lokalreporterView = (function () {
                 }
             });
 
-            commentCount();
         },
 
         setNews = function (data) {
@@ -242,7 +243,8 @@ NewsMap.lokalreporterView = (function () {
                 pubDate,
                 content,
                 region,
-                imageSrc;
+                imageSrc,
+                commentCount;
             for (i = 0; i < data['items'].length; i++) {
 
                 if (data['items'][i]['geoData'].length) {
@@ -254,6 +256,8 @@ NewsMap.lokalreporterView = (function () {
                 pubDate = data['items'][i]['date'];
                 content = data['items'][i]['abstract'];
                 imageSrc = data['items'][i]['thumbnail']['source'];
+                commentCount = data['items'][i]['properties']['comments.count'];
+
 
                 if (imageSrc == '') {
                     imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
@@ -269,7 +273,7 @@ NewsMap.lokalreporterView = (function () {
                  ;*/
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count"></div></div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count"></div>'+ commentCount +'</div>' + '</article>' + '</li>'
                     )
                     ;
 
@@ -283,8 +287,6 @@ NewsMap.lokalreporterView = (function () {
                     $(this).nextAll().andSelf().slice(0,3).wrapAll('<div class="row large-12 columns news-row"></div>');
                 }
             });
-
-            commentCount();
         },
 
         commentCount = function() {
@@ -325,7 +327,8 @@ NewsMap.lokalreporterView = (function () {
                 pubDate,
                 content,
                 region,
-                imageSrc;
+                imageSrc,
+                commentCount;
             for (i = 0; i < data['items'].length; i++) {
 
                 if (data['items'][i]['geoData'].length) {
@@ -337,6 +340,7 @@ NewsMap.lokalreporterView = (function () {
                 pubDate = data['items'][i]['date'];
                 content = data['items'][i]['abstract'];
                 imageSrc = data['items'][i]['thumbnail']['source'];
+                commentCount = data['items'][i]['properties']['comments.count'];
 
                 if (imageSrc == '') {
                     imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
@@ -347,7 +351,7 @@ NewsMap.lokalreporterView = (function () {
 
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count"></div></div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
                     )
                     ;
 
@@ -360,7 +364,7 @@ NewsMap.lokalreporterView = (function () {
                 }
             });
 
-            commentCount();
+            //commentCount();
         },
 
         setNachrichten = function (data) {
@@ -460,13 +464,10 @@ NewsMap.lokalreporterView = (function () {
             }
 
             if (res[0] == "#suche") {
-                console.log("suche");
                 NewsMap.lokalreporterModel.getSearchQuery(res[1].toLowerCase());
             }
 
             if (res[0] == "#kategorie") {
-                console.log("kategorie");
-
                 NewsMap.lokalreporterModel.getCategory(res[1]);
             }
 
@@ -624,7 +625,7 @@ NewsMap.lokalreporterView = (function () {
                 commentDate = commentDate.split("T");
                 commentDate[1] = commentDate[1].substring(0, 8);
 
-                var commentListItem = $('<li class="single-comment" id="'+ comments['items'][i]['id'] +'">' + '<h3 class="commentator">' + comments['items'][i]['creator']['name'] + ':' + '</h3>' + '<hr class="comment-divider">'+'<h3 class="comment-title">'+ comments['items'][i]['title'] +'</h3>' + '<p class="comment-paragraph">' + comments['items'][i]['content'] + '</p>' + '<div class="pub-date">'+ commentDate[0] + ' ' + commentDate [1] +'</div>' + '</li>');
+                var commentListItem = $('<li class="single-comment" id="'+ comments['items'][i]['id'] +'">' + '<h3 class="commentator">' + comments['items'][i]['creator']['name'] + ':' + '</h3>' + '<hr class="comment-divider">'+'<h3 class="comment-title">'+ comments['items'][i]['title'] +'</h3>' + '<p class="comment-paragraph">' + comments['items'][i]['content'][0]['text'] + '</p>' + '<div class="pub-date">'+ commentDate[0] + ' ' + commentDate [1] +'</div>' + '</li>');
 
                 $("#comment-list").append(commentListItem);
 
@@ -676,6 +677,12 @@ NewsMap.lokalreporterView = (function () {
                 $("#related-news-list").append(relatedListItem);
 
             }
+
+            $('#related-news-list > li').each(function(i) {
+                if( i % 3 == 0 ) {
+                    $(this).nextAll().andSelf().slice(0,3).wrapAll('<div class="row large-12 columns news-row"></div>');
+                }
+            });
 
 
         },
