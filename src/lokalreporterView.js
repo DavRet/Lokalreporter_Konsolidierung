@@ -2,6 +2,7 @@
  * Created by Tobias on 07.08.2016.
  */
 NewsMap.lokalreporterView = (function () {
+    var token;
     var that = {},
         init = function () {
             NewsMap.lokalreporterModel.getTopNews(); //getTopNews();
@@ -82,6 +83,77 @@ NewsMap.lokalreporterView = (function () {
                 sendComment();
             });
 
+            $('#register-button').on('click', function () {
+                registerUser();
+            });
+
+            $('#login-button').on('click', function () {
+                login();
+            });
+
+        },
+
+        login = function() {
+            var username = $('#login-username').val();
+            var password = $('#login-password').val();
+
+
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:9100/token",
+                "method": "PUT",
+                "headers": {
+                    "cache-control": "no-cache",
+                    "postman-token": "c771fb95-6418-c27a-6fb9-446d7bec172e",
+                    "content-type": "application/x-www-form-urlencoded"
+                },
+                "data": {
+                    "grant_type": "password",
+                    "client_id": "asdfasdf",
+                    "username": username,
+                    "password": password
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                token = "Bearer " + response['access_token'];
+                $('#login-modal').hide();
+
+            });
+        },
+
+        registerUser = function() {
+            var username = $('#register-username').val();
+            var password = $('#register-password').val();
+            var passwordRepeat = $('#register-password-again'). val();
+
+
+            console.log(username, password, passwordRepeat);
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:9100/token",
+                "method": "PUT",
+                "headers": {
+                    "cache-control": "no-cache",
+                    "postman-token": "48b1091f-ae77-25db-36fe-3075408e6156",
+                    "content-type": "application/x-www-form-urlencoded"
+                },
+                "data": {
+                    "grant_type": "register_user",
+                    "client_id": "asdfasdf",
+                    "email": username,
+                    "password": password,
+                    "password_repeat": passwordRepeat
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                $('#register-modal').hide();
+            });
         },
 
         sendComment = function() {
@@ -90,6 +162,9 @@ NewsMap.lokalreporterView = (function () {
             var articleHash = location.hash;
             var id = articleHash.split("-");
             var articleId = id[1];
+
+
+            console.log(token);
 
             var commentSetting = {
                 "name": name,
@@ -102,7 +177,7 @@ NewsMap.lokalreporterView = (function () {
                 "method": "PUT",
                 "headers": {
                     "Accept": "application/json",
-                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA"
+                    "authorization": token
                 }
             };
 
@@ -115,7 +190,7 @@ NewsMap.lokalreporterView = (function () {
 
         setCategoryResults = function (data, query, type) {
             query = query.charAt(0).toUpperCase() + query.slice(1);
-            
+
             $('#category-headline').html(type + ' "' + query + '":');
 
             $('.main-content').hide();

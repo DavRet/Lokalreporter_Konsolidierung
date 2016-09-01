@@ -118,15 +118,15 @@
 
     <div id="login-modal" class="modal">
 
-        <form class="modal-content animate">
+        <div class="modal-content animate">
             <div class="container">
                 <label><b>Benutzername</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <input id="login-username" type="text" placeholder="Enter Username" name="uname" required>
 
                 <label><b>Passwort</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input id="login-password" type="password" placeholder="Enter Password" name="psw" required>
 
-                <button type="submit">Login</button>
+                <button id="login-button">Login</button>
                 <input type="checkbox" checked="checked"> Login merken
             </div>
 
@@ -134,29 +134,29 @@
                 <button id="cancel-login" type="button" class="cancelbtn">Abbrechen</button>
                 <span class="psw"><a href="#">Passwort vergessen?</a></span>
             </div>
-        </form>
+        </div>
     </div>
 
     <div id="register-modal" class="modal">
 
-        <form class="modal-content animate">
+        <div class="modal-content animate">
             <div class="container">
                 <label><b>Benutzername</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <input id="register-username" type="text" placeholder="Enter Username" name="uname" required>
 
                 <label><b>Passwort</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input id="register-password" type="password" placeholder="Enter Password" name="psw" required>
                 <label><b>Passwort wiederholen</b></label>
-                <input type="password" placeholder="Enter Password again" name="psw-again" required>
+                <input id="register-password-again" type="password" placeholder="Enter Password again" name="psw-again" required>
 
-                <button type="submit">Registrieren</button>
+                <button id="register-button">Registrieren</button>
 
             </div>
 
             <div class="container" style="background-color:#f1f1f1">
                 <button id="cancel-register" type="button" class="cancelbtn">Abbrechen</button>
             </div>
-        </form>
+        </div>
     </div>
 
     <div id="main">
