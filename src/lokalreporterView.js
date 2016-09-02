@@ -120,8 +120,16 @@ NewsMap.lokalreporterView = (function () {
                 console.log(response);
                 token = "Bearer " + response['access_token'];
                 $('#login-modal').hide();
-
+                changeMenuAfterLogin();
             });
+        },
+
+        changeMenuAfterLogin = function() {
+            $('#login-open').html('PROFIL');
+            $('#register-open').html('LOGOUT');
+
+            var favMenuItem = $('<li id="fav-button" class="main-menu-item">FAVORITEN</li>');
+            $('#main-menu').append(favMenuItem);
         },
 
         registerUser = function() {
@@ -348,7 +356,7 @@ NewsMap.lokalreporterView = (function () {
                  ;*/
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count"></div>'+ commentCount +'</div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
                     )
                     ;
 
@@ -790,9 +798,13 @@ NewsMap.lokalreporterView = (function () {
             if ($('#newsmap-content').hasClass('not-visible-for-init')) {
                 $('#newsmap-content').removeClass('not-visible-for-init');
                 $('#newsmap-content').show();
+                $('#map-content').show();
+
             }
             else {
                 $('#newsmap-content').toggle();
+                $('#map-content').toggle();
+
             }
 
         };
