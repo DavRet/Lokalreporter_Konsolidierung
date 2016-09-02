@@ -93,36 +93,6 @@ NewsMap.DrawMap = (function () {
 
             // 500 radius und 40 limit testweise gewählt später über select oder so
             getArticlesFromApi(500,40);
-
-
-           /* foundArticles = [];
-           $.ajax({
-                type: "GET",
-                url: "http://" + location.host + "/NewsMap/get_data.php",
-                data: {func: "article", date: dateSelectionVal},
-                beforeSend: function () {
-                    $loading.show();
-                },
-                success: function (data) {
-                    if (JSON.parse(data).length == 0) {
-                        alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
-                        console.log("Keine Ergebnisse");
-                    }
-                    else {
-                        markersSet = false;
-                        foundArticles = JSON.parse(data);
-                        addMarker(foundArticles);
-                    }
-
-                },
-                error: function () {
-                    alert(null, "error");
-
-                },
-                complete: function () {
-                    $loading.hide();
-                }
-            }); */
         },
 
 
@@ -151,7 +121,7 @@ NewsMap.DrawMap = (function () {
             }
 
             if (!markersSet) {
-                //console.log("in !markersSet");
+
                 markers.clearLayers();
 
 
@@ -223,6 +193,10 @@ NewsMap.DrawMap = (function () {
                         $(markerPopup).attr("id", data[i].id);
 
                         markers.addLayer(marker);
+
+                       // console.log(marker);
+
+
                   //  }
                 }
                 if(markers != null && map != null) {
@@ -244,12 +218,29 @@ NewsMap.DrawMap = (function () {
                 markersSet = true;
 
 
+
+
             }
 
             map.on('popupopen', function (e) {
                 $(".marker-popup").dotdotdot();
 
             });
+        },
+
+        changeMarkerColor = function (id) {
+            //console.log(markers.hasLayer(marker));
+            //console.log(markers.getLayers);
+            var allMarkers= markers.getLayers();
+            console.log(markers.getLayers());
+            for(var i=0; i<allMarkers.length; i++){
+                //console.log(allMarkers[i].data('id'));
+                //if(allMarkers[i].data-id==id){
+                     //_____ Data-ID muss abgerufen werden damit Marker gefunden und Farbe geändert werden kann
+                //}
+            }
+
+            //marker.valueOf()._icon.style.backgroundColor = 'green';
         },
 
         enterListen = function () {
@@ -796,6 +787,7 @@ NewsMap.DrawMap = (function () {
             }
         };
 
+    that.changeMarkerColor=changeMarkerColor;
     that.getArticlesFromApi = getArticlesFromApi;
     that.setArticlesFromApi = setArticlesFromApi;
     that.setUpEmailLink = setUpEmailLink;

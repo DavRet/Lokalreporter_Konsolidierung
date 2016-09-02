@@ -3,6 +3,7 @@
  */
 NewsMap.lokalreporterView = (function () {
     var that = {},
+        angezeigteNews,
         init = function () {
             NewsMap.lokalreporterModel.getTopNews(); //getTopNews();
             NewsMap.lokalreporterModel.getNews(20); //getNews(20);
@@ -39,7 +40,6 @@ NewsMap.lokalreporterView = (function () {
 
                 document.location.hash = "region-" + query;
             });
-
 
             $('#live-button').on('click', function () {
                 $('.main-menu-item').removeClass('menu-item-activated');
@@ -80,6 +80,26 @@ NewsMap.lokalreporterView = (function () {
 
             $('#comment-submit').on('click', function () {
                 sendComment();
+            });
+
+            $(document).on('click', '.fi-map', function () {
+                console.log("in .fi-map.on'click' ");
+                var id = $(this).parent().parent().attr('id');
+
+                var data= NewsMap.lokalreporterModel.getCurrentNews('news');
+                if(data!=null && data!=undefined){
+
+                    NewsMap.DrawMap.setArticlesFromApi(data);
+                    $("#newsmap-content").show();
+                    $("#news-content").hide();
+
+                    //var marker = L.marker([50,-20], {icon: myIcon}).addTo(map);
+                    //marker.valueOf()._icon.style.backgroundColor = 'green';
+                    //console.log($("#"+id));
+                    NewsMap.DrawMap.changeMarkerColor(id);
+
+                    //// MARKER DER AUSGEWÄHLTEN NACHRICHT HERVORHEBEN!!! SELBES ZUDEM FÜR TOPNEWS MACHEN ->  on click muss verändert werden dass zwischen topnews und news unterschieden wird
+                }
             });
 
         },
@@ -269,7 +289,7 @@ NewsMap.lokalreporterView = (function () {
                  ;*/
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count"></div></div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' +'<div><i class="fi-map"></i></div>'+ '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count"></div></div>' + '</article>' + '</li>'
                     )
                     ;
 
@@ -685,6 +705,12 @@ NewsMap.lokalreporterView = (function () {
             $('#newsmap-content').hide();
 
             $('#news-content').toggle();
+            console.log(NewsMap.lokalreporterModel.getCurrentNews('news'));
+            var data= NewsMap.lokalreporterModel.getCurrentNews('news');
+            if(data!=null && data!=undefined){
+                NewsMap.DrawMap.setArticlesFromApi(data);
+            }
+
         },
 
         showTop = function (e) {
@@ -693,6 +719,11 @@ NewsMap.lokalreporterView = (function () {
             $('#newsmap-content').hide();
 
             $('#live-content').toggle();
+            console.log(NewsMap.lokalreporterModel.getCurrentNews('topnews'));
+            var data= NewsMap.lokalreporterModel.getCurrentNews('topnews');
+            if(data!=null && data!=undefined){
+                NewsMap.DrawMap.setArticlesFromApi(data);
+            }
         },
 
         showMediathek = function () {

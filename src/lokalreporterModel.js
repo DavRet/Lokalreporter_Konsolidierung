@@ -6,6 +6,8 @@ NewsMap.lokalreporterModel = (function () {
         init = function () {
 
         },
+        currentNews,
+        currentTopNews,
 
         getTopNews = function () {
 
@@ -21,6 +23,9 @@ NewsMap.lokalreporterModel = (function () {
 
             $.ajax(settings).done(function (response) {
                 NewsMap.lokalreporterView.setTopNews(response);
+                //NewsMap.DrawMap.setArticlesFromApi(response.items);
+                currentTopNews=response.items;
+                console.log("Map Articles von Top News");
             }).error(function (response) {
                 console.log("error");
             });
@@ -43,7 +48,9 @@ NewsMap.lokalreporterModel = (function () {
             $.ajax(settings).done(function (response) {
 
                 NewsMap.lokalreporterView.setNews(response);
-                NewsMap.DrawMap.setArticlesFromApi(response.items);
+               // NewsMap.DrawMap.setArticlesFromApi(response.items);
+                currentNews=response.items;
+                console.log("Map Articles von News");
             }).error(function (response) {
                 console.log("error");
             });
@@ -95,6 +102,7 @@ NewsMap.lokalreporterModel = (function () {
                 var type = "Region";
                 NewsMap.lokalreporterView.setCategoryResults(response, query, type);
                 NewsMap.DrawMap.setArticlesFromApi(response.items);
+                console.log("Map Articles von Region");
             }).error(function (response) {
                 console.log("error");
             });
@@ -120,6 +128,7 @@ NewsMap.lokalreporterModel = (function () {
                 var type = "Kategorie";
                 NewsMap.lokalreporterView.setCategoryResults(response, query, type);
                 NewsMap.DrawMap.setArticlesFromApi(response.items);
+                console.log("Map Articles von Category");
             }).error(function (response) {
                 console.log("error");
             });
@@ -142,14 +151,25 @@ NewsMap.lokalreporterModel = (function () {
             $.ajax(settings).done(function (response) {
                 NewsMap.lokalreporterView.setSearchResults(response, query);
                 NewsMap.DrawMap.setArticlesFromApi(response.items);
+                console.log("Map Articles von Suche");
             }).error(function (response) {
                 console.log("error");
             });
             return false;
+        },
+
+        getCurrentNews= function (x) {
+            if(x=='topnews'){
+                return currentTopNews;
+            };
+            if(x=='news'){
+                return currentNews;
+            }
         };
 
 
     that.init = init;
+    that.getCurrentNews=getCurrentNews;
     that.getNews = getNews;
     that.getTopNews= getTopNews;
     that.getRegion = getRegion;
