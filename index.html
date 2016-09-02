@@ -118,15 +118,15 @@
 
     <div id="login-modal" class="modal">
 
-        <form class="modal-content animate">
+        <div class="modal-content animate">
             <div class="container">
                 <label><b>Benutzername</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <input id="login-username" type="text" placeholder="Enter Username" name="uname" required>
 
                 <label><b>Passwort</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input id="login-password" type="password" placeholder="Enter Password" name="psw" required>
 
-                <button type="submit">Login</button>
+                <button id="login-button">Login</button>
                 <input type="checkbox" checked="checked"> Login merken
             </div>
 
@@ -134,29 +134,29 @@
                 <button id="cancel-login" type="button" class="cancelbtn">Abbrechen</button>
                 <span class="psw"><a href="#">Passwort vergessen?</a></span>
             </div>
-        </form>
+        </div>
     </div>
 
     <div id="register-modal" class="modal">
 
-        <form class="modal-content animate">
+        <div class="modal-content animate">
             <div class="container">
                 <label><b>Benutzername</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <input id="register-username" type="text" placeholder="Enter Username" name="uname" required>
 
                 <label><b>Passwort</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input id="register-password" type="password" placeholder="Enter Password" name="psw" required>
                 <label><b>Passwort wiederholen</b></label>
-                <input type="password" placeholder="Enter Password again" name="psw-again" required>
+                <input id="register-password-again" type="password" placeholder="Enter Password again" name="psw-again" required>
 
-                <button type="submit">Registrieren</button>
+                <button id="register-button">Registrieren</button>
 
             </div>
 
             <div class="container" style="background-color:#f1f1f1">
                 <button id="cancel-register" type="button" class="cancelbtn">Abbrechen</button>
             </div>
-        </form>
+        </div>
     </div>
 
     <div id="main">
@@ -220,178 +220,181 @@
         <div class="main-content" id="mediathek-content">
             <h1 class="first-headline">Mediathek</h1>
         </div>
-        <div id="newsmap-content" class="not-visible-for-init">
+        <div class="main-content" id="map-content">
+            <div id="newsmap-content" class="not-visible-for-init">
 
-            <div class="text-center" id="loading">
-                <span>Lade Nachrichten...</span>
-
-            </div>
-            <span id="tooltip"></span>
-            <div id="myModal" class="reveal-modal text-center" data-reveal aria-labelledby="modalTitle"
-                 aria-hidden="true"
-                 role="dialog">
-
-                <h2 id="modalTitle">Artikel teilen auf</h2>
-                <br/><br/>
-
-                <div class="row">
-                    <div class="large-4 small-4 medium-4 columns">
-                        <a type="button" id="mailButton" href="mailto:blala@bla.de" target="_blank">
-                            <img border="0" alt="mail" src="img/mail-share.png" width="70" height="70">
-                        </a>
-                        <br/>
-                    </div>
-                    <div class="large-4 small-4 medium-4 columns">
-                        <a type="button" href="javascript:NewsMap.DrawMap.fbshareCurrentPage()" target="_blank">
-                            <img border="0" alt="facebook" src="img/fbshare.png" width="70" height="70">
-                        </a>
-                        <br/>
-                    </div>
-                    <div class="large-4 small-4 medium-4 columns">
-                        <a type="button" id="twitter-button" href="javascript:NewsMap.DrawMap.twitterCurrentArticle()"
-                           target="_blank"
-                        ><img border="0" alt="twitter" src="img/twitter_share.png" width="70" height="70"></a>
-                    </div>
+                <div class="text-center" id="loading">
+                    <span>Lade Nachrichten...</span>
 
                 </div>
+                <span id="tooltip"></span>
+                <div id="myModal" class="reveal-modal text-center" data-reveal aria-labelledby="modalTitle"
+                     aria-hidden="true"
+                     role="dialog">
 
-                <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-            </div>
-            <ul id="autocomplete">
-            </ul>
-            <div id="radius-box"><span class="row"><i class="fi-x left" id="close-radius-box"></i></span>
-                <label>
+                    <h2 id="modalTitle">Artikel teilen auf</h2>
+                    <br/><br/>
+
+                    <div class="row">
+                        <div class="large-4 small-4 medium-4 columns">
+                            <a type="button" id="mailButton" href="mailto:blala@bla.de" target="_blank">
+                                <img border="0" alt="mail" src="img/mail-share.png" width="70" height="70">
+                            </a>
+                            <br/>
+                        </div>
+                        <div class="large-4 small-4 medium-4 columns">
+                            <a type="button" href="javascript:NewsMap.DrawMap.fbshareCurrentPage()" target="_blank">
+                                <img border="0" alt="facebook" src="img/fbshare.png" width="70" height="70">
+                            </a>
+                            <br/>
+                        </div>
+                        <div class="large-4 small-4 medium-4 columns">
+                            <a type="button" id="twitter-button" href="javascript:NewsMap.DrawMap.twitterCurrentArticle()"
+                               target="_blank"
+                            ><img border="0" alt="twitter" src="img/twitter_share.png" width="70" height="70"></a>
+                        </div>
+
+                    </div>
+
+                    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+                </div>
+                <ul id="autocomplete">
+                </ul>
+                <div id="radius-box"><span class="row"><i class="fi-x left" id="close-radius-box"></i></span>
+                    <label>
         <span class="row"> Umkreis Standort
         </span>
 
-                    <select id="radius-select">
-                        <option value="6666">beliebig</option>
-                        <option value="100">100 km</option>
-                        <option value="50">50 km</option>
-                        <option value="30">30 km</option>
-                    </select>
-                </label>
-            </div>
+                        <select id="radius-select">
+                            <option value="6666">beliebig</option>
+                            <option value="100">100 km</option>
+                            <option value="50">50 km</option>
+                            <option value="30">30 km</option>
+                        </select>
+                    </label>
+                </div>
 
-            <div id="header">
-                <div class="row collapse no-padding-margin">
-                    <div class="large-12 small-12 columns none-selectable">
-                        <ul id="menu-list">
-                            <li data-function="Suche" data-show="search"><i class="fi-magnifying-glass"></i></li>
-                            <li data-function="Eigener Standort" data-show="location" id="identify-location"><i
-                                    class="fi-marker"></i></li>
-                            <li data-function="Favoriten" data-show="favorites" id="favorites-button"><i class="fi-star"
-                                                                                                         id="favorites-menu-star"></i>
-                            </li>
-                            <li data-function="Chronologische Ansicht" data-show="chrono" id="right-menu-button"><i
-                                    class="fi-list-thumbnails"></i></li>
-                            <!--<li data-function="Map schließen" data-show="close-map" id="close-map-button"><i
-                                    class="fi-x"></i></li>-->
-                        </ul>
+                <div id="header">
+                    <div class="row collapse no-padding-margin">
+                        <div class="large-12 small-12 columns none-selectable">
+                            <ul id="menu-list">
+                                <li data-function="Suche" data-show="search"><i class="fi-magnifying-glass"></i></li>
+                                <li data-function="Eigener Standort" data-show="location" id="identify-location"><i
+                                        class="fi-marker"></i></li>
+                                <li data-function="Favoriten" data-show="favorites" id="favorites-button"><i class="fi-star"
+                                                                                                             id="favorites-menu-star"></i>
+                                </li>
+                                <li data-function="Chronologische Ansicht" data-show="chrono" id="right-menu-button"><i
+                                        class="fi-list-thumbnails"></i></li>
+                                <!--<li data-function="Map schließen" data-show="close-map" id="close-map-button"><i
+                                        class="fi-x"></i></li>-->
+                            </ul>
 
-                    </div>
-                    <div class="large-9 columns">
-                        <div id="search-wrapper" class="menu-item">
-                            <div class="row">
+                        </div>
+                        <div class="large-9 columns">
+                            <div id="search-wrapper" class="menu-item">
+                                <div class="row">
 
-                                <div class="large-2 medium-6 columns">
+                                    <div class="large-2 medium-6 columns">
 
-                                    <label>Stadt / Region / Begriff / Titel
-                                        <select id="search-select">
-                                            <option value="location" data-search="Stadt">Suche nach Stadt</option>
-                                            <option value="region" data-search="Region">Suche nach Region</option>
-                                            <option value="tag" data-search="Begriff">Suche nach Begriff</option>
-                                            <option value="title" data-search="Titel">Suche nach Titel</option>
-                                        </select>
-                                    </label>
+                                        <label>Stadt / Region / Begriff / Titel
+                                            <select id="search-select">
+                                                <option value="location" data-search="Stadt">Suche nach Stadt</option>
+                                                <option value="region" data-search="Region">Suche nach Region</option>
+                                                <option value="tag" data-search="Begriff">Suche nach Begriff</option>
+                                                <option value="title" data-search="Titel">Suche nach Titel</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                    <div class="large-4 medium-6 columns">
+                                        <label><span id="label-search">Suche nach Stadt</span><input type="text"
+                                                                                                     id="tag-search-input"></label>
+                                    </div>
+                                    <div class="large-3 medium-6 columns">
+                                        <label>Zeitraum
+                                            <select id="date-select">
+                                                <option value="entire-time">gesamter Zeitraum</option>
+                                                <option value="last-four-weeks">letzten vier Wochen</option>
+                                                <option value="last-week">letzte Woche</option>
+                                                <option value="yesterday">Gestern</option>
+                                                <option value="today">Heute</option>
+                                            </select>
+                                        </label>
+                                    </div>
+
+                                    <div class="large-3 medium-6 columns">
+                                        <button id="search-button">Suchen</button>
+                                    </div>
                                 </div>
-                                <div class="large-4 medium-6 columns">
-                                    <label><span id="label-search">Suche nach Stadt</span><input type="text"
-                                                                                                 id="tag-search-input"></label>
-                                </div>
-                                <div class="large-3 medium-6 columns">
-                                    <label>Zeitraum
-                                        <select id="date-select">
-                                            <option value="entire-time">gesamter Zeitraum</option>
-                                            <option value="last-four-weeks">letzten vier Wochen</option>
-                                            <option value="last-week">letzte Woche</option>
-                                            <option value="yesterday">Gestern</option>
-                                            <option value="today">Heute</option>
-                                        </select>
-                                    </label>
-                                </div>
 
-                                <div class="large-3 medium-6 columns">
-                                    <button id="search-button">Suchen</button>
-                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="map">
-            </div>
+                <div id="map">
+                </div>
 
 
-            <div class="row" id="query-row">
-                <ul id="search-queries">
+                <div class="row" id="query-row">
+                    <ul id="search-queries">
 
-                </ul>
-            </div>
+                    </ul>
+                </div>
 
-            <article id="menu-rechts" class="menu-off-canvas">
-                <div class="close-menu-right"><i id="close-timeline" class="fi-x"></i></div>
-                <h3 id="timeline-heading">Chronologische Ansicht:</h3>
-                <ul class="accordion menu-item" id="chrono-wrapper" data-accordion>
+                <article id="menu-rechts" class="menu-off-canvas">
+                    <div class="close-menu-right"><i id="close-timeline" class="fi-x"></i></div>
+                    <h3 id="timeline-heading">Chronologische Ansicht:</h3>
+                    <ul class="accordion menu-item" id="chrono-wrapper" data-accordion>
 
-                </ul>
-            </article>
+                    </ul>
+                </article>
 
-            <article id="favorites-menu" class="menu-off-canvas">
-                <div class="close-menu-right"><i class="fi-x right-x" id="close-favorites"></i>
-                    <div class="button tiny" id="showFavOnMap">Nur Favoriten
-                        anzeigen
+                <article id="favorites-menu" class="menu-off-canvas">
+                    <div class="close-menu-right"><i class="fi-x right-x" id="close-favorites"></i>
+                        <div class="button tiny" id="showFavOnMap">Nur Favoriten
+                            anzeigen
+                        </div>
                     </div>
+                    <h3 id="favorites-heading">Favoriten:</h3>
+                    <ul id="favorites-list">
+                    </ul>
+                </article>
+
+                <article id="menu-left">
+                    <div id="add-to-favorites"><i id="favorites-star" class="fi-star"></i></div>
+                    <div id="added-to-favorites">Zu Favoriten hinzugefügt</div>
+                    <div id="close-preview"><i class="fi-x"></i></div>
+                    <img src="http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg" width="485" height="209"
+                         alt="">
+
+                    <h2 class="entry-title"><a class="preview-link" target="_blank"
+                                               href="http://lokalreporter.idvl.de/digitales-gruenderzentrum-zwei-standorte-in-oberfranken-geplant-41309/"
+                                               rel="bookmark"><span class="title">Digitales Gründerzentrum: Zwei Standorte in Oberfranken geplant</span></a>
+                    </h2>
+                    <div class="pub-date">DATUM</div>
+                    <br>
+                    <div class="entry-summary">
+                        Dies betrifft auch die Kraftfahrzeugzulassungsstelle, die Infothek, den Fachbereich Gesundheitswesen
+                        und
+                        die
+                        Volkshochschule Bamberg-Land. (…)
+                    </div>
+
+                    <button id="read-more-button"><a class="more-link" target="_blank"
+                                                     href="http://lokalreporter.idvl.de/wegen-einer-personalversammlung-ist-das-landratsamt-bamberg-am-mittwoch-16-dezember-2015-ab-1300-uhr-geschlossen-41413/"
+                                                     rel="bookmark">Weiterlesen</a></button>
+                    <!-- <div class="button" id="share-button"><i class="fi-share"></i></div> -->
+                    <a class="button" href="#" data-reveal-id="myModal"><i class="fi-share"></i></a>
+                </article>
+
+
+                <div id="query-template" hidden>
+                    <li class="query-item">
+                        <span class="query-span"></span>
+                        <i class="fi-x remove-query"></i>
+                    </li>
                 </div>
-                <h3 id="favorites-heading">Favoriten:</h3>
-                <ul id="favorites-list">
-                </ul>
-            </article>
 
-            <article id="menu-left">
-                <div id="add-to-favorites"><i id="favorites-star" class="fi-star"></i></div>
-                <div id="added-to-favorites">Zu Favoriten hinzugefügt</div>
-                <div id="close-preview"><i class="fi-x"></i></div>
-                <img src="http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg" width="485" height="209"
-                     alt="">
-
-                <h2 class="entry-title"><a class="preview-link" target="_blank"
-                                           href="http://lokalreporter.idvl.de/digitales-gruenderzentrum-zwei-standorte-in-oberfranken-geplant-41309/"
-                                           rel="bookmark"><span class="title">Digitales Gründerzentrum: Zwei Standorte in Oberfranken geplant</span></a>
-                </h2>
-                <div class="pub-date">DATUM</div>
-                <br>
-                <div class="entry-summary">
-                    Dies betrifft auch die Kraftfahrzeugzulassungsstelle, die Infothek, den Fachbereich Gesundheitswesen
-                    und
-                    die
-                    Volkshochschule Bamberg-Land. (…)
-                </div>
-
-                <button id="read-more-button"><a class="more-link" target="_blank"
-                                                 href="http://lokalreporter.idvl.de/wegen-einer-personalversammlung-ist-das-landratsamt-bamberg-am-mittwoch-16-dezember-2015-ab-1300-uhr-geschlossen-41413/"
-                                                 rel="bookmark">Weiterlesen</a></button>
-                <!-- <div class="button" id="share-button"><i class="fi-share"></i></div> -->
-                <a class="button" href="#" data-reveal-id="myModal"><i class="fi-share"></i></a>
-            </article>
-
-
-            <div id="query-template" hidden>
-                <li class="query-item">
-                    <span class="query-span"></span>
-                    <i class="fi-x remove-query"></i>
-                </li>
             </div>
 
         </div>

@@ -228,7 +228,7 @@ span.psw {
     right: 1rem;
     overflow-y: hidden;
     position: absolute;
-    margin-right: 5rem;
+    margin-right: 5.9%;
     height: 50rem;
     overflow-y: scroll;
 }
@@ -263,13 +263,15 @@ span.psw {
 }
 
 #newsmap-content {
-    position: absolute;
-    top: 7rem;
-    left: 0;
-    height: 80%;
-    width: 70%;
-    margin-left: 15%;
+    position: relative;
+    height: 90%;
+    width: 90%;
+    margin-left: 5%;;
+}
+
+#map-content {
     padding: 1%;
+    height: 50rem;
 }
 
 .not-visible-for-init {
@@ -338,7 +340,7 @@ span.psw {
     width: 100%;
     height: 100%;
     line-height: 5rem;
-    padding: 1.9% 1.2rem 2% 1.2rem;
+    padding: 1.8rem 1.2rem 1.8rem 1.2rem;
 }
 
 #main-menu {
@@ -568,9 +570,9 @@ a:hover {
     font-size: 1em;
     overflow: hidden;
     color: #ffffff;
-    position: fixed;
+    position: relative;
     z-index: 1000;
-    width: 68%;
+    width: 100%;
     height: 4rem;
     background: rgba(0, 0, 0, 0.5);
 }

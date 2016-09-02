@@ -117,9 +117,11 @@ NewsMap.NewsMapView = (function () {
             if ($('#newsmap-content').hasClass('not-visible-for-init')) {
                 $('#newsmap-content').removeClass('not-visible-for-init');
                 $('#newsmap-content').show();
+
             }
             else {
                 $('#newsmap-content').toggle();
+
             }
 
         },
