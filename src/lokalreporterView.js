@@ -83,6 +83,85 @@ NewsMap.lokalreporterView = (function () {
                 sendComment();
             });
 
+            $('#register-button').on('click', function () {
+                registerUser();
+            });
+
+            $('#login-button').on('click', function () {
+                login();
+            });
+
+        },
+
+        login = function() {
+            var username = $('#login-username').val();
+            var password = $('#login-password').val();
+
+
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:9100/token",
+                "method": "PUT",
+                "headers": {
+                    "cache-control": "no-cache",
+                    "postman-token": "c771fb95-6418-c27a-6fb9-446d7bec172e",
+                    "content-type": "application/x-www-form-urlencoded"
+                },
+                "data": {
+                    "grant_type": "password",
+                    "client_id": "asdfasdf",
+                    "username": username,
+                    "password": password
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                token = "Bearer " + response['access_token'];
+                $('#login-modal').hide();
+                changeMenuAfterLogin();
+            });
+        },
+
+        changeMenuAfterLogin = function() {
+            $('#login-open').html('PROFIL');
+            $('#register-open').html('LOGOUT');
+
+            var favMenuItem = $('<li id="fav-button" class="main-menu-item">FAVORITEN</li>');
+            $('#main-menu').append(favMenuItem);
+        },
+
+        registerUser = function() {
+            var username = $('#register-username').val();
+            var password = $('#register-password').val();
+            var passwordRepeat = $('#register-password-again'). val();
+
+
+            console.log(username, password, passwordRepeat);
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:9100/token",
+                "method": "PUT",
+                "headers": {
+                    "cache-control": "no-cache",
+                    "postman-token": "48b1091f-ae77-25db-36fe-3075408e6156",
+                    "content-type": "application/x-www-form-urlencoded"
+                },
+                "data": {
+                    "grant_type": "register_user",
+                    "client_id": "asdfasdf",
+                    "email": username,
+                    "password": password,
+                    "password_repeat": passwordRepeat
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                $('#register-modal').hide();
+            });
             $(document).on('click', '.fi-map', function () {
                 console.log("in .fi-map.on'click' ");
                 var id = $(this).parent().parent().attr('id');
