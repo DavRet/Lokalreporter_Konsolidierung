@@ -149,7 +149,7 @@ NewsMap.DrawMap = (function () {
                             }
                         }
                         else{
-                            alert("ERROR NO GEO INFORMATION AVAILIBLE -- LAT");
+                            //alert("ERROR NO GEO INFORMATION AVAILIBLE -- LAT");
                             // Setzen einer Standart Location falls keine Vorhanden!
                             var lat= 50.14567;
 
@@ -171,7 +171,7 @@ NewsMap.DrawMap = (function () {
                             }
                         }
                         else{
-                            alert("ERROR NO GEO INFORMATION AVAILIBLE -- Lon");
+                            //alert("ERROR NO GEO INFORMATION AVAILIBLE -- Lon");
                             // Setzen einer Standart Location falls keine Vorhanden!
                             var lon= 11.05928;
                         }

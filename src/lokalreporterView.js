@@ -91,77 +91,7 @@ NewsMap.lokalreporterView = (function () {
                 login();
             });
 
-        },
 
-        login = function() {
-            var username = $('#login-username').val();
-            var password = $('#login-password').val();
-
-
-            var settings = {
-                "async": true,
-                "crossDomain": true,
-                "url": "http://localhost:9100/token",
-                "method": "PUT",
-                "headers": {
-                    "cache-control": "no-cache",
-                    "postman-token": "c771fb95-6418-c27a-6fb9-446d7bec172e",
-                    "content-type": "application/x-www-form-urlencoded"
-                },
-                "data": {
-                    "grant_type": "password",
-                    "client_id": "asdfasdf",
-                    "username": username,
-                    "password": password
-                }
-            };
-
-            $.ajax(settings).done(function (response) {
-                console.log(response);
-                token = "Bearer " + response['access_token'];
-                $('#login-modal').hide();
-                changeMenuAfterLogin();
-            });
-        },
-
-        changeMenuAfterLogin = function() {
-            $('#login-open').html('PROFIL');
-            $('#register-open').html('LOGOUT');
-
-            var favMenuItem = $('<li id="fav-button" class="main-menu-item">FAVORITEN</li>');
-            $('#main-menu').append(favMenuItem);
-        },
-
-        registerUser = function() {
-            var username = $('#register-username').val();
-            var password = $('#register-password').val();
-            var passwordRepeat = $('#register-password-again'). val();
-
-
-            console.log(username, password, passwordRepeat);
-            var settings = {
-                "async": true,
-                "crossDomain": true,
-                "url": "http://localhost:9100/token",
-                "method": "PUT",
-                "headers": {
-                    "cache-control": "no-cache",
-                    "postman-token": "48b1091f-ae77-25db-36fe-3075408e6156",
-                    "content-type": "application/x-www-form-urlencoded"
-                },
-                "data": {
-                    "grant_type": "register_user",
-                    "client_id": "asdfasdf",
-                    "email": username,
-                    "password": password,
-                    "password_repeat": passwordRepeat
-                }
-            };
-
-            $.ajax(settings).done(function (response) {
-                console.log(response);
-                $('#register-modal').hide();
-            });
             $(document).on('click', '.fi-map', function () {
                 console.log("in .fi-map.on'click' ");
                 var id = $(this).parent().parent().attr('id');
@@ -182,14 +112,6 @@ NewsMap.lokalreporterView = (function () {
                 }
             });
 
-            $('#register-button').on('click', function () {
-                registerUser();
-            });
-
-            $('#login-button').on('click', function () {
-                login();
-            });
-
         },
 
         login = function() {
@@ -261,6 +183,15 @@ NewsMap.lokalreporterView = (function () {
                 console.log(response);
                 $('#register-modal').hide();
             });
+
+            $('#register-button').on('click', function () {
+                registerUser();
+            });
+
+            $('#login-button').on('click', function () {
+                login();
+            });
+
         },
 
         sendComment = function() {
@@ -455,8 +386,7 @@ NewsMap.lokalreporterView = (function () {
                  ;*/
                 var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' +'<div><i class="fi-map"></i></div>'+ '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count"></div></div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div><i class="fi-map"></i></div>'+'<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
                     )
                     ;
 
