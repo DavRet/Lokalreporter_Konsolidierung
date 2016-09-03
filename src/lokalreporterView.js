@@ -92,8 +92,8 @@ NewsMap.lokalreporterView = (function () {
             });
 
 
-            $(document).on('click', '.fi-map', function () {
-                console.log("in .fi-map.on'click' ");
+            $(document).on('click', '.show-map-button', function () {
+                console.log("in .show-map-button.on'click' ");
                 var id = $(this).parent().parent().attr('id');
 
                 var data= NewsMap.lokalreporterModel.getCurrentNews('news');
@@ -275,7 +275,7 @@ NewsMap.lokalreporterView = (function () {
 
                 var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>'+'<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>'+ '</div>' + '</article>' + '</li>'
                     )
                     ;
 
@@ -332,7 +332,7 @@ NewsMap.lokalreporterView = (function () {
                 pubDate[1] = pubDate[1].substring(0, 8);
                 var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>'+'<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>'+ '</div>' + '</article>' + '</li>'
                     )
                     ;
 
@@ -393,7 +393,7 @@ NewsMap.lokalreporterView = (function () {
                  ;*/
                 var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div><i class="fi-map"></i></div>'+'<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>'+'<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>'+ '</div>' + '</article>' + '</li>'
                     )
                     ;
 
@@ -471,7 +471,7 @@ NewsMap.lokalreporterView = (function () {
 
                 var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
+                        + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>'+'<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>'+ '</div>' + '</article>' + '</li>'
                     )
                     ;
 

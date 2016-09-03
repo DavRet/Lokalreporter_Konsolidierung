@@ -250,6 +250,17 @@ span.psw {
 
 }
 
+.show-map-button {
+    float: right;
+    cursor: pointer;
+    margin-right: -1rem;
+}
+
+.map-icon {
+    width: 50%;
+    margin-top: -0.4rem;
+}
+
 .article-list {
     list-style-type: none;
     box-shadow: 0 0 7px 0 #ddd;
