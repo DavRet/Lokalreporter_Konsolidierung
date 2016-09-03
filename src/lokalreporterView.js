@@ -345,6 +345,8 @@ NewsMap.lokalreporterView = (function () {
 
         },
 
+        
+
         setNews = function (data) {
             $("#news-list").empty();
             var EIDI,
