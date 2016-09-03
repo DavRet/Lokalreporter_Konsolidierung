@@ -256,6 +256,16 @@ span.psw {
     margin-right: -1rem;
 }
 
+#news-tags {
+    border: none!important;
+    background: white!important;
+}
+
+.tag-item {
+    font-size: 80%!important;
+    cursor: pointer!important;
+}
+
 .map-icon {
     width: 50%;
     margin-top: -0.4rem;
