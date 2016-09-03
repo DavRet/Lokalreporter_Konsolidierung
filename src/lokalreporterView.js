@@ -101,6 +101,8 @@ NewsMap.lokalreporterView = (function () {
 
                     NewsMap.DrawMap.setArticlesFromApi(data);
                     $("#newsmap-content").show();
+                    $("#map-content").show();
+                    $("#newsmap-content").removeClass("not-visible-for-init");
                     $("#news-content").hide();
 
                     //var marker = L.marker([50,-20], {icon: myIcon}).addTo(map);
@@ -345,7 +347,7 @@ NewsMap.lokalreporterView = (function () {
 
         },
 
-        
+
 
         setNews = function (data) {
             $("#news-list").empty();
