@@ -273,7 +273,7 @@ NewsMap.lokalreporterView = (function () {
                 pubDate = pubDate.split("T");
                 pubDate[1] = pubDate[1].substring(0, 8);
 
-                var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
+                var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
                     )
@@ -330,7 +330,7 @@ NewsMap.lokalreporterView = (function () {
 
                 pubDate = pubDate.split("T");
                 pubDate[1] = pubDate[1].substring(0, 8);
-                var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
+                var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
                     )
@@ -391,7 +391,7 @@ NewsMap.lokalreporterView = (function () {
                  + '<div class="row text-center">' + '<button class="read-more-button">' + '<a class="more-link" target="_blank" href = "' + artikelLink + '" >Weiterlesen' + '</a>' + '</button>' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
                  )
                  ;*/
-                var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
+                var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div><i class="fi-map"></i></div>'+'<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
                     )
@@ -469,7 +469,7 @@ NewsMap.lokalreporterView = (function () {
                 pubDate = pubDate.split("T");
                 pubDate[1] = pubDate[1].substring(0, 8);
 
-                var articleListElement = $('<li class="large-4 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
+                var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">'+ commentCount +'</div></div>' + '</article>' + '</li>'
                     )
