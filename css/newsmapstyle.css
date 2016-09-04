@@ -279,7 +279,7 @@ span.psw {
     padding: 1rem;
     background: white;
     float: left !important;
-    margin-right: 2rem;
+    margin-right: 1rem;
 }
 @media(min-width: 40em) {
     .article-list {
