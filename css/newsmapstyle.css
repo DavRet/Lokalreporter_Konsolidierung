@@ -173,8 +173,8 @@ span.psw {
     font-size: 90%;
 }
 
-.comment-icon{
-    width: 50%!important;
+.comment-icon {
+    width: 50% !important;
 }
 
 .single-article-image {
@@ -191,15 +191,15 @@ span.psw {
 
 #comment-list {
     list-style-type: none;
-    margin-left: 0!important;
+    margin-left: 0 !important;
 }
 
 #related-news-list {
     list-style-type: none;
-    margin-left: 0!important;
+    margin-left: 0 !important;
 }
 
-#related-news-list li{
+#related-news-list li {
     display: inline;
     float: left;
 }
@@ -208,12 +208,12 @@ span.psw {
 }
 
 .comment-divider {
-    margin-top: 0.5rem!important;
-    margin-bottom: 0.5rem!important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
 
 }
 
-.comment-paragraph  {
+.comment-paragraph {
     font-size: 0.8rem;
     margin-top: 0.5rem;
 }
@@ -234,7 +234,7 @@ span.psw {
 }
 
 .related-list-item {
-    background: #f2f2f1!important;
+    background: #f2f2f1 !important;
 }
 
 #related-news-content {
@@ -250,6 +250,27 @@ span.psw {
 
 }
 
+.show-map-button {
+    float: right;
+    cursor: pointer;
+    margin-right: -1rem;
+}
+
+#news-tags {
+    border: none!important;
+    background: white!important;
+}
+
+.tag-item {
+    font-size: 80%!important;
+    cursor: pointer!important;
+}
+
+.map-icon {
+    width: 50%;
+    margin-top: -0.4rem;
+}
+
 .article-list {
     list-style-type: none;
     box-shadow: 0 0 7px 0 #ddd;
@@ -259,8 +280,19 @@ span.psw {
     background: white;
     float: left !important;
     margin-right: 2rem;
-    max-width: 30%;
 }
+@media(min-width: 40em) {
+    .article-list {
+        max-width: 45%;
+    }
+}
+
+@media(min-width: 64em) {
+    .article-list {
+        max-width: 30%;
+    }
+}
+
 
 #newsmap-content {
     position: relative;
@@ -291,8 +323,8 @@ span.psw {
 }
 
 .news-row {
-    float: left!important;
-    width: 100%!important;
+    float: left !important;
+    width: 100% !important;
 }
 
 .row {

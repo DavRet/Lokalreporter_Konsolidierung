@@ -18,6 +18,13 @@
     <link rel="stylesheet" type="text/css" href="libs/leaflet_markercluster_07/dist/markercluster_default.css"/>
     <link rel="stylesheet" href="css/leaflet.css"/>
     <link rel="stylesheet" href="css/sweetalert.css"/>
+    <link rel="stylesheet" href="css/jquery.tagit.css"/>
+    <link rel="stylesheet" href="css/jquery-ui.theme.min.css"/>
+    <link rel="stylesheet" href="css/jquery-ui.structure.min.css"/>
+    <link rel="stylesheet" href="css/jquery-ui.min.css"/>
+
+
+    <!--<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">-->
 
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -29,6 +36,12 @@
     <script src="js/foundation/foundation.reveal.js"></script>
     <script src="js/leaflet.js"></script>
     <script src="js/jquery.ba-hashchange.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>-->
+    <script src="js/jquery-ui.min.js"></script>
+
+
+    <script src="js/tag-it.js"></script>
+
 
     <script src="libs/leaflet_markercluster_07/dist/leaflet.markercluster.js"></script>
     <script src="libs/jquery.dotdotdot.min.js"></script>
@@ -197,7 +210,10 @@
         <div class="main-content" id="single-news-page">
 
             <div class="row">
-                <div class="large-7 columns" id="single-news-content"></div>
+                <div class="large-7 columns" id="single-news-content">
+                    <div id="single-news-article"></div>
+
+                </div>
                 <div class="large-4 columns" id="single-news-comments">
                     <h3 class="comment-headline">Kommentare:</h3>
                     <div id="write-comment-section">
