@@ -5,9 +5,15 @@ NewsMap.lokalreporterView = (function () {
     var token;
     var that = {},
         angezeigteNews,
+        isLoggedIn = false,
         init = function () {
             NewsMap.lokalreporterModel.getTopNews(); //getTopNews();
             NewsMap.lokalreporterModel.getNews(20); //getNews(20);
+            $('#lokalreporter-image').on('click', function () {
+
+                document.location.hash = "top-news";
+            });
+
             $('#search-button-top').on('click', function () {
                 var query = $('#search-input').val().toLowerCase();
 
@@ -151,6 +157,7 @@ NewsMap.lokalreporterView = (function () {
                 token = "Bearer " + response['access_token'];
                 $('#login-modal').hide();
                 changeMenuAfterLogin();
+                isLoggedIn = true;
             });
         },
 
@@ -158,8 +165,12 @@ NewsMap.lokalreporterView = (function () {
             $('#login-open').html('PROFIL');
             $('#register-open').html('LOGOUT');
 
+            $('#live-button').html('IHRE NEWS');
+
             var favMenuItem = $('<li id="fav-button" class="main-menu-item">FAVORITEN</li>');
             $('#main-menu').append(favMenuItem);
+
+            showPersonal();
         },
 
         registerUser = function () {
@@ -642,13 +653,21 @@ NewsMap.lokalreporterView = (function () {
             switch (toShow) {
                 case "":
                     document.location.hash = "top-news";
-                    showTop();
+                    if(!isLoggedIn) {
+                        showTop();
+                    }
+                    else
+                        showPersonal();
                     break;
                 case "#nachrichten":
                     showNews();
                     break;
                 case "#top-news":
-                    showTop();
+                    if(!isLoggedIn) {
+                        showTop();
+                    }
+                    else
+                        showPersonal();
                     break;
                 case "#mediathek":
                     showMediathek();
@@ -886,6 +905,24 @@ NewsMap.lokalreporterView = (function () {
             if (data != null && data != undefined) {
                 NewsMap.DrawMap.setArticlesFromApi(data);
             }
+
+        },
+
+        showPersonal = function (e) {
+
+            $('.main-content').hide();
+            $('#newsmap-content').hide();
+
+            $('#personal-content').toggle();
+            /*var data = NewsMap.lokalreporterModel.getCurrentNews('topnews');
+            if (data != null && data != undefined) {
+                NewsMap.DrawMap.setArticlesFromApi(data);
+            }*/
+
+            $("#personal-tags").tagit({
+                availableTags: ["sport", "java", "php", "javascript", "ruby", "python", "c"]
+            });
+
         },
 
         showMediathek = function () {
