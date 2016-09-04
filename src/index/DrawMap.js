@@ -21,6 +21,7 @@ NewsMap.DrawMap = (function () {
         myLng,
         tempLat,
         tempLon,
+        greenIcon,
 
 
         map = null,
@@ -47,6 +48,8 @@ NewsMap.DrawMap = (function () {
                 drawmap();
                 checkFavorites();
             });
+
+             
 
             return this;
         },
@@ -234,13 +237,30 @@ NewsMap.DrawMap = (function () {
             var allMarkers= markers.getLayers();
             console.log(markers.getLayers());
             for(var i=0; i<allMarkers.length; i++){
-                //console.log(allMarkers[i].data('id'));
-                //if(allMarkers[i].data-id==id){
-                     //_____ Data-ID muss abgerufen werden damit Marker gefunden und Farbe geändert werden kann
-                //}
-            }
 
-            //marker.valueOf()._icon.style.backgroundColor = 'green';
+                console.log($(allMarkers[i]).attr("data-id"));
+                if($(allMarkers[i]).attr("data-id")==id){
+                   console.log(allMarkers[i]);
+                    var greenIcon = new L.Icon({
+
+                            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                            iconSize: [25, 41],
+                            iconAnchor: [12, 41],
+                            popupAnchor: [1, -34],
+                            shadowSize: [41, 41]
+                    });
+
+                    markers.zoomToShowLayer(allMarkers[i], function () {
+                        console.log(allMarkers[i]);
+                       // allMarkers[i].setIcon({icon: greenIcon});
+                    })
+
+                        //Grünes Icon funzt wenn neuen marker hinzufügen
+                    //L.marker([allMarkers[i].lat, allMarkers[i].lng], {icon: greenIcon}).addTo(map);
+
+                }
+            }
         },
 
         enterListen = function () {
