@@ -100,10 +100,11 @@ NewsMap.lokalreporterView = (function () {
                 if(data!=null && data!=undefined){
 
                     NewsMap.DrawMap.setArticlesFromApi(data);
-                    $("#newsmap-content").show();
-                    $("#map-content").show();
-                    $("#newsmap-content").removeClass("not-visible-for-init");
-                    $("#news-content").hide();
+                   /* $('.main-content').hide();
+                    $('#map-content').show();
+                    $("#newsmap-content").show();*/
+
+                    document.location.hash = "karte";
 
                     //var marker = L.marker([50,-20], {icon: myIcon}).addTo(map);
                     //marker.valueOf()._icon.style.backgroundColor = 'green';
@@ -337,6 +338,8 @@ NewsMap.lokalreporterView = (function () {
 
                 $("#search-list").append(articleListElement);
 
+
+
             }
 
             $('#search-list > li').each(function(i) {
@@ -347,7 +350,7 @@ NewsMap.lokalreporterView = (function () {
 
         },
 
-
+        
 
         setNews = function (data) {
             $("#news-list").empty();
