@@ -293,6 +293,11 @@ span.psw {
     }
 }
 
+.personal-title {
+    font-size: 1.5rem;
+    padding-left: 0.9375rem;
+}
+
 
 #newsmap-content {
     position: relative;
