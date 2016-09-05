@@ -5,7 +5,7 @@ NewsMap.lokalreporterView = (function () {
     var token;
     var that = {},
         angezeigteNews,
-        isLoggedIn = false,
+        isLoggedIn = true,
         init = function () {
             NewsMap.lokalreporterModel.getTopNews(); //getTopNews();
             NewsMap.lokalreporterModel.getNews(20); //getNews(20);
@@ -902,9 +902,9 @@ NewsMap.lokalreporterView = (function () {
 
             $('#personal-content').toggle();
             /*var data = NewsMap.lokalreporterModel.getCurrentNews('topnews');
-            if (data != null && data != undefined) {
-                NewsMap.DrawMap.setArticlesFromApi(data);
-            }*/
+             if (data != null && data != undefined) {
+             NewsMap.DrawMap.setArticlesFromApi(data);
+             }*/
 
             $("#personal-tags").tagit({
                 availableTags: ["wetter", "sport", "verkehr", "polizei", "ratgeber", "kultur", "religion", "oberfranken", "mittelfranken", "niederbayern", "oberpfalz", "oberbayern", "unterfranken"],
