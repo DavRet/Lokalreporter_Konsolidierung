@@ -25,7 +25,6 @@ NewsMap.lokalreporterModel = (function () {
                 NewsMap.lokalreporterView.setTopNews(response);
                 //NewsMap.DrawMap.setArticlesFromApi(response.items);
                 currentTopNews=response.items;
-                console.log("Map Articles von Top News");
             }).error(function (response) {
                 console.log("error");
             });
@@ -50,7 +49,6 @@ NewsMap.lokalreporterModel = (function () {
                 NewsMap.lokalreporterView.setNews(response);
                // NewsMap.DrawMap.setArticlesFromApi(response.items);
                 currentNews=response.items;
-                console.log("Map Articles von News");
             }).error(function (response) {
                 console.log("error");
             });
