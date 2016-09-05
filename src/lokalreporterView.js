@@ -5,7 +5,7 @@ NewsMap.lokalreporterView = (function () {
     var token;
     var that = {},
         angezeigteNews,
-        isLoggedIn = true,
+        isLoggedIn = false,
         init = function () {
             NewsMap.lokalreporterModel.getTopNews(); //getTopNews();
             NewsMap.lokalreporterModel.getNews(20); //getNews(20);
