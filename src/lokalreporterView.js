@@ -192,7 +192,7 @@ NewsMap.lokalreporterView = (function () {
             var favMenuItem = $('<li id="fav-button" class="main-menu-item">FAVORITEN</li>');
             $('#main-menu').append(favMenuItem);
 
-            showPersonal();
+            //showPersonal();
         },
 
         registerUser = function () {
@@ -241,7 +241,7 @@ NewsMap.lokalreporterView = (function () {
             var articleId = id[1];
 
 
-            var commentSetting = {
+            /*var commentSetting = {
                 "crossDomain": true,
 
                 "async": true,
@@ -266,6 +266,25 @@ NewsMap.lokalreporterView = (function () {
                 console.log(response);
             }).error(function (response) {
                 console.log("error");
+            });*/
+
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:9000/news/205733_c5967e452/comments",
+                "method": "PUT",
+                "headers": {
+                    "content-type": "application/json",
+                    "authorization": "Bearer H4sIAAAAAAAEAFWMsQ6CMBiEi4LiQ5B0cJSGtkCBTRcTEyd4gSJ_tQmiaWni4wsymcu3fLm7NUJocwJpwARkkE8IiHn1sJq0h_ZZqtoiyUTcgmJxKjMey1KVsWAs4SnlOZSFh-YsM99ZMItAvweE_ImQGFAG7MNvjIPdrdcwjJXuQmk7NbMl2loHXVS74YAZxUd3xyyhOaa8YrzKGD5fm5DA562nn6iW4wFTgS9umGvir_YFrLE0sdMAAAA",
+                    "cache-control": "no-cache",
+                    "postman-token": "0342084a-2bf0-0594-84ec-ef5c18a07a8e"
+                },
+                "processData": false,
+                "data": "{\n    \"title\": \"I just found a fantastic\",\n    \"content\": \"I love Israeli fruit in the Winter but does it not taste bitter knowing what's going on in Palestine? The whole concept of maternity leave is an affront to gender equality - let's put an end to this patriarchal system of repression and stigmatisation! It's time to recognise that animal rights now are as important as women's rights last century.\",\n    \"articleId\": \"65556\"\n}"
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
             });
         },
 
