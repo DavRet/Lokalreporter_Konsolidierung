@@ -37,6 +37,12 @@ a:hover {
     text-decoration: none!important;
 }
 
+.article-button-row {
+    background: lightgray;
+    height: 2.5rem;
+    padding-top: 0.3rem;
+}
+
 
 #fb-image, #twitter-image {
     cursor: pointer;
@@ -152,6 +158,10 @@ a:hover {
 .article-image {
     max-height: 15rem;
     cursor: pointer;
+}
+
+.article-video {
+    width: 100%;
 }
 
 @media screen and (min-width: 40em) {

@@ -138,7 +138,7 @@ NewsMap.lokalreporterModel = (function () {
 
             var settings = {
                 "async": true,
-                "url": "http://localhost:9000/news?metadataid=" + query,
+                "url": "http://localhost:9000/news?query=" + query,
                 "method": "GET",
                 "headers": {
                     "Accept": "application/json",
