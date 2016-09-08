@@ -1006,7 +1006,7 @@ NewsMap.lokalreporterView = (function () {
                         showTop();
                     }
                     else
-                        showTop();
+                        showPersonal();
                     break;
                 case "#nachrichten":
                     showNews();
