@@ -209,8 +209,13 @@ a:hover {
 }
 
 .article-list-for-map {
-    max-width: 45%!important;
+    max-width: 45% !important;
+
 }
+.right-content {
+    padding: 0!important;
+}
+
 
 .single-comment {
     background: #f2f2f1;
@@ -393,12 +398,11 @@ a:hover {
 
 #map-content {
 
-    top: 6rem;
+    top: 7rem;
     height: 50rem!important;
-    width: 30rem!important;
     display: block !important;
     position: fixed;
-    margin: 1rem;
+    width: 20rem!important;
 }
 @media (min-width: 1700px ){
     #map-content {
