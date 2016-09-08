@@ -467,16 +467,10 @@ NewsMap.lokalreporterView = (function () {
 
             $.ajax(settings).done(function (response) {
                 $('#register-modal').hide();
+                token = "Bearer " + response['access_token'];
+                changeMenuAfterLogin();
+                isLoggedIn = true;
             });
-
-            $('#register-button').on('click', function () {
-                registerUser();
-            });
-
-            $('#login-button').on('click', function () {
-                login();
-            });
-
         },
 
         sendComment = function () {
