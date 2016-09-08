@@ -353,13 +353,13 @@ a:hover {
 }
 @media(min-width: 40em) {
     .article-list {
-        max-width: 45%;
+       /*  max-width: 45%; */
     }
 }
 
 @media(min-width: 64em) {
     .article-list {
-        max-width: 30%;
+       /*  max-width: 30%; */
     }
 }
 
@@ -396,23 +396,29 @@ a:hover {
     display: block !important;
 }
 
-#map-content {
+/*
+position: fixed;
+top 3.3%
+left 4%
+z-index 9999;
+*/
 
-    top: 7rem;
-    height: 50rem!important;
+#map-content {
+    top: 12.3rem;
+    height: 100rem;
     display: block !important;
     position: fixed;
-    width: 20rem!important;
+    width: 28rem;
 }
 @media (min-width: 1700px ){
     #map-content {
-        width: 50rem;
+        width: 30rem;
     }
 }
 
 @media (min-width: 1405px ) and (max-width: 1700px) {
     #map-content {
-        width: 37rem;
+        width: 30rem;
     }
 }
 
@@ -1546,7 +1552,7 @@ label {
 #moveMapButton{
 
     position: absolute;
-    top: 30%;
+    top: 25%;
     z-index: 9999;
     background-color: #f2f2f1;
     color: #000000;
