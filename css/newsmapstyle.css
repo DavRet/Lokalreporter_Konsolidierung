@@ -353,13 +353,13 @@ a:hover {
 }
 @media(min-width: 40em) {
     .article-list {
-        max-width: 45%;
+       /*  max-width: 45%; */
     }
 }
 
 @media(min-width: 64em) {
     .article-list {
-        max-width: 30%;
+       /*  max-width: 30%; */
     }
 }
 
@@ -1564,7 +1564,7 @@ label {
 #moveMapButton{
 
     position: absolute;
-    top: 30%;
+    top: 25%;
     z-index: 9999;
     background-color: #f2f2f1;
     color: #000000;
