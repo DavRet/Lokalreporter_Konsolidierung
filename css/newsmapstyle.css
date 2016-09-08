@@ -399,37 +399,37 @@ a:hover {
 #map-content {
 
     margin-top: 4.1rem;
-    height: 50rem!important;
+    height: 70rem;
     position: fixed;
-    width: 20rem!important;
+    width: 20rem;
 }
 @media (min-width: 1700px ){
     #map-content {
-        width: 50rem;
+        width: 20rem;
     }
 }
 
 @media (min-width: 1405px ) and (max-width: 1700px) {
     #map-content {
-        width: 37rem;
+        /*width: 37rem;*/
     }
 }
 
 @media (min-width: 1297px ) and (max-width: 1405px) {
     #map-content {
-        width: 34rem;
+        /*width: 34rem; */
     }
 }
 
 @media (min-width: 1175px ) and (max-width: 1297px) {
     #map-content {
-        width: 30rem;
+       /* width: 30rem; */
     }
 }
 
 @media (min-width: 670px ) and (max-width: 1175px) {
     #map-content {
-        width: 25rem;
+       /*  width: 25rem;*/
     }
 }
 

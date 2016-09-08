@@ -126,22 +126,26 @@ NewsMap.lokalreporterView = (function () {
                 twitterCurrentArticle();
             });
 
-           /* $('#moveMapButton').on('click', function () {
-               $('#map-content').css("width","60rem");
-            }); */
-
             $('#moveMapButton').on('click', function () {
 
-                if(toggleCount==0) {
-                    $("#map-content").css("width", "60rem");
-                    toggleCount=1;
-                    $("#news-list div").find("li").removeClass("article-list-for-map");
+                if(toggleCount==1) {
+                    $("#map-content").css("width", "20rem");
+                    $(".left-content").removeClass("large-4 columns").addClass("large-8 columns");
+                    $(".right-content").removeClass("large-8 columns").addClass("large-4 columns");
+                    $("#news-list div").find("li").addClass("article-list-for-map");
+
+                    toggleCount=0;
+
                                     }
                 else{
-                    $("#map-content").css("width", "30rem");
-                    toggleCount=0;
-                    $("#news-list div").find("li").addClass("article-list-for-map");
-                    //console.log( $("#news-list div").find("li"));
+                    $("#map-content").css("width", "60rem");
+
+                    $("#news-list div").find("li").removeClass("article-list-for-map");
+                    console.log($(".left-content"));
+                    $(".left-content").removeClass("large-8 columns").addClass("large-4 columns");
+                    $(".right-content").removeClass("large-4 columns").addClass("large-8 columns");
+                    $("#news-list div").find("li").css("width","100%");
+                    toggleCount=1;
                 }
 
             });
@@ -171,18 +175,9 @@ NewsMap.lokalreporterView = (function () {
                 if (data != null && data != undefined) {
 
                     NewsMap.DrawMap.setArticlesFromApi(data);
-                    /* $('.main-content').hide();
-                     $('#map-content').show();
-                     $("#newsmap-content").show();*/
 
-                    document.location.hash = "karte";
-
-                    //var marker = L.marker([50,-20], {icon: myIcon}).addTo(map);
-                    //marker.valueOf()._icon.style.backgroundColor = 'green';
-                    //console.log($("#"+id));
                     NewsMap.DrawMap.changeMarkerColor(id);
 
-                    //// MARKER DER AUSGEWÄHLTEN NACHRICHT HERVORHEBEN!!! SELBES ZUDEM FÜR TOPNEWS MACHEN ->  on click muss verändert werden dass zwischen topnews und news unterschieden wird
                 }
             });
 

@@ -232,32 +232,22 @@ NewsMap.DrawMap = (function () {
         },
 
         changeMarkerColor = function (id) {
-            //console.log(markers.hasLayer(marker));
-            //console.log(markers.getLayers);
+
             var allMarkers= markers.getLayers();
             console.log(markers.getLayers());
             for(var i=0; i<allMarkers.length; i++){
 
                 console.log($(allMarkers[i]).attr("data-id"));
                 if($(allMarkers[i]).attr("data-id")==id){
-                   console.log(allMarkers[i]);
-                    var greenIcon = new L.Icon({
-
-                            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-                            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                            iconSize: [25, 41],
-                            iconAnchor: [12, 41],
-                            popupAnchor: [1, -34],
-                            shadowSize: [41, 41]
-                    });
-
+                    markers.refreshClusters();
                     markers.zoomToShowLayer(allMarkers[i], function () {
                         console.log(allMarkers[i]);
-                       // allMarkers[i].setIcon({icon: greenIcon});
-                    })
+                    });
+                    map.setView([allMarkers[i]._latlng.lat,allMarkers[i]._latlng.lng],16);
+                    markers.refreshClusters();
 
-                        //Grünes Icon funzt wenn neuen marker hinzufügen
-                    //L.marker([allMarkers[i].lat, allMarkers[i].lng], {icon: greenIcon}).addTo(map);
+
+
 
                 }
             }
