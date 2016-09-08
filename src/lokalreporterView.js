@@ -9,6 +9,9 @@ NewsMap.lokalreporterView = (function () {
         toShare,
         init = function () {
 
+            var headerHeight = $('#lokalreporter-header').height();
+            $('#main').css('margin-top', headerHeight);
+
             NewsMap.lokalreporterModel.getTopNews(); //getTopNews();
             NewsMap.lokalreporterModel.getNews(20); //getNews(20);
             $('#lokalreporter-image').on('click', function () {

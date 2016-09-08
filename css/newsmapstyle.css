@@ -398,7 +398,7 @@ a:hover {
 
 #map-content {
 
-    top: 7rem;
+    margin-top: 4.1rem;
     height: 50rem!important;
     position: fixed;
     width: 20rem!important;
@@ -475,6 +475,16 @@ a:hover {
 #lokalreporter-header {
     display: block;
     /*box-shadow: 0 7px 10px -7px gray;*/
+    position: fixed;
+    background: white;
+    width: 100%;
+    z-index: 100;
+}
+
+@media (min-width: 64em) {
+    #lokalreporter-header {
+        width: 88.8%;
+    }
 }
 
 #lokalreporter-image {
