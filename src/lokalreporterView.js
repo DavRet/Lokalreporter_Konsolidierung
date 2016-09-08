@@ -147,6 +147,11 @@ NewsMap.lokalreporterView = (function () {
                     $(".left-content").removeClass("large-4 columns").addClass("large-8 columns");
                     $(".right-content").removeClass("large-8 columns").addClass("large-4 columns");
                     $("#news-list div").find("li").addClass("article-list-for-map");
+                    $("#top-list div").find("li").addClass("article-list-for-map");
+                    $("#search-list div").find("li").addClass("article-list-for-map");
+                    $("#category-list div").find("li").addClass("article-list-for-map");
+                    $("#favorite-list div").find("li").addClass("article-list-for-map");
+                    $("#media-list div").find("li").addClass("article-list-for-map");
 
                     toggleCount=0;
 
@@ -155,10 +160,23 @@ NewsMap.lokalreporterView = (function () {
                     $("#map-content").css("width", "60rem");
 
                     $("#news-list div").find("li").removeClass("article-list-for-map");
+                    $("#top-list div").find("li").removeClass("article-list-for-map");
+                    $("#search-list div").find("li").removeClass("article-list-for-map");
+                    $("#category-list div").find("li").removeClass("article-list-for-map");
+                    $("#favorite-list div").find("li").removeClass("article-list-for-map");
+                    $("#media-list div").find("li").removeClass("article-list-for-map");
+
                     console.log($(".left-content"));
                     $(".left-content").removeClass("large-8 columns").addClass("large-4 columns");
                     $(".right-content").removeClass("large-4 columns").addClass("large-8 columns");
                     $("#news-list div").find("li").css("width","100%");
+                    $("#top-list div").find("li").css("width","100%");
+                    $("#search-list div").find("li").css("width","100%");
+                    $("#category-list div").find("li").css("width","100%");
+                    $("#favorite-list div").find("li").css("width","100%");
+                    $("#media-list div").find("li").css("width","100%");
+
+
                     toggleCount=1;
                 }
 
