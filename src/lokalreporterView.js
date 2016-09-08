@@ -10,7 +10,6 @@ NewsMap.lokalreporterView = (function () {
         toggleCount= 0,
         init = function () {
 
-
             $('#scroll-wrapper').bind('scroll', function() {
 
                 var scrollTop = $('#scroll-wrapper').scrollTop();
@@ -161,6 +160,9 @@ NewsMap.lokalreporterView = (function () {
                     $("#news-list div").find("li").css("width","100%");
                     toggleCount=1;
                 }
+
+                NewsMap.DrawMap.changeMapSize();
+
 
             });
 

@@ -28,7 +28,13 @@ NewsMap.MainController = (function () {
             $(newsMapView).on("queryRemoved", removeQuery);
             $(drawMap).on("identifyLocation", identifyLocation);
 
+            $(lokalreporterView).on("mapSizeChanged", changeMapSize);
+
             return this;
+        },
+
+        changeMapSize = function () {
+            console.log("test");
         },
 
         checkForUrlChange = function () {

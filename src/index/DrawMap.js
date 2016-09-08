@@ -98,6 +98,10 @@ NewsMap.DrawMap = (function () {
             getArticlesFromApi(500,40);
         },
 
+        changeMapSize = function() {
+            map.invalidateSize();
+        },
+
 
         drawmap = function () {
             window.onload = load_map;
@@ -114,8 +118,6 @@ NewsMap.DrawMap = (function () {
             map.setView(new L.LatLng(48.9533, 11.3973), 8).addLayer(osm);
 
             getAllArticles();
-
-
         },
 
         addMarker = function (data) {
@@ -812,6 +814,7 @@ NewsMap.DrawMap = (function () {
     that.showFavorites = showFavorites;
     that.showFavArticle = showFavArticle;
     that.removeQuery = removeQuery;
+    that.changeMapSize = changeMapSize;
     that.init = init;
 
     return that;
