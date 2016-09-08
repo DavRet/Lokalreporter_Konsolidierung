@@ -389,12 +389,15 @@ NewsMap.lokalreporterView = (function () {
                 artikelLink = data['items'][i]['news']['originalLink'];
                 pubDate = data['items'][i]['news']['date'];
                 content = data['items'][i]['news']['abstract'];
-                imageSrc = data['items'][i]['news']['thumbnail']['source'];
+
+                if ( data['items'][i]['thumbnail'] != null) {
+                    imageSrc = data['items'][i]['news']['thumbnail']['source'];
+                }
                 //commentCount = data['items'][i]['news']['properties']['comments.count'];
                 commentCount = '0';
 
 
-                if (imageSrc == '') {
+                if (imageSrc == '' || imageSrc == undefined) {
                     imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
                 }
 
@@ -718,7 +721,7 @@ NewsMap.lokalreporterView = (function () {
                 if (data['items'][i]['geoData'].length) {
                     artikelOrt = data['items'][i]['geoData'][0]['name'];
                 }
-                EIDI = data['items'][i]['id']
+                EIDI = data['items'][i]['id'];
                 artikelTitel = data['items'][i]['title'];
                 artikelLink = data['items'][i]['originalLink'];
                 pubDate = data['items'][i]['date'];
@@ -743,14 +746,14 @@ NewsMap.lokalreporterView = (function () {
                     thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
                     videoSrc = data['items'][i]['attachments']['items'][0]['url'];
 
-                    var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list-for-map article-list">' + '<article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
                         ;
                 }
                 else {
-                    var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list-for-map article-list">' + '<article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>' + '<i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
@@ -818,7 +821,6 @@ NewsMap.lokalreporterView = (function () {
                 videoSrc,
                 thumbnailSrc,
                 commentCount;
-            console.log(data);
 
             for (i = 0; i < data['items'].length; i++) {
 
@@ -830,12 +832,15 @@ NewsMap.lokalreporterView = (function () {
                 artikelLink = data['items'][i]['originalLink'];
                 pubDate = data['items'][i]['date'];
                 content = data['items'][i]['abstract'];
-                imageSrc = data['items'][i]['thumbnail']['source'];
+                if ( data['items'][i]['thumbnail'] != null) {
+                    imageSrc = data['items'][i]['thumbnail']['source'];
+
+                }
                 commentCount = data['items'][i]['properties']['comments.count'];
 
 
 
-                if (imageSrc == '') {
+                if (imageSrc == '' || imageSrc == undefined) {
                     imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
                 }
 
@@ -1001,7 +1006,7 @@ NewsMap.lokalreporterView = (function () {
                         showTop();
                     }
                     else
-                        showPersonal();
+                        showTop();
                     break;
                 case "#nachrichten":
                     showNews();

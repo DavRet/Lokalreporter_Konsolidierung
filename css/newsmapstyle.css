@@ -208,6 +208,10 @@ a:hover {
     color: #3a9bd8;
 }
 
+.article-list-for-map {
+    max-width: 45%!important;
+}
+
 .single-comment {
     background: #f2f2f1;
     padding: 1rem;
@@ -389,10 +393,12 @@ a:hover {
 
 #map-content {
 
-    padding: 1%;
-    height: 80rem;
-    /*width: 50rem; */
+    top: 6rem;
+    height: 50rem!important;
+    width: 30rem!important;
     display: block !important;
+    position: fixed;
+    margin: 1rem;
 }
 @media (min-width: 1700px ){
     #map-content {
