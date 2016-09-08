@@ -9,6 +9,20 @@ NewsMap.lokalreporterView = (function () {
         toShare,
         init = function () {
 
+
+            $('#scroll-wrapper').bind('scroll', function() {
+
+                var scrollTop = $('#scroll-wrapper').scrollTop();
+
+                if(!$('#map-content').hasClass('map-content-after-scroll')) {
+                    $('#map-content').addClass('map-content-after-scroll');
+                }
+
+                else if(scrollTop == 0 && $('#map-content').hasClass('map-content-after-scroll')) {
+                    $('#map-content').removeClass('map-content-after-scroll');
+                }
+            });
+
             var headerHeight = $('#lokalreporter-header').height();
             $('#main').css('margin-top', headerHeight);
 
