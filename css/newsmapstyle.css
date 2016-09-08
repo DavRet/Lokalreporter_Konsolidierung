@@ -602,6 +602,7 @@ a:hover {
     padding-top: 1rem;
     background: #f2f2f1;
     height: 100%;
+    display: inline-block;
 }
 
 @media (max-width: 40em) {

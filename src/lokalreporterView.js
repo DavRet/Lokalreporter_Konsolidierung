@@ -746,14 +746,14 @@ NewsMap.lokalreporterView = (function () {
                     thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
                     videoSrc = data['items'][i]['attachments']['items'][0]['url'];
 
-                    var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list-for-map article-list">' + '<article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
                         ;
                 }
                 else {
-                    var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list-for-map article-list">' + '<article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="large-4 small-12 medium-6 columns article-list">' + '<article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>' + '<i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
@@ -765,14 +765,14 @@ NewsMap.lokalreporterView = (function () {
 
             }
 
-            /*if ($(document).width() > 1100) {
+            if ($(document).width() > 1100) {
                 $('#news-list > li').each(function (i) {
                     if (i % 3 == 0) {
                         $(this).nextAll().andSelf().slice(0, 3).wrapAll('<div class="row large-12 columns news-row"></div>');
                     }
                 });
-            } */
-            /*else*/ if ($(document).width() > 600) {
+            }
+            else if ($(document).width() > 600) {
                 $('#news-list > li').each(function (i) {
                     if (i % 2 == 0) {
                         $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
