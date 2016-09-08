@@ -372,17 +372,62 @@ a:hover {
 }
 
 
-#newsmap-content {
+/*#newsmap-content {
     position: relative;
     height: 90%;
     width: 90%;
     margin-left: 5%;;
+} */
+
+#newsmap-content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    display: block !important;
 }
 
 #map-content {
+
     padding: 1%;
-    height: 50rem;
+    height: 80rem;
+    /*width: 50rem; */
+    display: block !important;
 }
+@media (min-width: 1700px ){
+    #map-content {
+        width: 50rem;
+    }
+}
+
+@media (min-width: 1405px ) and (max-width: 1700px) {
+    #map-content {
+        width: 37rem;
+    }
+}
+
+@media (min-width: 1297px ) and (max-width: 1405px) {
+    #map-content {
+        width: 34rem;
+    }
+}
+
+@media (min-width: 1175px ) and (max-width: 1297px) {
+    #map-content {
+        width: 30rem;
+    }
+}
+
+@media (min-width: 670px ) and (max-width: 1175px) {
+    #map-content {
+        width: 25rem;
+    }
+}
+
+
+
+
+
 
 .not-visible-for-init {
     visibility: hidden;
@@ -724,8 +769,15 @@ a:hover {
 
 /*eigenes css*/
 
-#map {
+/*#map {
     height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    float: left;
+} */
+#map {
+    height: 50%;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -1478,4 +1530,16 @@ label {
 .dropdown-item:hover {
     background-color: #3a9bd8 !important;
     color: white;
+}
+
+#moveMapButton{
+
+    position: absolute;
+    top: 30%;
+    left: -10%;
+    z-index: 9999;
+    background-color: #ffffff;
+    color:#000000;
+    min-width: 110px ;
+
 }

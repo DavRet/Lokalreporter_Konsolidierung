@@ -122,6 +122,10 @@ NewsMap.lokalreporterView = (function () {
                 twitterCurrentArticle();
             });
 
+            $('#moveMapButton').on('click', function () {
+               $('#map-content').css("width","20rem");
+            });
+
             $(document).on("click", '.favorite-icon', function () {
                 $(this).addClass('favorite-icon-activated');
                 var id = $(this).attr('id');
@@ -758,14 +762,14 @@ NewsMap.lokalreporterView = (function () {
 
             }
 
-            if ($(document).width() > 1100) {
+            /*if ($(document).width() > 1100) {
                 $('#news-list > li').each(function (i) {
                     if (i % 3 == 0) {
                         $(this).nextAll().andSelf().slice(0, 3).wrapAll('<div class="row large-12 columns news-row"></div>');
                     }
                 });
-            }
-            else if ($(document).width() > 600) {
+            } */
+            /*else*/ if ($(document).width() > 600) {
                 $('#news-list > li').each(function (i) {
                     if (i % 2 == 0) {
                         $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
