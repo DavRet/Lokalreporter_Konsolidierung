@@ -294,7 +294,7 @@ NewsMap.NewsMapView = (function () {
             $(".title").html(clickedArticle.title);
             $(".more-link ").attr("href", clickedArticle.link);
             $(".pub-date").html(clickedArticle.pub_date);
-            $("#menu-left").show();
+            //$("#menu-left").show();
             $(".entry-summary").html(clickedArticle.content).dotdotdot();
         },
 

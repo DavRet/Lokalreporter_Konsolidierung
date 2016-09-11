@@ -142,7 +142,7 @@ NewsMap.lokalreporterView = (function () {
             $('#moveMapButton').on('click', function () {
 
                 if (toggleCount == 1) {
-                    $("#map-content").css("width", "20rem");
+                    $("#map-content").css("width", "25%");
                     $(".left-content").removeClass("large-4 columns").addClass("large-8 columns");
                     $(".right-content").removeClass("large-8 columns").addClass("large-4 columns");
                     $("#news-list div").find("li").addClass("article-list-for-map");
@@ -156,7 +156,7 @@ NewsMap.lokalreporterView = (function () {
 
                 }
                 else {
-                    $("#map-content").css("width", "60rem");
+                    $("#map-content").css("width", "50%");
 
                     $("#news-list div").find("li").removeClass("article-list-for-map");
                     $("#top-list div").find("li").removeClass("article-list-for-map");
