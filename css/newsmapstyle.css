@@ -272,6 +272,7 @@ a:hover {
 #related-news-list li {
     display: inline;
     float: left;
+    max-width: 30%;
 }
 
 .related-list-item {
@@ -295,12 +296,8 @@ a:hover {
 #single-news-comments {
     background: white;
     padding: 2rem;
-    right: 1rem;
-    overflow-y: hidden;
-    position: absolute;
-    margin-right: 5.9%;
     height: 50rem;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .related-list-item {
@@ -404,6 +401,7 @@ a:hover {
     width: 20rem;
 /*    width: 20rem!important; */
     box-shadow: 0 0 7px 0 #040404;
+    display: none;
 }
 
 .map-content-after-scroll {

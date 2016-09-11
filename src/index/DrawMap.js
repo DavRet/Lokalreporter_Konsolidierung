@@ -86,7 +86,7 @@ NewsMap.DrawMap = (function () {
 
         setArticlesFromApi = function (artikelArray) {
             //console.log(artikelArray);
-            markersSet=false,
+            markersSet=false;
             addMarker(artikelArray);
 
 
@@ -99,6 +99,7 @@ NewsMap.DrawMap = (function () {
         },
 
         changeMapSize = function() {
+
             map.invalidateSize();
         },
 
