@@ -22,6 +22,7 @@ NewsMap.DrawMap = (function () {
         tempLat,
         tempLon,
         greenIcon,
+        apiIp,
 
 
         map = null,
@@ -34,6 +35,18 @@ NewsMap.DrawMap = (function () {
         },
 
         init = function () {
+
+            $.ajax({
+                async: false,
+                type: 'GET',
+                url: 'http://localhost/Konsolidierung_Lokalreporter/Config',
+                success: function(data) {
+                    apiIp=data;
+                    console.log(apiIp);
+                    //callback
+                }
+            });
+
             function isInArray(value, array) {
                 return array.indexOf(value) > -1;
             }
@@ -62,7 +75,7 @@ NewsMap.DrawMap = (function () {
 
             var settings = {
                 "async": true,
-                "url": "http://localhost:9000/news?radius=" + radius + "&centerpoint=lat49.008852:lng12.085179&limit="+limit,
+                "url": apiIp+"/news?radius=" + radius + "&centerpoint=lat49.008852:lng12.085179&limit="+limit,
                 "method": "GET",
                 "headers": {
                     "Accept": "application/json",

@@ -220,6 +220,39 @@
     </div>
 
     <div id="main">
+
+        <select id="select-category">
+            <optgroup label="Kategorie">
+                <option value="wetter">Wetter</option>
+                <option value="sport">Sport</option>
+                <option value="kultur">Kultur</option>
+                <option value="verkehr">Verkehr</option>
+                <option value="religion">Religion</option>
+            </optgroup>
+            <optgroup label="Region">
+                <option value="oberbayern">Oberbayern</option>
+                <option value="niederbayern">Niederbayern</option>
+                <option value="mittelfranken">Mittelfranken</option>
+                <option value="oberfranken">Oberfranken</option>
+                <option value="unterfranken">Unterfranken</option>
+                <option value="schwaben">Schwaben</option>
+                <option value="oberpfalz">Oberpfalz</option>
+            </optgroup>
+        </select>
+
+        <select id="select-typ">
+            <option value="">Alle Typen</option>
+            <option value="videos">Nur Viedeos</option>
+        </select>
+
+        <select id="select-radius">
+            <option value="">Alle</option>
+            <option value="200">200 km</option>
+            <option value="100">100 km</option>
+            <option value="50">50 km</option>
+
+        </select>
+
         <div class="main-content" id="single-news-page">
 
             <div class="row">
@@ -264,6 +297,9 @@
 
             <div class="main-content" id="news-content">
                 <h1 class="first-headline">Nachrichten in ihrer Umgebung</h1>
+
+
+
                 <ul class="results-list " id="news-list"></ul>
             </div>
 

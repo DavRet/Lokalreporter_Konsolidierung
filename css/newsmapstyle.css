@@ -1588,3 +1588,15 @@ label {
 .map-header {
     display: none;
 }
+
+#select-category{
+    width: 20%;
+}
+
+#select-typ{
+    width: 20%;
+}
+
+#select-radius{
+    width: 20%;
+}
