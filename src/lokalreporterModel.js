@@ -206,8 +206,14 @@ NewsMap.lokalreporterModel = (function () {
                 console.log(CatTyp);
                 }
             else{
-                CatTyp= "&metadataid="+category;
-                console.log(CatTyp);
+                if(category=="alle"){
+                    CatTyp="";
+                }
+                else{
+                    CatTyp= "&metadataid="+category;
+                    console.log(CatTyp);
+                }
+
             }
 
 
@@ -222,13 +228,16 @@ NewsMap.lokalreporterModel = (function () {
                     "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA",
                     "cache-control": "no-cache",
                     "postman-token": "abeec082-341a-ccd1-2cc8-169828f412de"
+                    //"accept": "application/json"
                 }
             };
 
             $.ajax(settings).done(function (response) {
                 console.log(response);
                 currentNews=response.items;
+
                 NewsMap.lokalreporterView.setFilteredNews(response);
+                NewsMap.DrawMap.setArticlesFromApi(response.items);
             });
 
         };

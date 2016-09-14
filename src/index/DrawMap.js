@@ -102,13 +102,13 @@ NewsMap.DrawMap = (function () {
             markersSet=false;
             addMarker(artikelArray);
 
-
         },
 
         getAllArticles = function () {
 
             // 500 radius und 40 limit testweise gewählt später über select oder so
-            getArticlesFromApi(500,40);
+           // getArticlesFromApi(500,40);
+            // hier muss filter ausgelesen und getFilteredNews aus lokalrepModel aufgerufen werden?
         },
 
         changeMapSize = function() {
@@ -154,17 +154,17 @@ NewsMap.DrawMap = (function () {
 
                         if(data[i].geoData[2] != undefined){
                             if(data[i].geoData[2].geoPoint != undefined || data[i].geoData[2].geoPoint != null){
-                                var lat= data[i].geoData[2].geoPoint.latitutde;
+                                var lat= data[i].geoData[2].geoPoint.lat;
                             }
                         }
                         else if(data[i].geoData[0] != undefined){
                             if(data[i].geoData[0].geoPoint != undefined ||data[i].geoData[0].geoPoint != null){
-                                var lat= data[i].geoData[0].geoPoint.latitutde;
+                                var lat= data[i].geoData[0].geoPoint.lat;
                             }
                         }
                         else if(data[i].geoData[1] != undefined){
                             if(data[i].geoData[1].geoPoint != undefined ||data[i].geoData[1].geoPoint != null){
-                                var lat= data[i].geoData[1].geoPoint.latitutde;
+                                var lat= data[i].geoData[1].geoPoint.lat;
                             }
                         }
                         else{
@@ -176,17 +176,17 @@ NewsMap.DrawMap = (function () {
 
                         if(data[i].geoData[2] != undefined){
                             if(data[i].geoData[2].geoPoint != undefined || data[i].geoData[2].geoPoint != null){
-                                var lon= data[i].geoData[2].geoPoint.longitude;
+                                var lon= data[i].geoData[2].geoPoint.lon;
                             }
                         }
                         else if(data[i].geoData[0] != undefined){
                             if(data[i].geoData[0].geoPoint != undefined ||data[i].geoData[0].geoPoint != null){
-                                var lon= data[i].geoData[0].geoPoint.longitude;
+                                var lon= data[i].geoData[0].geoPoint.lon;
                             }
                         }
                         else if(data[i].geoData[1] != undefined){
                             if(data[i].geoData[1].geoPoint != undefined || data[i].geoData[1].geoPoint != null){
-                                var lon= data[i].geoData[1].geoPoint.longitude;
+                                var lon= data[i].geoData[1].geoPoint.lon;
                             }
                         }
                         else{

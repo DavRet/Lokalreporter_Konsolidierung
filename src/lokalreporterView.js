@@ -29,11 +29,12 @@ NewsMap.lokalreporterView = (function () {
                 console.log(apiIp);
 
             NewsMap.lokalreporterModel.init();
-                selectedCat="wetter";
+                //selectedCat="wetter";
+            selectedCat="alle";
                 console.log("im Init selecCat= "+selectedCat);
                 selectedCatTyp="Kategorie";
-                selectedRadius="";
-                //selectedTyp="?attachmentTypes=video,picture&";
+                selectedRadius="&radius=50&centerpoint=lat49.008852:lng12.085179";
+
                   selectedTyp="?";
 
             $('#scroll-wrapper').bind('scroll', function () {
@@ -53,7 +54,10 @@ NewsMap.lokalreporterView = (function () {
             $('#main').css('margin-top', headerHeight);
 
             NewsMap.lokalreporterModel.getTopNews(); //getTopNews();
-            NewsMap.lokalreporterModel.getNews(20); //getNews(20);
+           // NewsMap.lokalreporterModel.getNews(20); //getNews(20);
+            NewsMap.lokalreporterModel.getFilteredNews(selectedCatTyp,selectedCat,selectedRadius,selectedTyp);
+            // muss getFilteredNews aufgerufen werden mit aktuellen bzw standart filter.
+
             $('#lokalreporter-image').on('click', function () {
 
                 document.location.hash = "top-news";
@@ -842,7 +846,6 @@ NewsMap.lokalreporterView = (function () {
                 imageSrc = data['items'][i]['thumbnail']['source'];
                 commentCount = data['items'][i]['properties']['comments.count'];
 
-
                 if (imageSrc == '') {
                     imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
                 }
@@ -963,7 +966,7 @@ NewsMap.lokalreporterView = (function () {
                 pubDate = pubDate.split("T");
                 pubDate[1] = pubDate[1].substring(0, 8);
 
-                if (data['items'][i]['attachments']['items'].length && data['items'][i]['attachments']['items'][0]['url'] != 'false' && data['items'][i]['attachments']['items'][0]['type'] == 'video') {
+                if (data['items'][i]['attachments']['items'].length && data['items'][i]['attachments']['items'][0]['url'] != 'false' && data['items'][i]['attachments']['items'][0]['type']['id'] == 'video') {
                     thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
                     videoSrc = data['items'][i]['attachments']['items'][0]['url'];
 
@@ -1638,9 +1641,19 @@ NewsMap.lokalreporterView = (function () {
                 artikelLink = data['items'][i]['originalLink'];
                 pubDate = data['items'][i]['date'];
                 content = data['items'][i]['abstract'];
-                imageSrc = data['items'][i]['thumbnail']['source'];
+
+
+                if(data['items'][i]['thumbnail']==undefined){
+                        imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
+                }
+                else {
+                    imageSrc = data['items'][i]['thumbnail']['source'];
+                }
                 commentCount = data['items'][i]['properties']['comments.count'];
 
+                if(pubDate == undefined){
+                    pubDate= "unbekannter Ort";
+                }
 
                 if (imageSrc == '') {
                     imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
@@ -1654,7 +1667,7 @@ NewsMap.lokalreporterView = (function () {
                  + '<div class="row text-center">' + '<button class="read-more-button">' + '<a class="more-link" target="_blank" href = "' + artikelLink + '" >Weiterlesen' + '</a>' + '</button>' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
                  )
                  ;*/
-                if (data['items'][i]['attachments']['items'].length && data['items'][i]['attachments']['items'][0]['url'] != 'false' && data['items'][i]['attachments']['items'][0]['type'] == 'video') {
+                if (data['items'][i]['attachments']['items'].length && data['items'][i]['attachments']['items'][0]['url'] != 'false' && data['items'][i]['attachments']['items'][0]['type']['id'] == 'video') {
                     thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
                     videoSrc = data['items'][i]['attachments']['items'][0]['url'];
 
