@@ -426,6 +426,11 @@ NewsMap.NewsMapView = (function () {
     that.identifyLocation = identifyLocation;
     that.setAutocompletePosition = setAutocompletePoisition;
     that.setRadiusBoxPosition = setRadiusBoxPosition;
+    that.showLogin=showLogin;
+    that.showRegister=showRegister;
+    that.hideRegister=hideRegister;
+    that.hideLogin=hideLogin;
+    that.hideLoginBodyClick=hideLoginBodyClick;
     that.init = init;
 
     return that;

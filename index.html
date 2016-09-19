@@ -24,7 +24,8 @@
     <link rel="stylesheet" href="css/jquery-ui.min.css"/>
 
 
-    <!--<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">-->
+
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
 
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -49,7 +50,7 @@
     <script src="js/jquery.ba-hashchange.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"
             charset="utf-8"></script>
-    <!--<script src="js/jquery-ui.min.js"></script>-->
+    <!-- <script src="js/jquery-ui.min.js"></script> -->
 
 
     <script src="js/tag-it.js"></script>
@@ -82,13 +83,20 @@
                         <div class="large-1 small-2 columns"><i class="fi-magnifying-glass" id="search-button-top"></i>
                         </div>
                     </div>
-                    <div class="show-for-medium-down"><i class="small-menu-item fi-list" id="menu-button-top"></i></div>
+                    <div class="show-for-medium-down" id="collapse-div"><i class="small-menu-item fi-list" id="menu-button-top"></i></div>
                     <div class="show-for-medium-down"><i class="small-menu-item fi-magnifying-glass"
                                                          id="search-button-top-small"></i></div>
 
                 </div>
-
             </nav>
+            <div id="collapse-menu">
+                <ul>
+                    <li class="collapse-menu-item" id="collapse-news">News</li>
+                    <li class="collapse-menu-item" id="collapse-topnews">TopNews</li>
+                    <li class="collapse-menu-item" id="collapse-login">Login</li>
+                    <li class="collapse-menu-item" id="collapse-register">Register</li>
+                </ul>
+            </div>
         </div>
         <div class="row">
             <nav id="main-navigation" role="navigation">
@@ -100,41 +108,8 @@
                         <li id="live-button" class="main-menu-item">TOP-NEWS</li>
                         <li id="news-button" class="main-menu-item">NACHRICHTEN</li>
 
-                        <!--<li id="category-button" class="main-menu-item">KATEGORIEN</li> -->
-                        <li id="category-button" class="has-dropdown main-menu-item" data-dropdown="drop1">KATEGORIEN
-                            <ul id="drop1" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
-                                <li class="dropdown-item dropdown-item-category">Wetter</li>
-                                <li class="dropdown-item dropdown-item-category">Sport</li>
-                                <li class="dropdown-item dropdown-item-category">Verkehr</li>
-                                <li class="dropdown-item dropdown-item-category">Polizei</li>
-                                <li class="dropdown-item dropdown-item-category">Ratgeber</li>
-                                <li class="dropdown-item dropdown-item-category">Kultur</li>
-                                <li class="dropdown-item dropdown-item-category">Religion</li>
-                                <!--<li class="has-dropdown dropdown-item" id="region-button" data-dropdown="drop2"
-                                    aria-controls="drop2" aria-expanded="false">Region
-                                    <ul id="drop2" class="f-dropdown" data-dropdown-content aria-hidden="true"
-                                        tabindex="-1">
-                                        <li class="dropdown-item">>Oberbayern</li>
-                                        <li class="dropdown-item">>Niederbayern</li>
-                                        <li class="dropdown-item">>Franken</li>
-                                        <li class="dropdown-item">>Schwaben</li>
-                                        <li class="dropdown-item">>Oberpfalz</li>
-                                    </ul>
-                                </li>-->
-
-                                <li class="dropdown-item dropdown-item-region">Oberbayern</li>
-                                <li class="dropdown-item dropdown-item-region">Niederbayern</li>
-                                <li class="dropdown-item dropdown-item-region">Mittelfranken</li>
-                                <li class="dropdown-item dropdown-item-region">Oberfranken</li>
-                                <li class="dropdown-item dropdown-item-region">Unterfranken</li>
-                                <li class="dropdown-item dropdown-item-region">Schwaben</li>
-                                <li class="dropdown-item dropdown-item-region">Oberpfalz</li>
 
 
-                            </ul>
-
-                        </li>
-                        <li id="mediathek-button" class="main-menu-item">MEDIATHEK</li>
                     </ul>
                 </div>
             </nav>
@@ -290,9 +265,10 @@
 
             <div class="main-content" id="personal-content">
                 <div class="row">
-                    <h1 class="first-headline large-6 columns">Personalisierte Nachrichten</h1>
+                    <h1 class="first-headline large-12 columns">Personalisierte Nachrichten</h1>
+                    <!-- <button id="relatedButton">News</button>
                     <ul id="personal-tags" class="large-6 columns">
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
 
@@ -313,25 +289,12 @@
 
             </div>
 
-            <div class="main-content" id="category-content">
-                <h1 class="first-headline" id="category-headline">Kategorien</h1>
-
-                <ul class="results-list" id="category-list">
-
-                </ul>
-            </div>
-
             <div class="main-content" id="favorite-content">
                 <h1 class="first-headline" id="favorite-headline">Favoriten</h1>
 
                 <ul class="results-list" id="favorite-list">
 
                 </ul>
-            </div>
-
-            <div class="main-content" id="mediathek-content">
-                <h1 class="first-headline">Mediathek</h1>
-                <ul class="results-list" id="media-list"></ul>
             </div>
         </div>
         <div class="large-4 columns medium-4 columns right-content">
