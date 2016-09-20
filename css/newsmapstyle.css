@@ -1648,3 +1648,39 @@ label {
     width: 20%;
 }
 
+@media(min-width: 100px) and (max-width: 1024px){
+    #login-modal-content{
+        width: 80%;
+    }
+}
+
+@media(min-width: 100px) and (max-width: 1024px){
+    #register-modal-content{
+        width: 80%;
+    }
+}
+
+@media(min-width: 100px) and (max-width: 1024px){
+    #share-modal-content{
+        width: 80%;
+    }
+}
+
+@media(min-width: 100px) and (max-width: 640px){
+    #select-category{
+        width: 30%;
+    }
+}
+@media(min-width: 100px) and (max-width: 640px){
+    #select-radius{
+        width: 30%;
+    }
+}
+@media(min-width: 100px) and (max-width: 640px){
+    #select-typ{
+        width: 30%;
+    }
+}
+
+
+

@@ -135,6 +135,8 @@ NewsMap.DrawMap = (function () {
         },
 
         addMarker = function (data) {
+            var pfad;
+
             if (!favoritesVisible) {
                 lastData = data;
             }
@@ -147,73 +149,81 @@ NewsMap.DrawMap = (function () {
                 //for (i = 0; i < 10; i++) {
                 for (i = 0; i < data.length; i++) {
 
-
+                         pfad= data[i];
                          tempData.push(data[i]);
 
-                        //Nimmt Geo Information 2, falls nicht vorhanden -> 0, falls auch nicht vorhanden 1.
+                        if(data[i].geoData == undefined){
 
-                        if(data[i].geoData[2] != undefined){
-                            if(data[i].geoData[2].geoPoint != undefined || data[i].geoData[2].geoPoint != null){
-                                var lat= data[i].geoData[2].geoPoint.lat;
+                            pfad=data[i]['news'];
+
+                        }
+
+
+
+                            //Nimmt Geo Information 2, falls nicht vorhanden -> 0, falls auch nicht vorhanden 1.
+
+                            if (pfad.geoData[2] != undefined) {
+                                if (pfad.geoData[2].geoPoint != undefined || pfad.geoData[2].geoPoint != null) {
+                                    var lat = pfad.geoData[2].geoPoint.lat;
+                                }
                             }
-                        }
-                        else if(data[i].geoData[0] != undefined){
-                            if(data[i].geoData[0].geoPoint != undefined ||data[i].geoData[0].geoPoint != null){
-                                var lat= data[i].geoData[0].geoPoint.lat;
+                            else if (pfad.geoData[0] != undefined) {
+                                if (pfad.geoData[0].geoPoint != undefined || pfad.geoData[0].geoPoint != null) {
+                                    var lat = pfad.geoData[0].geoPoint.lat;
+                                }
                             }
-                        }
-                        else if(data[i].geoData[1] != undefined){
-                            if(data[i].geoData[1].geoPoint != undefined ||data[i].geoData[1].geoPoint != null){
-                                var lat= data[i].geoData[1].geoPoint.lat;
+                            else if (pfad.geoData[1] != undefined) {
+                                if (pfad.geoData[1].geoPoint != undefined || pfad.geoData[1].geoPoint != null) {
+                                    var lat = pfad.geoData[1].geoPoint.lat;
+                                }
                             }
-                        }
-                        else{
-                            //alert("ERROR NO GEO INFORMATION AVAILIBLE -- LAT");
-                            // Setzen einer Standart Location falls keine Vorhanden!
-                            var lat= 50.14567;
+                            else {
+                                //alert("ERROR NO GEO INFORMATION AVAILIBLE -- LAT");
+                                // Setzen einer Standart Location falls keine Vorhanden!
+                                var lat = 50.14567;
 
-                        }
-
-                        if(data[i].geoData[2] != undefined){
-                            if(data[i].geoData[2].geoPoint != undefined || data[i].geoData[2].geoPoint != null){
-                                var lon= data[i].geoData[2].geoPoint.lon;
                             }
-                        }
-                        else if(data[i].geoData[0] != undefined){
-                            if(data[i].geoData[0].geoPoint != undefined ||data[i].geoData[0].geoPoint != null){
-                                var lon= data[i].geoData[0].geoPoint.lon;
+
+                            if (pfad.geoData[2] != undefined) {
+                                if (pfad.geoData[2].geoPoint != undefined || pfad.geoData[2].geoPoint != null) {
+                                    var lon = pfad.geoData[2].geoPoint.lon;
+                                }
                             }
-                        }
-                        else if(data[i].geoData[1] != undefined){
-                            if(data[i].geoData[1].geoPoint != undefined || data[i].geoData[1].geoPoint != null){
-                                var lon= data[i].geoData[1].geoPoint.lon;
+                            else if (pfad.geoData[0] != undefined) {
+                                if (pfad.geoData[0].geoPoint != undefined || pfad.geoData[0].geoPoint != null) {
+                                    var lon = pfad.geoData[0].geoPoint.lon;
+                                }
                             }
-                        }
-                        else{
-                            //alert("ERROR NO GEO INFORMATION AVAILIBLE -- Lon");
-                            // Setzen einer Standart Location falls keine Vorhanden!
-                            var lon= 11.05928;
-                        }
+                            else if (pfad.geoData[1] != undefined) {
+                                if (pfad.geoData[1].geoPoint != undefined || pfad.geoData[1].geoPoint != null) {
+                                    var lon = pfad.geoData[1].geoPoint.lon;
+                                }
+                            }
+                            else {
+                                //alert("ERROR NO GEO INFORMATION AVAILIBLE -- Lon");
+                                // Setzen einer Standart Location falls keine Vorhanden!
+                                var lon = 11.05928;
+                            }
 
 
-                        var id= data[i].id;
-
-                        //console.log("ID: " +data[i].id);
-                        var title= data[i].title;
-                        //console.log("Titel: " +data[i].title);
+                            var id = pfad.id;
 
 
-                        var marker = L.marker([lat,lon]);
-                        $(marker).attr("data-id", id);
-                        var markerPopup = "<div class='marker-popup' data-id='" + id + "' ><h3 class='marker-title'>" + title + "</h3></div>";
+                            var title = pfad.title;
 
-                        marker.bindPopup(markerPopup);
 
-                        $(markerPopup).attr("id", data[i].id);
 
-                        markers.addLayer(marker);
+                            var marker = L.marker([lat, lon]);
+                            $(marker).attr("data-id", id);
+                            var markerPopup = "<div class='marker-popup' data-id='" + id + "' ><h3 class='marker-title'>" + title + "</h3></div>";
 
-                       // console.log(marker);
+                            marker.bindPopup(markerPopup);
+
+                            $(markerPopup).attr("id", pfad.id);
+
+                            markers.addLayer(marker);
+
+                            // console.log(marker);
 
 
                   //  }
@@ -231,7 +241,7 @@ NewsMap.DrawMap = (function () {
                     map.setView(new L.LatLng(lat, lon));
                 }
 
-                setChronoView(tempData);
+                //setChronoView(tempData);
 
                 tempData.length = 0;
                 markersSet = true;
@@ -245,6 +255,8 @@ NewsMap.DrawMap = (function () {
                 $(".marker-popup").dotdotdot();
 
             });
+
+            changeMapSize();
         },
 
         changeMarkerColor = function (id) {
@@ -261,12 +273,9 @@ NewsMap.DrawMap = (function () {
                     });
                     map.setView([allMarkers[i]._latlng.lat,allMarkers[i]._latlng.lng],16);
                     markers.refreshClusters();
-
-
-
-
                 }
             }
+            changeMapSize();
         },
 
         enterListen = function () {

@@ -21,6 +21,11 @@ NewsMap.lokalreporterModel = (function () {
         currentNews,
         currentTopNews,
         currentQuery,
+        currentFavorite,
+
+        getCurrentFavorite= function () {
+          return currentFavorite;
+        },
 
         getTopNews = function () {
 
@@ -193,10 +198,32 @@ NewsMap.lokalreporterModel = (function () {
             }
         },
 
+        getFavoriteItems = function (token) {
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": apiIp+"/user/bookmarks",
+                "method": "GET",
+                "headers": {
+                    "authorization": token,
+                    "cache-control": "no-cache",
+                    "postman-token": "abeec082-341a-ccd1-2cc8-169828f412de"
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+
+                currentFavorite=response.items;
+                NewsMap.lokalreporterView.setFavoriteItems(response);
+
+
+            });
+
+        },
 
 
         getFilteredSearchResults= function (radius,video) {
-            console.log(apiIp+"/news"+video+"query="+currentQuery+radius+"&limit=20");
+            //console.log(apiIp+"/news"+video+"query="+currentQuery+radius+"&limit=20");
 
             var settings = {
                 "async": true,
@@ -212,7 +239,7 @@ NewsMap.lokalreporterModel = (function () {
             };
 
             $.ajax(settings).done(function (response) {
-                console.log(response);
+
                 currentNews=response.items;
                 NewsMap.lokalreporterView.setSearchResults(response,currentQuery);
                 //NewsMap.lokalreporterView.setFilteredSearchResults(response);
@@ -222,10 +249,6 @@ NewsMap.lokalreporterModel = (function () {
 
         getFilteredNews = function (categoryTyp,category,radius,typ) {
 
-            // Unterscheidung ob man in TopNews ist oder Filter nur in News?
-
-            console.log("category="+category);
-            console.log("categoryTYP: "+categoryTyp);
 
            // localhost:9000/news?metadataid=sport&attachmentTypes=video&radius=20&centerpoint=lat49.008852:lng12.085179&limit=100
             var CatTyp;
@@ -234,8 +257,7 @@ NewsMap.lokalreporterModel = (function () {
 
                 ///funktioninhalt aus getRegId
                 CatTyp = "&geodataid=" + regId;
-                console.log(regId);
-                console.log(CatTyp);
+
                 }
             else{
                 if(category=="alle"){
@@ -243,13 +265,13 @@ NewsMap.lokalreporterModel = (function () {
                 }
                 else{
                     CatTyp= "&metadataid="+category;
-                    console.log(CatTyp);
+
                 }
 
             }
 
 
-            console.log("url string: "+apiIp+"/news"+typ+"limit=20"+radius+CatTyp);
+           // console.log("url string: "+apiIp+"/news"+typ+"limit=20"+radius+CatTyp);
 
             var settings = {
                 "async": true,
@@ -265,8 +287,7 @@ NewsMap.lokalreporterModel = (function () {
             };
 
             $.ajax(settings).done(function (response) {
-                console.log(response);
-                currentNews=response.items;
+
 
                 NewsMap.lokalreporterView.setFilteredNews(response);
                 NewsMap.DrawMap.setArticlesFromApi(response.items);
@@ -286,6 +307,8 @@ NewsMap.lokalreporterModel = (function () {
     that.getCategory = getCategory;
     that.getSearchQuery = getSearchQuery;
     that.getCurrentQuery=getCurrentQuery;
+    that.getCurrentFavorite=getCurrentFavorite;
+    that.getFavoriteItems=getFavoriteItems;
 
 
 
