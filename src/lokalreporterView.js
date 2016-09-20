@@ -28,7 +28,6 @@ NewsMap.lokalreporterView = (function () {
 
 
             NewsMap.lokalreporterModel.init();
-                //selectedCat="wetter";
             selectedCat="alle";
 
                 selectedCatTyp="Kategorie";
@@ -56,7 +55,6 @@ NewsMap.lokalreporterView = (function () {
             $('#main').css('margin-top', headerHeight);
 
             NewsMap.lokalreporterModel.getTopNews(); //getTopNews();
-           // NewsMap.lokalreporterModel.getNews(20); //getNews(20);
             NewsMap.lokalreporterModel.getFilteredNews(selectedCatTyp,selectedCat,selectedRadius,selectedTyp);
             // muss getFilteredNews aufgerufen werden mit aktuellen bzw standart filter.
 
@@ -72,17 +70,12 @@ NewsMap.lokalreporterView = (function () {
             });
             $('#search-input').keypress(function (e) {
                 if (e.which == 13) {
-                    //NewsMap.lokalreporterModel.getSearchQuery(); //getSearchQuery();
                     var query = $('#search-input').val().toLowerCase();
 
                     document.location.hash = "suche/" + query;
                     return false;
                 }
             });
-
-            /*$("#relatedButton").on("click", function () {
-                getRelatedItems();
-            }) ;*/
 
             $(document).on("click", '.tag-item', function (e) {
                 var query = $(e.target).closest('.tagit-label').html();
@@ -215,7 +208,7 @@ NewsMap.lokalreporterView = (function () {
             });
 
             $("#collapse-news").on("click", function () {
-              
+
                 document.location.hash = "nachrichten";
                 $("#collapse-menu").hide();
             });
@@ -1196,12 +1189,10 @@ NewsMap.lokalreporterView = (function () {
                     document.location.hash = "top-news";
                     if (!isLoggedIn) {
                         showTop();
-
                     }
                     else {
                         getRelatedItems();
                         showPersonal();
-
                     }
 
                     break;
@@ -1483,12 +1474,15 @@ NewsMap.lokalreporterView = (function () {
         },
 
         showNews = function () {
+            console.log("in showNews");
             $("#select-category").prop('disabled',false);
             $('.main-content').hide();
             $('#news-content').toggle();
             $("#select-radius,#select-category,#select-typ").show();
             var data = NewsMap.lokalreporterModel.getCurrentNews('news');
+            console.log(data);
             if (data != null && data != undefined) {
+                console.log("setArticlesFrom Api Current News");
                 NewsMap.DrawMap.setArticlesFromApi(data);
             }
 

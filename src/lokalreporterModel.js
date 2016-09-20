@@ -194,6 +194,8 @@ NewsMap.lokalreporterModel = (function () {
                 return currentTopNews;
             };
             if(x=='news'){
+                console.log("in getCurrNews");
+                console.log(currentNews);
                 return currentNews;
             }
         },
@@ -240,7 +242,7 @@ NewsMap.lokalreporterModel = (function () {
 
             $.ajax(settings).done(function (response) {
 
-                currentNews=response.items;
+                currentQuery=response.items;
                 NewsMap.lokalreporterView.setSearchResults(response,currentQuery);
                 //NewsMap.lokalreporterView.setFilteredSearchResults(response);
                 NewsMap.DrawMap.setArticlesFromApi(response.items);
@@ -288,7 +290,7 @@ NewsMap.lokalreporterModel = (function () {
 
             $.ajax(settings).done(function (response) {
 
-
+                currentNews=response.items;
                 NewsMap.lokalreporterView.setFilteredNews(response);
                 NewsMap.DrawMap.setArticlesFromApi(response.items);
             });
