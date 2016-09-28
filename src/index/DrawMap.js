@@ -67,6 +67,10 @@ NewsMap.DrawMap = (function () {
             return this;
         },
 
+        addArticlesToMap = function () {
+
+        };
+
 
         getArticlesFromApi = function (radius,limit) {
 
@@ -108,7 +112,7 @@ NewsMap.DrawMap = (function () {
 
             // 500 radius und 40 limit testweise gewählt später über select oder so
            // getArticlesFromApi(500,40);
-            // hier muss filter ausgelesen und getFilteredNews aus lokalrepModel aufgerufen werden?
+            // hier muss filter ausgelesen und getNews aus lokalrepModel aufgerufen werden?
         },
 
         changeMapSize = function() {
@@ -143,7 +147,7 @@ NewsMap.DrawMap = (function () {
 
             if (!markersSet) {
 
-                markers.clearLayers();
+               // markers.clearLayers();
 
 
                 //for (i = 0; i < 10; i++) {
@@ -215,17 +219,50 @@ NewsMap.DrawMap = (function () {
 
                             var marker = L.marker([lat, lon]);
                             $(marker).attr("data-id", id);
+                            $(marker).attr("title", title);
                             var markerPopup = "<div class='marker-popup' data-id='" + id + "' ><h3 class='marker-title'>" + title + "</h3></div>";
 
-                            marker.bindPopup(markerPopup);
+                           //marker.bindPopup(markerPopup);
+                            marker.on("click", function () {
+                                var id= $(this)[0]['data-id'];
+                                console.log(this);
+                                console.log(id);
+                                console.log($(this)[0]['title']);
+                                var currentWindow;
+                                if($("#personal-content").is(':visible')){
+                                    currentWindow="personal-content";
+                                }
+                                else if($("#favorite-content").is(':visible')){
+                                    currentWindow="favorite-content";
+                                }
+                                else if($("#news-content").is(':visible')){
+                                    currentWindow="news-content";
+                                }
+                                else if($("#live-content").is(':visible')){
+                                    currentWindow="live-content";
+                                }
+                                else if($("#search-content").is(':visible')){
+                                    currentWindow="search-content";
+                                }
+                                var listElement =$($("#"+currentWindow).find("#"+id)).parent();
+                                listElement.css("border","10px solid #3a9bd8");
+
+                                var from =$("#lokalreporter-header").height();
+                                console.log(from);
+                                $('#scroll-wrapper').animate({
+                                    scrollTop: listElement.offset().top - from
+                                });//, 1000);
+
+                                setTimeout(function () {
+                                    listElement.css("border","");
+
+                                }, 7000);
+
+                            });
 
                             $(markerPopup).attr("id", pfad.id);
 
                             markers.addLayer(marker);
-
-                            // console.log(marker);
-
-
                   //  }
                 }
                 if(markers != null && map != null) {

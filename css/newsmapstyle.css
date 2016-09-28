@@ -270,6 +270,7 @@ a:hover {
 #comment-list {
     list-style-type: none;
     margin-left: 0 !important;
+
 }
 
 #related-news-list {
@@ -277,13 +278,12 @@ a:hover {
     margin-left: 0 !important;
 }
 
-#related-news-list li {
+
+
+.related-list-item {
     display: inline;
     float: left;
     max-width: 30%;
-}
-
-.related-list-item {
 }
 
 .comment-divider {
@@ -304,8 +304,9 @@ a:hover {
 #single-news-comments {
     background: white;
     padding: 2rem;
-    height: 50rem;
+
     overflow-y: auto;
+
 }
 
 .related-list-item {
@@ -1682,5 +1683,11 @@ label {
     }
 }
 
+#comment-open{
+    display:none;
+}
 
+#comment-img{
+    margin-left: 1%;
+}
 
