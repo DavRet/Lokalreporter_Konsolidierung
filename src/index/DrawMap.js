@@ -23,7 +23,7 @@ NewsMap.DrawMap = (function () {
         tempLon,
         greenIcon,
         apiIp,
-
+        extraMarkers=false,
 
         map = null,
         newsDataObjects = [],
@@ -138,6 +138,10 @@ NewsMap.DrawMap = (function () {
             getAllArticles();
         },
 
+        enableExtraMarkers = function () {
+            extraMarkers=true;
+        },
+
         addMarker = function (data) {
             var pfad;
 
@@ -147,7 +151,36 @@ NewsMap.DrawMap = (function () {
 
             if (!markersSet) {
 
-               // markers.clearLayers();
+                //damit neue marker zusätzlich angezeigt werden(wenn nach unten gescrollt wird und neue nachrichten geladen werden
+                if(extraMarkers==false){
+                    //Marker werden von Map gelöscht und Artikel wieder aus Artikelfenster
+                    markers.clearLayers();
+                    var currWind= NewsMap.lokalreporterView.getCurrentWindow();
+
+                    switch(currWind){
+                        case "news":
+                            if($("#news-list").children().length>10){
+                                console.log($("#news-list").children().eq(4));
+                                $("#news-list").children().eq(4).nextAll('div').remove();
+                            };
+                            break;
+                        case "top-news":
+                            if($("#top-list").children().length>10){
+                                console.log($("#news-list").children().eq(4));
+                                $("#top-list").children().eq(4).nextAll('div').remove();
+                            };
+                        case "suche":
+                            if($("#search-list").children().length>10){
+                                console.log($("#news-list").children().eq(4));
+                                $("#search-list").children().eq(4).nextAll('div').remove();
+                            };
+                    }
+
+                }
+                else{
+                    extraMarkers=false;
+                }
+
 
 
                 //for (i = 0; i < 10; i++) {
@@ -875,6 +908,7 @@ NewsMap.DrawMap = (function () {
     that.showFavArticle = showFavArticle;
     that.removeQuery = removeQuery;
     that.changeMapSize = changeMapSize;
+    that.enableExtraMarkers=enableExtraMarkers;
     that.init = init;
 
     return that;
