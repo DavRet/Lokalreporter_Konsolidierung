@@ -169,10 +169,17 @@ NewsMap.DrawMap = (function () {
                                 console.log($("#news-list").children().eq(4));
                                 $("#top-list").children().eq(4).nextAll('div').remove();
                             };
+                            break;
                         case "suche":
                             if($("#search-list").children().length>10){
                                 console.log($("#news-list").children().eq(4));
                                 $("#search-list").children().eq(4).nextAll('div').remove();
+                            };
+                            break;
+                        case "personal":
+                            if($("#personal-Personalisierter-Content").children().length>10){
+                                console.log($("#personal-Personalisierter-Content").children().eq(4));
+                                $("#personal-Personalisierter-Content").children().eq(4).nextAll('div').remove();
                             };
                     }
 

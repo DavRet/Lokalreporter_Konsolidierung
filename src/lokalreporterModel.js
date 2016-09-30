@@ -45,7 +45,7 @@ NewsMap.lokalreporterModel = (function () {
             $.ajax(settings).done(function (response) {
                 var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
                 NewsMap.lokalreporterView.setTopNews(response,pagingInfo);
-                //NewsMap.DrawMap.setArticlesFromApi(response.items);
+                NewsMap.DrawMap.setArticlesFromApi(response.items);
                 currentTopNews=response.items;
             }).error(function (response) {
                 console.log("error");
@@ -202,7 +202,6 @@ NewsMap.lokalreporterModel = (function () {
 
 
             });
-
         },
 
 
@@ -253,7 +252,7 @@ NewsMap.lokalreporterModel = (function () {
                     case "news":
                         NewsMap.lokalreporterView.setNews(response,pagingInfo);
                         NewsMap.DrawMap.enableExtraMarkers();
-                        NewsMap.DrawMap.setArticlesFromApi(response.items);
+                       NewsMap.DrawMap.setArticlesFromApi(response.items);
                         break;
                     case "top-news":
                         NewsMap.lokalreporterView.setTopNews(response,pagingInfo);
@@ -263,6 +262,11 @@ NewsMap.lokalreporterModel = (function () {
                     case "suche":
                         console.log(response);
                         NewsMap.lokalreporterView.setSearchResults(response,searchQuery,pagingInfo);
+                        NewsMap.DrawMap.enableExtraMarkers();
+                        NewsMap.DrawMap.setArticlesFromApi(response.items);
+                        break;
+                    case "personal":
+                        NewsMap.lokalreporterView.setPersonalContent(response, "Personalisierter-Content",pagingInfo);
                         NewsMap.DrawMap.enableExtraMarkers();
                         NewsMap.DrawMap.setArticlesFromApi(response.items);
                         break;
@@ -309,7 +313,7 @@ NewsMap.lokalreporterModel = (function () {
                 var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
                 currentNews=response.items;
                 NewsMap.lokalreporterView.setNews(response,pagingInfo);
-                NewsMap.DrawMap.setArticlesFromApi(response.items);
+                //NewsMap.DrawMap.setArticlesFromApi(response.items);
             });
 
         };
