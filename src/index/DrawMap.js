@@ -22,7 +22,7 @@ NewsMap.DrawMap = (function () {
         tempLat,
         tempLon,
         greenIcon,
-        apiIp,
+        apiIp="http://132.199.141.129:9000",
         extraMarkers=false,
 
         map = null,
@@ -36,7 +36,7 @@ NewsMap.DrawMap = (function () {
 
         init = function () {
 
-            $.ajax({
+          /*  $.ajax({
                 async: false,
                 type: 'GET',
                 url: 'http://localhost/Konsolidierung_Lokalreporter/Config',
@@ -45,7 +45,7 @@ NewsMap.DrawMap = (function () {
                     console.log(apiIp);
                     //callback
                 }
-            });
+            }); */
 
             function isInArray(value, array) {
                 return array.indexOf(value) > -1;

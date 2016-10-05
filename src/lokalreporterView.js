@@ -12,7 +12,7 @@ NewsMap.lokalreporterView = (function () {
         selectedCatTyp,
         selectedRadius,
         selectedTyp,
-        apiIp,
+        apiIp="http://132.199.141.129:9000",
         latestPagingInfo,
         latestPagingInfoTop,
         latestPagingInfoSearch,
@@ -21,7 +21,7 @@ NewsMap.lokalreporterView = (function () {
         currentWindow,
         lastQuery="",
         init = function () {
-
+        /*
             $.ajax({
                 async: false,
                 type: 'GET',
@@ -31,7 +31,7 @@ NewsMap.lokalreporterView = (function () {
 
                     //callback
                 }
-            });
+            }); */
 
 
             NewsMap.lokalreporterModel.init();
@@ -333,6 +333,11 @@ NewsMap.lokalreporterView = (function () {
             $("#select-radius").on("change", function () {
                 var selected = $(':selected', this);
                     selectedRadius= "&radius="+this.value+"&centerpoint=lat49.008852:lng12.085179";
+                //Empty News-list
+                if(currentWindow=='news'){
+                    $("#news-list").empty();
+                }
+
                     if(this.value==""){
                         selectedRadius="";
                     }
@@ -349,6 +354,11 @@ NewsMap.lokalreporterView = (function () {
                 var selected = $(':selected', this);
                 var label= selected.closest('optgroup').attr('label');
                 console.log("in onchange Typ");
+                //Empty News-list
+                if(currentWindow=='news'){
+                    $("#news-list").empty();
+                }
+
                 if(this.value==""){
                     //selectedTyp="?attachmentTypes=video,picture&";
                     selectedTyp="?";
@@ -370,6 +380,10 @@ NewsMap.lokalreporterView = (function () {
             $("#select-category").on("change", function () {
                 var selected = $(':selected', this);
                 var label= selected.closest('optgroup').attr('label');
+                //Empty News-list
+                if(currentWindow=='news'){
+                    $("#news-list").empty();
+                }
 
                 selectedCat=this.value;
                 if(label=="Kategorie"){
@@ -387,22 +401,34 @@ NewsMap.lokalreporterView = (function () {
         }
 
         fbshareCurrentPage = function () {
-            //window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURI('http://localhost/konsolidierung_lokalreporter/#artikel/' + toShare), 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'));
+            //window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURI(window.location.origin+'/konsolidierung_lokalreporter/#artikel/' + toShare), 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'));
+            var uri=window.location.origin+'/konsolidierung_lokalreporter/#artikel/' + toShare;
+            //console.log(uri);
+            //console.log(encodeURI(uri));
+            //console.log("https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href="+encodeURIComponent(uri));
+            window.open("https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href="+encodeURIComponent(uri));
             return false;
+
+            //https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href=http://localhost/konsolidierung_lokalreporter/#artikel/46254_3634B56B&redirect_uri=http://localhost/konsolidierung_lokalreporter/#artikel/46254_3634B56B
+            //https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer
+            //https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href=http://localhost/konsolidierung_lokalreporter/%23artikel/46254_3634B56B&redirect_uri=http://localhost/konsolidierung_lokalreporter/%23artikel/46254_3634B56B
         },
 
         setUpEmailLink = function () {
 
-            var link = "mailto: ?body=" + encodeURI('http://localhost/konsolidierung_lokalreporter/#artikel/' + toShare);
+            var link = "mailto: ?body=" + encodeURI(window.location.origin+'/konsolidierung_lokalreporter/#artikel/' + toShare);
             return link;
-
         },
 
         twitterCurrentArticle = function () {
             console.log(toShare);
-            window.open("https://twitter.com/intent/tweet?text=" + encodeURI("http://localhost/konsolidierung_lokalreporter/#artikel/"+toShare), 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+             /*TODO: test ob # vor artikel das Problem ist & mit www. versuchen sowie von webserver www.nickolai-family.de aus */
+            //var uri=encodeURI(window.location.origin+'/konsolidierung_lokalreporter/%23artikel/' + toShare);
+            var uri=window.location.origin+'/konsolidierung_lokalreporter/%23artikel/' + toShare;
+            console.log(uri);
+            window.open("http://twitter.com/intent/tweet?text=Imsharing&url="+uri);
             return false;
-
+            //http://twitter.com/share?text=Im Sharing on Twitter&url=http://stackoverflow.com/users/2943186/youssef-subehi&hashtags=stackoverflow,example,youssefusf
         },
 
         getRelatedItems= function () {
@@ -1347,16 +1373,16 @@ NewsMap.lokalreporterView = (function () {
                 $("#comment-open").show();
             }
 
-
             console.log(article);
             var imageSrc;
-
             var title = article['items'][0]['title'];
             var date = article['items'][0]['date'];
             if(article['items'][0]['thumbnail']==undefined){
                 imageSrc= "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
             }
-             imageSrc = article['items'][0]['thumbnail']['source'];
+            else {
+                imageSrc = article['items'][0]['thumbnail']['source'];
+            }
             //var topContent = content[0]['contents'][0]['text'];
             var location;
 

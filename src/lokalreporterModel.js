@@ -3,9 +3,9 @@
  */
 NewsMap.lokalreporterModel = (function () {
     var that = {},
-        apiIp,
+        apiIp="http://132.199.141.129:9000",
         init = function () {
-
+        /*
             $.ajax({
                 async: false,
                 type: 'GET',
@@ -15,7 +15,7 @@ NewsMap.lokalreporterModel = (function () {
                     console.log(apiIp);
                     //callback
                 }
-            });
+            }); */
 
         },
         currentNews,
@@ -313,7 +313,7 @@ NewsMap.lokalreporterModel = (function () {
                 var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
                 currentNews=response.items;
                 NewsMap.lokalreporterView.setNews(response,pagingInfo);
-                //NewsMap.DrawMap.setArticlesFromApi(response.items);
+                NewsMap.DrawMap.setArticlesFromApi(response.items);
             });
 
         };
