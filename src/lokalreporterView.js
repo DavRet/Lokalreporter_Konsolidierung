@@ -19,6 +19,7 @@ NewsMap.lokalreporterView = (function () {
         latestPagingInfoPerso,
         loadNewsEnabled,
         currentWindow,
+        filterChanged=false,
         lastQuery="",
         init = function () {
 
@@ -375,6 +376,7 @@ NewsMap.lokalreporterView = (function () {
             });
 
             $("#select-radius").on("change", function () {
+                filterChanged=true;
                 var selected = $(':selected', this);
                     selectedRadius= "&radius="+this.value;
                 //Empty News-list
@@ -396,6 +398,7 @@ NewsMap.lokalreporterView = (function () {
             });
 
             $("#select-typ").on("change", function () {
+                filterChanged=true;
                 var selected = $(':selected', this);
                 var label= selected.closest('optgroup').attr('label');
                 //Empty News-list
@@ -423,6 +426,7 @@ NewsMap.lokalreporterView = (function () {
 
 
             $("#select-category").on("change", function () {
+                filterChanged=true;
                 var selected = $(':selected', this);
                 var label= selected.closest('optgroup').attr('label');
                 //Empty News-list
@@ -961,7 +965,7 @@ NewsMap.lokalreporterView = (function () {
             }
         },
 
-        setSearchResults = function (data, query,pagingInfo) {
+        setSearchResults = function (data,query,pagingInfo) {
             console.log(data);
             loadNewsEnabled=true;
             latestPagingInfoSearch=pagingInfo;
@@ -971,8 +975,10 @@ NewsMap.lokalreporterView = (function () {
             $("#select-category").prop('disabled','disabled');
             $('#search-headline').html('Suchergebnisse für "' + query + '":');
 
-                if(query != lastQuery){
+                if(query != lastQuery || filterChanged==true){
                     lastQuery=query;
+                    filterChanged=false;
+                    console.log("emptying Search Result list");
                     $('#search-list').empty();
                 }
 
@@ -1006,7 +1012,6 @@ NewsMap.lokalreporterView = (function () {
                     artikelOrt = data['items'][i]['geoData'][0]['name'];
                 }
                 EIDI = data['items'][i]['id'];
-                console.log("EIDI "+EIDI);
                 artikelTitel = data['items'][i]['title'];
                 artikelLink = data['items'][i]['originalLink'];
                 pubDate = data['items'][i]['date'];

@@ -207,29 +207,53 @@ NewsMap.lokalreporterModel = (function () {
 
 
         getFilteredSearchResults= function (radius,video) {
-            console.log(lastSearchResponse);
-            //console.log(apiIp+"/news"+video+"query="+lastSearchResponse+radius+"&limit=20");
-            console.log("in filteredSearchresults");
-            var settings = {
-                "async": true,
-                "crossDomain": true,
-                "url": apiIp+"/news"+video+"query="+searchQuery+radius+"&limit=20",
-                "method": "GET",
-                "headers": {
-                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA",
-                    "cache-control": "no-cache",
-                    "postman-token": "abeec082-341a-ccd1-2cc8-169828f412de"
-                    //"accept": "application/json"
-                }
-            };
+            var timeout=0;
+            var centerpoint="";
+            if(myPos==undefined) {
+                identifyLocation();
+                timeout=300;
+            }
 
-            $.ajax(settings).done(function (response) {
+            setTimeout(function () {
 
-                lastSearchResponse=response.items;
                 console.log(lastSearchResponse);
-                NewsMap.lokalreporterView.setSearchResults(response,searchQuery);
-                NewsMap.DrawMap.setArticlesFromApi(response.items);
-            });
+                //console.log(apiIp+"/news"+video+"query="+lastSearchResponse+radius+"&limit=20");
+                if(myPos==undefined){
+                    centerpoint=radius+"&centerpoint=lat49.008852:lng12.085179";
+                }
+                else{
+                    if(radius==""){
+                        centerpoint="";
+                    }
+                    else{
+                        centerpoint=radius+"&centerpoint=lat"+myPos.lat+":lng"+myPos.long;
+                        console.log(centerpoint);
+                    }
+                }
+
+
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": apiIp+"/news"+video+"query="+searchQuery+centerpoint+"&limit=20",
+                    "method": "GET",
+                    "headers": {
+                        "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA",
+                        "cache-control": "no-cache",
+                        "postman-token": "abeec082-341a-ccd1-2cc8-169828f412de"
+                        //"accept": "application/json"
+                    }
+                };
+
+                $.ajax(settings).done(function (response) {
+                    var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
+                    lastSearchResponse=response.items;
+                    //console.log(lastSearchResponse);
+                    console.log(response);
+                    NewsMap.lokalreporterView.setSearchResults(response,searchQuery,pagingInfo);
+                    NewsMap.DrawMap.setArticlesFromApi(response.items);
+                });
+            },timeout);
         },
 
         getNewsWithPagingLink = function (pagingLink) {
