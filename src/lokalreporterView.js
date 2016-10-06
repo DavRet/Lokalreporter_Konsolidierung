@@ -1564,7 +1564,7 @@ NewsMap.lokalreporterView = (function () {
                 //var relatedListItem = $('<li class="related-list-item" id="'+ related['items'][i]['id'] +'">' + '<h3 class="related-title">'+  related['items'][i]['title'] +'</h3>' + '</li>');
 
 
-                var relatedListItem = $('<li class="large-4 columns article-list'+widthForArticleClass+'>' + '<article id="' + EIDI + '">'
+                var relatedListItem = $('<li class="large-4 columns article-list'+widthForArticleClass+'">' + '<article id="' + EIDI + '">'
                         + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                         + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '</article>' + '</li>'
                     )
@@ -1584,6 +1584,8 @@ NewsMap.lokalreporterView = (function () {
             if (isLoggedIn) {
                 $('.favorite-icon').show();
             }
+            
+            $('#loading-content').hide();
         },
 
 
