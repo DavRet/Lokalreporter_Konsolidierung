@@ -351,11 +351,13 @@ NewsMap.lokalreporterView = (function () {
 
                     var id = $(this).parent().parent().attr('id');
 
+/*
                     $("#moveMapButton").off('click');
                     $("#moveMapButton img").attr("src","img/x-button.png");
                     $("#moveMapButton").on('click', function () {
+
                         $("#map-content").hide();
-                    });
+                    }); */
 
                     //if (data != null && data != undefined) {
 
