@@ -197,9 +197,18 @@ NewsMap.lokalreporterView = (function () {
             moveMap= function () {
 
                 if (toggleCount == 1) {
-                    $("#map-content").css("width", "25%");
-                    $(".left-content").removeClass("large-4 columns").addClass("large-8 columns");
-                    $(".right-content").removeClass("large-8 columns").addClass("large-4 columns");
+                    if($(document).width() < 600) {
+                        $("#map-content").css("width", "25%");
+                        $(".left-content").show();
+                        $(".right-content").removeClass("small-12").addClass("small-2");
+                    }
+
+                    else {
+                        $("#map-content").css("width", "25%");
+                        $(".left-content").removeClass("large-4 columns").addClass("large-8 columns");
+                        $(".right-content").removeClass("large-8 columns").addClass("large-4 columns");
+                    }
+
                     $("#news-list div").find("li").addClass("article-list-for-map");
                     $("#top-list div").find("li").addClass("article-list-for-map");
                     $("#search-list div").find("li").addClass("article-list-for-map");
@@ -213,7 +222,17 @@ NewsMap.lokalreporterView = (function () {
 
                 }
                 else {
-                    $("#map-content").css("width", "50%");
+                    if($(document).width() < 600) {
+                        $("#map-content").css("width", "100%");
+                        $(".left-content").show();
+                        $(".right-content").removeClass("small-2").addClass("small-12");
+                    }
+
+                    else {
+                        $("#map-content").css("width", "50%");
+                        $(".left-content").removeClass("large-4 columns").addClass("large-8 columns");
+                        $(".right-content").removeClass("large-8 columns").addClass("large-4 columns");
+                    }
 
                     $("#news-list div").find("li").removeClass("article-list-for-map");
                     $("#top-list div").find("li").removeClass("article-list-for-map");
@@ -235,7 +254,7 @@ NewsMap.lokalreporterView = (function () {
                     $("#moveMapButton img").attr("src", "img/right-arrow.png");
 
                     toggleCount = 1;
-                };
+                }
 
                 NewsMap.DrawMap.changeMapSize();
 
@@ -991,14 +1010,14 @@ NewsMap.lokalreporterView = (function () {
                     thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
                     videoSrc = data['items'][i]['attachments']['items'][0]['url'];
 
-                    var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list'+widthForArticleClass+'"' + '<article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list'+widthForArticleClass+'"' + '<article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
                         ;
                 }
                 else {
-                    var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list'+widthForArticleClass+'"' + '<article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list'+widthForArticleClass+'"' + '<article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>' + '<i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
@@ -1110,14 +1129,14 @@ NewsMap.lokalreporterView = (function () {
                     thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
                     videoSrc = data['items'][i]['attachments']['items'][0]['url'];
 
-                    var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list'+widthForArticleClass+'"><article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list'+widthForArticleClass+'"><article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
                         ;
                 }
                 else {
-                    var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list'+widthForArticleClass+'"><article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list'+widthForArticleClass+'"><article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>' + '<i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
@@ -1842,14 +1861,14 @@ NewsMap.lokalreporterView = (function () {
                     thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
                     videoSrc = data['items'][i]['attachments']['items'][0]['url'];
 
-                    var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list'+widthForArticleClass+'"><article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list'+widthForArticleClass+'"><article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
                         ;
                 }
                 else {
-                    var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list'+widthForArticleClass+'"><article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list'+widthForArticleClass+'"><article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>' + '<i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
