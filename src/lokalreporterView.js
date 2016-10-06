@@ -177,6 +177,13 @@ NewsMap.lokalreporterView = (function () {
                     }
             });
 
+
+            $('#impressum-open').on('click',showImpressum);
+
+            $('#close-impressum-modal').on('click', function() {
+                $('#impressum-modal').hide();
+            });
+
             $(document).on("click", '#fav-button', function () {
                 $('.main-menu-item').removeClass('menu-item-activated');
                 $(this).addClass('menu-item-activated');
@@ -458,7 +465,11 @@ NewsMap.lokalreporterView = (function () {
                 }
                 NewsMap.lokalreporterModel.getNews(selectedCatTyp,selectedCat,selectedRadius,selectedTyp);
             });
-        }
+        },
+
+        showImpressum = function() {
+            $('#impressum-modal').show();
+        },
 
         fbshareCurrentPage = function () {
             //window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURI(window.location.origin+'/konsolidierung_lokalreporter/#artikel/' + toShare), 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'));
@@ -1622,7 +1633,7 @@ NewsMap.lokalreporterView = (function () {
                 $('#map-content').show();
                 NewsMap.DrawMap.changeMapSize();
 
-            }, 1500);
+            }, 1000);
         },
 
         showTop = function (e) {
@@ -1639,7 +1650,7 @@ NewsMap.lokalreporterView = (function () {
            setTimeout(function () {
                 $('#map-content').show();
                 NewsMap.DrawMap.changeMapSize();
-            }, 1500);
+            }, 1000);
 
         },
 
