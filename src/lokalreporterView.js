@@ -21,18 +21,6 @@ NewsMap.lokalreporterView = (function () {
         currentWindow,
         lastQuery="",
         init = function () {
-        /*
-            $.ajax({
-                async: false,
-                type: 'GET',
-                url: 'http://localhost/Konsolidierung_Lokalreporter/Config',
-                success: function(data) {
-                    apiIp=data;
-
-                    //callback
-                }
-            }); */
-
 
             NewsMap.lokalreporterModel.init();
             selectedCat="alle";
@@ -406,7 +394,6 @@ NewsMap.lokalreporterView = (function () {
             $("#select-typ").on("change", function () {
                 var selected = $(':selected', this);
                 var label= selected.closest('optgroup').attr('label');
-                console.log("in onchange Typ");
                 //Empty News-list
                 if(currentWindow=='news'){
                     $("#news-list").empty();
@@ -421,7 +408,6 @@ NewsMap.lokalreporterView = (function () {
                 else{
                     selectedTyp="?attachmentTypes=video&";
                 }
-                console.log(selectedTyp);
                 console.log($("#search-input").val());
                 if($("#search-input").val() != "" && $("#search-input").val() != undefined){
                     NewsMap.lokalreporterModel.getFilteredSearchResults(selectedRadius,selectedTyp);
@@ -459,15 +445,8 @@ NewsMap.lokalreporterView = (function () {
         fbshareCurrentPage = function () {
             //window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURI(window.location.origin+'/konsolidierung_lokalreporter/#artikel/' + toShare), 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'));
             var uri=window.location.origin+'/konsolidierung_lokalreporter/#artikel/' + toShare;
-            //console.log(uri);
-            //console.log(encodeURI(uri));
-            //console.log("https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href="+encodeURIComponent(uri));
             window.open("https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href="+encodeURIComponent(uri));
             return false;
-
-            //https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href=http://localhost/konsolidierung_lokalreporter/#artikel/46254_3634B56B&redirect_uri=http://localhost/konsolidierung_lokalreporter/#artikel/46254_3634B56B
-            //https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer
-            //https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href=http://localhost/konsolidierung_lokalreporter/%23artikel/46254_3634B56B&redirect_uri=http://localhost/konsolidierung_lokalreporter/%23artikel/46254_3634B56B
         },
 
         setUpEmailLink = function () {
@@ -477,11 +456,8 @@ NewsMap.lokalreporterView = (function () {
         },
 
         twitterCurrentArticle = function () {
-            console.log(toShare);
-             /*TODO: test ob # vor artikel das Problem ist & mit www. versuchen sowie von webserver www.nickolai-family.de aus */
             //var uri=encodeURI(window.location.origin+'/konsolidierung_lokalreporter/%23artikel/' + toShare);
             var uri=window.location.origin+'/konsolidierung_lokalreporter/%23artikel/' + toShare;
-            console.log(uri);
             window.open("http://twitter.com/intent/tweet?text=Imsharing&url="+uri);
             return false;
             //http://twitter.com/share?text=Im Sharing on Twitter&url=http://stackoverflow.com/users/2943186/youssef-subehi&hashtags=stackoverflow,example,youssefusf
@@ -978,7 +954,7 @@ NewsMap.lokalreporterView = (function () {
         },
 
         setSearchResults = function (data, query,pagingInfo) {
-
+            console.log(data);
             loadNewsEnabled=true;
             latestPagingInfoSearch=pagingInfo;
             console.log(pagingInfo);
@@ -1022,6 +998,7 @@ NewsMap.lokalreporterView = (function () {
                     artikelOrt = data['items'][i]['geoData'][0]['name'];
                 }
                 EIDI = data['items'][i]['id'];
+                console.log("EIDI "+EIDI);
                 artikelTitel = data['items'][i]['title'];
                 artikelLink = data['items'][i]['originalLink'];
                 pubDate = data['items'][i]['date'];
@@ -1249,6 +1226,7 @@ NewsMap.lokalreporterView = (function () {
                 $(this).get(0).pause();
             });
             var toShow = location.hash;
+            console.log(toShow);
             var res = toShow.split("/");
 
             if (res[0] == "#artikel") {
@@ -1409,6 +1387,7 @@ NewsMap.lokalreporterView = (function () {
             $('.main-menu-item').removeClass('menu-item-activated');
             $('.main-content').hide();
             $('#map-content').hide();
+            console.log(article);
 
             $('#single-news-article').empty();
             $('#comment-list').empty();
@@ -1587,16 +1566,13 @@ NewsMap.lokalreporterView = (function () {
         },
 
         showNews = function () {
-            console.log("in showNews");
             $("#select-category").prop('disabled',false);
             $('.main-content').hide();
             $('#news-content').toggle();
             $("#search-input").val("");
             $("#select-radius,#select-category,#select-typ").show();
             var data = NewsMap.lokalreporterModel.getCurrentNews('news');
-            console.log(data);
             if (data != null && data != undefined) {
-                console.log("setArticlesFrom Api Current News");
                 NewsMap.DrawMap.setArticlesFromApi(data);
             }
 

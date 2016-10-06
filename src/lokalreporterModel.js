@@ -307,8 +307,13 @@ NewsMap.lokalreporterModel = (function () {
                         centerpoint=radius+"&centerpoint=lat49.008852:lng12.085179";
                     }
                     else{
-                        centerpoint=radius+"&centerpoint=lat"+myPos.lat+":lng"+myPos.long;
-                        console.log(centerpoint);
+                        if(radius==""){
+                            centerpoint="";
+                        }
+                        else{
+                            centerpoint=radius+"&centerpoint=lat"+myPos.lat+":lng"+myPos.long;
+                            console.log(centerpoint);
+                        }
                     }
 
                     var settings = {
