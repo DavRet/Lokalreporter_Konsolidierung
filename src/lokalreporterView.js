@@ -388,6 +388,7 @@ NewsMap.lokalreporterView = (function () {
                 //Empty News-list
                 if(currentWindow=='news'){
                     $("#news-list").empty();
+                    $('#loading-content').show();
                 }
 
                     if(this.value==""){
@@ -606,6 +607,7 @@ NewsMap.lokalreporterView = (function () {
         },
 
         changeMenuAfterLogin = function () {
+
             $('#login-open').html('Profil');
             $('#collapse-login').html('Profil');
             $('#register-open').html('Logout');
@@ -1065,6 +1067,8 @@ NewsMap.lokalreporterView = (function () {
 
             }
 
+            $('#loading-content').hide();
+
             if ($(document).width() > 1100) {
                 $('#search-list > li').each(function (i) {
                     if (i % 2 == 0) {
@@ -1243,6 +1247,8 @@ NewsMap.lokalreporterView = (function () {
         },
 
         showContent = function () {
+            $('#loading-content').show();
+
 
             $('.article-video').each(function () {
                 $(this).get(0).pause();
@@ -1632,16 +1638,17 @@ NewsMap.lokalreporterView = (function () {
             $('#select-radius').hide();
             $('.main-content').hide();
 
+            $('#loading-content').show();
 
             $('#personal-content').toggle();
 
-            if($.find("#favorite-alert").length==0){
-                $("#map-conent").hide();
+           /* if($.find("#favorite-alert").length==0){
+                $("#map-content").hide();
             }
             else{
                 $("#map-content").css("display","block");
 
-            }
+            }*/
 
             /*
             $("#personal-tags").tagit({
@@ -1774,6 +1781,8 @@ NewsMap.lokalreporterView = (function () {
 
 
             }
+
+            $('#loading-content').hide();
 
             var idForRow = personalContentId + ' > li';
 
