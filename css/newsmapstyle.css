@@ -425,6 +425,7 @@ a:hover {
 
 .map-content-after-scroll {
     margin-top: 0!important;
+    top: 8rem;
 }
 @media (min-width: 1700px ){
     #map-content {
@@ -545,15 +546,19 @@ a:hover {
     display: none;
     float:right;
     position: absolute;
-    right:0%;
+    right:0;
     top:100%;
     background: rgba(8, 4, 7, 0.79);
     width: 35%;
     color:#ffffff;
 }
 
+#collapse-menu-list {
+    margin-left: 0!important;
+}
+
 .collapse-menu-item{
-    text-align: center;
+    text-align: left;
     width: 100%;
 
     line-height: 2rem;
@@ -564,6 +569,7 @@ a:hover {
     list-style: none;
 }
 
+
 #collapse-menu li:hover{
     color: rgba(8, 4, 7, 0.79);
     background: #ffffff;
@@ -571,6 +577,10 @@ a:hover {
 
 #main-menu {
     margin: 0;
+}
+
+#collapse-searchbar {
+    display: none;
 }
 
 #user-menu li {
