@@ -1775,10 +1775,6 @@ NewsMap.lokalreporterView = (function () {
 
             }
 
-            $('#loading-content').hide();
-
-
-
             var idForRow = personalContentId + ' > li';
 
             if ($(document).width() > 1100) {
@@ -1916,6 +1912,7 @@ NewsMap.lokalreporterView = (function () {
 
                 $("#news-list").append(articleListElement);
             }
+            $('#loading-content').hide();
 
 
             if ($(document).width() > 1100) {
