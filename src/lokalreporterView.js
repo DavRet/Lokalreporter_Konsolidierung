@@ -1445,6 +1445,10 @@ NewsMap.lokalreporterView = (function () {
             var imageSrc;
             var title = article['items'][0]['title'];
             var date = article['items'][0]['date'];
+
+            var src = article['items'][0]['originalLink'];
+            var source = $('<a class="article-source" href="'+src+'">Quelle</a>');
+            console.log(source);
             if(article['items'][0]['thumbnail']==undefined){
                 imageSrc= "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
             }
@@ -1477,7 +1481,7 @@ NewsMap.lokalreporterView = (function () {
             //var content1 = $('<p class="top-paragraph">' + topContent + '</p>');
             var image = $('<img class="single-article-image" src="' + imageSrc + '">');
 
-            $("#single-news-article").append(headLine, dateLine, image, content['content']);
+            $("#single-news-article").append(headLine, dateLine, image, content['content'], source);
 
 
             var previousParagraph;
@@ -1584,7 +1588,7 @@ NewsMap.lokalreporterView = (function () {
             if (isLoggedIn) {
                 $('.favorite-icon').show();
             }
-            
+
             $('#loading-content').hide();
         },
 
