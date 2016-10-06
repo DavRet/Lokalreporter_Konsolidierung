@@ -38,7 +38,8 @@ NewsMap.lokalreporterView = (function () {
             selectedCat="alle";
 
                 selectedCatTyp="Kategorie";
-                selectedRadius="&radius=50&centerpoint=lat49.008852:lng12.085179";
+                //selectedRadius="&radius=50&centerpoint=lat49.008852:lng12.085179";
+                selectedRadius="&radius=50";
 
                   selectedTyp="?";
 
@@ -384,7 +385,7 @@ NewsMap.lokalreporterView = (function () {
 
             $("#select-radius").on("change", function () {
                 var selected = $(':selected', this);
-                    selectedRadius= "&radius="+this.value+"&centerpoint=lat49.008852:lng12.085179";
+                    selectedRadius= "&radius="+this.value;
                 //Empty News-list
                 if(currentWindow=='news'){
                     $("#news-list").empty();

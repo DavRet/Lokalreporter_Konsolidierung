@@ -23,6 +23,7 @@ NewsMap.lokalreporterModel = (function () {
         lastSearchResponse,
         currentFavorite,
         searchQuery,
+        myPos,
 
 
         getCurrentFavorite= function () {
@@ -276,47 +277,101 @@ NewsMap.lokalreporterModel = (function () {
 
         getNews = function (categoryTyp,category,radius,typ) {
 
+           //Set Standort
 
-           // localhost:9000/news?metadataid=sport&attachmentTypes=video&radius=20&centerpoint=lat49.008852:lng12.085179&limit=100
-            var CatTyp;
-            if(categoryTyp=="Region"){
-                var regId =category;
+            var timeout=0;
 
-                CatTyp = "&geodataid=" + regId;
-                }
-            else{
-                if(category=="alle"){
-                    CatTyp="";
-                }
-                else{
-                    CatTyp= "&metadataid="+category;
-                }
+            if(myPos==undefined) {
+                identifyLocation();
+                timeout=300;
             }
+                setTimeout(function () {
+                    console.log(myPos);
+                    var centerpoint;
+                    // localhost:9000/news?metadataid=sport&attachmentTypes=video&radius=20&centerpoint=lat49.008852:lng12.085179&limit=100
+                    var CatTyp;
+                    if(categoryTyp=="Region"){
+                        var regId =category;
+
+                        CatTyp = "&geodataid=" + regId;
+                    }
+                    else{
+                        if(category=="alle"){
+                            CatTyp="";
+                        }
+                        else{
+                            CatTyp= "&metadataid="+category;
+                        }
+                    }
+                    if(myPos==undefined){
+                        centerpoint=radius+"&centerpoint=lat49.008852:lng12.085179";
+                    }
+                    else{
+                        centerpoint=radius+"&centerpoint=lat"+myPos.lat+":lng"+myPos.long;
+                        console.log(centerpoint);
+                    }
+
+                    var settings = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": apiIp+"/news"+typ+"limit=20"+centerpoint+CatTyp,
+                        "method": "GET",
+                        "headers": {
+                            "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA",
+                            "cache-control": "no-cache",
+                            "postman-token": "abeec082-341a-ccd1-2cc8-169828f412de"
+                            //"accept": "application/json"
+                        }
+                    };
+
+                    $.ajax(settings).done(function (response) {
+                        var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
+                        currentNews=response.items;
+                        NewsMap.lokalreporterView.setNews(response,pagingInfo);
+                        NewsMap.DrawMap.setArticlesFromApi(response.items);
+                    });
 
 
-           // console.log("url string: "+apiIp+"/news"+typ+"limit=20"+radius+CatTyp);
 
-            var settings = {
-                "async": true,
-                "crossDomain": true,
-                "url": apiIp+"/news"+typ+"limit=20"+radius+CatTyp,
-                "method": "GET",
-                "headers": {
-                    "authorization": "Bearer H4sIAAAAAAAEAGNmYGBgc0pNLEotYtXLS8xNZdUrys9JZQIKMzJwJBanpIEwIwMIQqTYknMyU_NKIEIMYHUMDCxAzKGXWlGQWZRaLBtcmqejYGSo4FiarmBkYGimYGBgZWBmZWKq4O4bwqFXlJoGVJXB6paYU5zKCTHOKjMFbhu7XmZxcWlqimxwYgnQHAOEOYZmCHMAnxWnzLoAAAA",
-                    "cache-control": "no-cache",
-                    "postman-token": "abeec082-341a-ccd1-2cc8-169828f412de"
-                    //"accept": "application/json"
+                },timeout);
+
+
+
+        },
+
+            identifyLocation = function () {
+                console.log("in identifyLocation");
+                if (navigator && navigator.geolocation) {
+
+                        navigator.geolocation.getCurrentPosition(success, error,
+                            {enableHighAccuracy: true, timeout: 30000, maximumAge: 600000});
+
+                } else {
+                    alert("GeoLocation API ist nicht verfügbar!");
                 }
+
+
+                function success(position) {
+                    var lat = position.coords.latitude,
+                        long = position.coords.longitude;
+
+                    console.log(lat,long);
+
+                    myPos={lat:"", long:""};
+                    myPos.lat=lat;
+                    myPos.long=long;
+                    console.log(myPos);
+
+                    //return myPosition;
+                }
+
+                function error(msg) {
+                    alert(typeof msg == 'string' ? msg : "Bitte aktivieren Sie das GPS auf Ihrem Gerät und laden Sie die Seite neu.");
+                    return null;
+                }
+
             };
 
-            $.ajax(settings).done(function (response) {
-                var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
-                currentNews=response.items;
-                NewsMap.lokalreporterView.setNews(response,pagingInfo);
-                NewsMap.DrawMap.setArticlesFromApi(response.items);
-            });
-
-        };
 
 
     that.init = init;
