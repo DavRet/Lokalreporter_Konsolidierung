@@ -569,6 +569,17 @@ a:hover {
     list-style: none;
 }
 
+@media(min-width: 40em) {
+    #loading-content {
+        height: 100rem;
+        width: 65rem;
+    }
+}
+
+.loading-gif {
+    margin-left: 20%;
+}
+
 
 #collapse-menu li:hover{
     color: rgba(8, 4, 7, 0.79);
