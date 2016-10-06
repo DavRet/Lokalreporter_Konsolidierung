@@ -19,7 +19,7 @@ span.psw {
 }
 
 /* The Modal (background) */
-#login-modal, #register-modal, #share-modal {
+#login-modal, #register-modal, #share-modal, #impressum-modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -31,6 +31,18 @@ span.psw {
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
     padding-top: 60px;
+}
+
+.impressum-headline {
+    color: #3a9bd8;
+}
+
+#close-impressum-modal {
+    float: right;
+}
+
+.impressum-list {
+    list-style-type: none;
 }
 
 a:hover {
@@ -335,6 +347,8 @@ a:hover {
 #news-tags {
     border: none!important;
     background: white!important;
+    margin-top: 1rem;
+    margin-top: 1rem;
 }
 
 .tag-item {
