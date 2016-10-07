@@ -446,6 +446,17 @@ a:hover {
     }
 }
 
+@media (min-width: 700px) and (max-width: 1024px) {
+    #map-content{
+        width: 10%;
+        height: 90%;
+        margin-left: 10%;
+        margin-top: 0!important;
+        top: 3rem;
+    }
+}
+
+
 .map-content-after-scroll {
     margin-top: 0!important;
     top: 8rem;
