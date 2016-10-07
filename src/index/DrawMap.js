@@ -182,13 +182,10 @@ NewsMap.DrawMap = (function () {
                                 $("#personal-Personalisierter-Content").children().eq(4).nextAll('div').remove();
                             };
                     }
-
                 }
                 else{
                     extraMarkers=false;
                 }
-
-
 
                 //for (i = 0; i < 10; i++) {
                 for (i = 0; i < data.length; i++) {

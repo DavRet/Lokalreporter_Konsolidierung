@@ -991,11 +991,13 @@ NewsMap.lokalreporterView = (function () {
 
             if(data==null|| data==undefined || data.items.length==0){
                 $("#search-list").empty();
-                $("#map-content").hide();
                 $("#search-content").hide();
                 $("#error-modal").show();
-                $("#news-content").show();
-                $('#news-button').addClass('menu-item-activated');
+                NewsMap.lokalreporterModel.getNews(selectedCatTyp,selectedCat,selectedRadius,selectedTyp);
+                showNews();
+                //("#news-content").show();
+                //$('#news-button').addClass('menu-item-activated'); */
+
             }
             else{
                 loadNewsEnabled=true;
@@ -1625,6 +1627,7 @@ NewsMap.lokalreporterView = (function () {
             $('.main-content').hide();
             $('#news-content').toggle();
             $("#search-input").val("");
+            $('#news-button').addClass('menu-item-activated');
             $("#select-radius,#select-category,#select-typ").show();
             var data = NewsMap.lokalreporterModel.getCurrentNews('news');
             if (data != null && data != undefined) {
