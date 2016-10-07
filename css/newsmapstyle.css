@@ -275,7 +275,10 @@ a:hover {
 
 #single-news-content {
     background: white;
-    padding: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     overflow-y: hidden;
 }
 
@@ -1741,3 +1744,7 @@ label {
     margin-left: 1%;
 }
 
+
+#single-news-article video{
+    width: 100%;
+}

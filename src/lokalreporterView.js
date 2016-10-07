@@ -155,17 +155,7 @@ NewsMap.lokalreporterView = (function () {
                 document.location.hash = "nachrichten";
             });
 
-            $("#comment-open").on('click', function () {
-
-                    $('#single-news-comments').slideToggle("fast");
-                    if($('#comment-img').attr('src')=="img/order.png"){
-                        $('#comment-img').attr('src','img/close-dropdown.png');
-                    }
-                    else{
-                        $('#comment-img').attr('src','img/order.png');
-                    }
-            });
-
+            $("#comment-open").on('click',openComments);
 
             $('#impressum-open').on('click',showImpressum);
 
@@ -463,22 +453,32 @@ NewsMap.lokalreporterView = (function () {
             $('#impressum-modal').show();
         },
 
-        fbshareCurrentPage = function () {
+        openComments= function () {
+            $('#single-news-comments').slideToggle("fast");
+            if($('#comment-img').attr('src')=="img/order.png"){
+                $('#comment-img').attr('src','img/close-dropdown.png');
+            }
+            else{
+                $('#comment-img').attr('src','img/order.png');
+            }
+        },
+
+    fbshareCurrentPage = function () {
             //window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURI(window.location.origin+'/konsolidierung_lokalreporter/#artikel/' + toShare), 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'));
-            var uri=window.location.origin+'/konsolidierung_lokalreporter/#artikel/' + toShare;
+            var uri=window.location.origin+'/lokalreporter/#artikel/' + toShare;
             window.open("https://www.facebook.com/dialog/share?app_id=145634995501895&display=popup&href="+encodeURIComponent(uri));
             return false;
         },
 
         setUpEmailLink = function () {
 
-            var link = "mailto: ?body=" + encodeURI(window.location.origin+'/konsolidierung_lokalreporter/#artikel/' + toShare);
+            var link = "mailto: ?body=" + encodeURI(window.location.origin+'/lokalreporter/#artikel/' + toShare);
             return link;
         },
 
         twitterCurrentArticle = function () {
             //var uri=encodeURI(window.location.origin+'/konsolidierung_lokalreporter/%23artikel/' + toShare);
-            var uri=window.location.origin+'/konsolidierung_lokalreporter/%23artikel/' + toShare;
+            var uri=window.location.origin+'/lokalreporter/%23artikel/' + toShare;
             window.open("http://twitter.com/intent/tweet?text=Imsharing&url="+uri);
             return false;
             //http://twitter.com/share?text=Im Sharing on Twitter&url=http://stackoverflow.com/users/2943186/youssef-subehi&hashtags=stackoverflow,example,youssefusf
@@ -580,6 +580,9 @@ NewsMap.lokalreporterView = (function () {
             isLoggedIn=false;
             $('#login-open').html('Login');
             $('#collapse-login').html('Login');
+            $('#login-open').show();
+            $('#collapse-login').hide();
+
             $('#register-open').html('Register');
             $('#register-open').off("click");
             $('#collapse-register').html('Register');
@@ -605,9 +608,9 @@ NewsMap.lokalreporterView = (function () {
 
         changeMenuAfterLogin = function () {
 
-            $('#login-open').html('Profil');
+           /* $('#login-open').html('Profil'); */
             $('#login-open').hide();
-            $('#collapse-login').html('Profil');
+            /*$('#collapse-login').html('Profil');*/
             $('#collapse-login').hide();
 
             $('#register-open').html('Logout');
