@@ -366,7 +366,7 @@ NewsMap.lokalreporterModel = (function () {
                 }
 
                 function error(msg) {
-                    alert(typeof msg == 'string' ? msg : "Bitte aktivieren Sie das GPS auf Ihrem Gerät und laden Sie die Seite neu.");
+                    //alert(typeof msg == 'string' ? msg : "Bitte aktivieren Sie das GPS auf Ihrem Gerät und laden Sie die Seite neu.");
                     return null;
                 }
 

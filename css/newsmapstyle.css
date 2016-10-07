@@ -182,9 +182,15 @@ a:hover {
     }
 }
 
-#single-news-content {
 
+@media(max-width: 40em) {
+    #single-news-content {
+        padding: 1rem;
+    }
 }
+
+
+
 
 .article-title {
     font-size: 1.25rem;
@@ -714,7 +720,7 @@ a:hover {
 
 @media (max-width: 40em) {
     #main {
-        padding: 0.5rem;
+        padding: 0!important;
     }
 }
 
