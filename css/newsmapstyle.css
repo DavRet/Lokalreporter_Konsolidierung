@@ -19,7 +19,7 @@ span.psw {
 }
 
 /* The Modal (background) */
-#login-modal, #register-modal, #share-modal, #impressum-modal {
+#login-modal, #register-modal, #share-modal, #impressum-modal, #error-modal{
     display: none;
     position: fixed;
     z-index: 1;

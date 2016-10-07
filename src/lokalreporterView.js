@@ -163,6 +163,11 @@ NewsMap.lokalreporterView = (function () {
                 $('#impressum-modal').hide();
             });
 
+            $('#close-error-modal').on('click', function() {
+                $('#error-modal').hide();
+            });
+
+
             $(document).on("click", '#fav-button', function () {
                 $('.main-menu-item').removeClass('menu-item-activated');
                 $(this).addClass('menu-item-activated');
@@ -983,13 +988,24 @@ NewsMap.lokalreporterView = (function () {
 
         setSearchResults = function (data,query,pagingInfo) {
             console.log(data);
-            loadNewsEnabled=true;
-            latestPagingInfoSearch=pagingInfo;
-            console.log(pagingInfo);
-            $('.main-content').hide();
-            $('#search-content').show();
-            $("#select-category").prop('disabled','disabled');
-            $('#search-headline').html('Suchergebnisse für "' + query + '":');
+
+            if(data==null|| data==undefined || data.items.length==0){
+                $("#search-list").empty();
+                $("#map-content").hide();
+                $("#search-content").hide();
+                $("#error-modal").show();
+                $("#news-content").show();
+                $('#news-button').addClass('menu-item-activated');
+            }
+            else{
+                loadNewsEnabled=true;
+                latestPagingInfoSearch=pagingInfo;
+                console.log(pagingInfo);
+                $('.main-content').hide();
+                $('#search-content').show();
+                $("#map-content").show();
+                $("#select-category").prop('disabled','disabled');
+                $('#search-headline').html('Suchergebnisse für "' + query + '":');
 
                 if(query != lastQuery || filterChanged==true){
                     lastQuery=query;
@@ -998,79 +1014,79 @@ NewsMap.lokalreporterView = (function () {
                     $('#search-list').empty();
                 }
 
-            //$('#search-list').empty();
+                //$('#search-list').empty();
 
-            $('.main-menu-item').removeClass('menu-item-activated');
+                $('.main-menu-item').removeClass('menu-item-activated');
 
-            var widthForArticleClass = " article-list-for-map";
-            var width = $(window).width(), height = $(window).height();
+                var widthForArticleClass = " article-list-for-map";
+                var width = $(window).width(), height = $(window).height();
 
-            if (width <= 512){
-                widthForArticleClass="";
-            }
-
-            var EIDI,
-                artikelTitel,
-                artikelLink,
-                accord,
-                artikelOrt,
-                artikelRegion,
-                pubDate,
-                content,
-                region,
-                imageSrc,
-                thumbnailSrc,
-                videoSrc,
-                commentCount;
-            for (i = 0; i < data['items'].length; i++) {
-
-                if (data['items'][i]['geoData'].length) {
-                    artikelOrt = data['items'][i]['geoData'][0]['name'];
-                }
-                EIDI = data['items'][i]['id'];
-                artikelTitel = data['items'][i]['title'];
-                artikelLink = data['items'][i]['originalLink'];
-                pubDate = data['items'][i]['date'];
-                content = data['items'][i]['abstract'];
-                if (data['items'][i]['thumbnail'] != null) {
-                    imageSrc = data['items'][i]['thumbnail']['source'];
-
-                }
-                else{
-                    imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
-                }
-                commentCount = data['items'][i]['properties']['comments.count'];
-
-
-                if (imageSrc == '') {
-                    imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
+                if (width <= 512){
+                    widthForArticleClass="";
                 }
 
+                var EIDI,
+                    artikelTitel,
+                    artikelLink,
+                    accord,
+                    artikelOrt,
+                    artikelRegion,
+                    pubDate,
+                    content,
+                    region,
+                    imageSrc,
+                    thumbnailSrc,
+                    videoSrc,
+                    commentCount;
+                for (i = 0; i < data['items'].length; i++) {
 
-                pubDate = pubDate.split("T");
-                pubDate[1] = pubDate[1].substring(0, 8);
-                if (data['items'][i]['attachments']['items'].length && data['items'][i]['attachments']['items'][0]['url'] != 'false' && data['items'][i]['attachments']['items'][0]['type']['id'] == 'video') {
-                    thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
-                    videoSrc = data['items'][i]['attachments']['items'][0]['url'];
+                    if (data['items'][i]['geoData'].length) {
+                        artikelOrt = data['items'][i]['geoData'][0]['name'];
+                    }
+                    EIDI = data['items'][i]['id'];
+                    artikelTitel = data['items'][i]['title'];
+                    artikelLink = data['items'][i]['originalLink'];
+                    pubDate = data['items'][i]['date'];
+                    content = data['items'][i]['abstract'];
+                    if (data['items'][i]['thumbnail'] != null) {
+                        imageSrc = data['items'][i]['thumbnail']['source'];
 
-                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list'+widthForArticleClass+'">' + '<article class="news-article" id="' + EIDI + '">'
-                            + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                            + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
-                        )
-                        ;
+                    }
+                    else{
+                        imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
+                    }
+                    commentCount = data['items'][i]['properties']['comments.count'];
+
+
+                    if (imageSrc == '') {
+                        imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
+                    }
+
+
+                    pubDate = pubDate.split("T");
+                    pubDate[1] = pubDate[1].substring(0, 8);
+                    if (data['items'][i]['attachments']['items'].length && data['items'][i]['attachments']['items'][0]['url'] != 'false' && data['items'][i]['attachments']['items'][0]['type']['id'] == 'video') {
+                        thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
+                        videoSrc = data['items'][i]['attachments']['items'][0]['url'];
+
+                        var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list'+widthForArticleClass+'">' + '<article class="news-article" id="' + EIDI + '">'
+                                + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
+                                + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
+                            )
+                            ;
+                    }
+                    else {
+                        var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list'+widthForArticleClass+'">' + '<article class="news-article" id="' + EIDI + '">'
+                                + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
+                                + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>' + '<i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
+                            )
+                            ;
+                    }
+
+                    $("#search-list").append(articleListElement);
+
                 }
-                else {
-                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list'+widthForArticleClass+'">' + '<article class="news-article" id="' + EIDI + '">'
-                            + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
-                            + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>' + '<i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
-                        )
-                        ;
-                }
-
-                $("#search-list").append(articleListElement);
-
-
-            }
+        }
 
             $('#loading-content').hide();
 
@@ -1850,6 +1866,12 @@ NewsMap.lokalreporterView = (function () {
         },
 
         setNews= function (data,pagingInfo) {
+
+            if(data==null|| data==undefined || data.items.length==0){
+                $("#map-content").hide();
+                $("#error-modal").show();
+            }
+
             //console.log(pagingInfo);
             loadNewsEnabled=true;
             latestPagingInfo=pagingInfo;
