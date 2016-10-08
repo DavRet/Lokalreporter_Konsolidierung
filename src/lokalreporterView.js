@@ -346,25 +346,13 @@ NewsMap.lokalreporterView = (function () {
 
                     var id = $(this).parent().parent().attr('id');
 
-/*
-                    $("#moveMapButton").off('click');
-                    $("#moveMapButton img").attr("src","img/x-button.png");
-                    $("#moveMapButton").on('click', function () {
-
-                        $("#map-content").hide();
-                    }); */
-
                     //if (data != null && data != undefined) {
 
                        /* NewsMap.DrawMap.setArticlesFromApi(data); */
                         NewsMap.DrawMap.changeMarkerColor(id);
 
                    // }
-                  /*  $("#moveMapButton img").attr("src","img/x-button.png");
-                    $("#map-content").removeClass("map-content-after-scroll");
-                    $("#map-content").css("width","100%");
-                    $("#map-content").css("height","100%");
-                    $("#map-content").css("margin","3% 3% 3% 3%"); */
+
                     NewsMap.DrawMap.changeMapSize();
                 }
                 else{
