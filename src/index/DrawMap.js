@@ -22,8 +22,8 @@ NewsMap.DrawMap = (function () {
         tempLat,
         tempLon,
         greenIcon,
-        apiIp="http://132.199.141.129:9000",
-        extraMarkers=false,
+        apiIp = "http://132.199.141.129:9000",
+        extraMarkers = false,
 
         map = null,
         newsDataObjects = [],
@@ -36,16 +36,16 @@ NewsMap.DrawMap = (function () {
 
         init = function () {
 
-          /*  $.ajax({
-                async: false,
-                type: 'GET',
-                url: 'http://localhost/Konsolidierung_Lokalreporter/Config',
-                success: function(data) {
-                    apiIp=data;
-                    console.log(apiIp);
-                    //callback
-                }
-            }); */
+            /*  $.ajax({
+             async: false,
+             type: 'GET',
+             url: 'http://localhost/Konsolidierung_Lokalreporter/Config',
+             success: function(data) {
+             apiIp=data;
+             console.log(apiIp);
+             //callback
+             }
+             }); */
 
             function isInArray(value, array) {
                 return array.indexOf(value) > -1;
@@ -62,24 +62,18 @@ NewsMap.DrawMap = (function () {
                 checkFavorites();
             });
 
-             
 
             return this;
         },
 
-        addArticlesToMap = function () {
-
-        };
-
-
-        getArticlesFromApi = function (radius,limit) {
+        getArticlesFromApi = function (radius, limit) {
 
             // weitere Kriterien einbauen/ für Sortierung(relevanz,datum) da Sortierung vom server gemacht wird/
             // Radius und Limit müssen von Select Feldern auf Nachrichten Seite übergeben werden
 
             var settings = {
                 "async": true,
-                "url": apiIp+"/news?radius=" + radius + "&centerpoint=lat49.008852:lng12.085179&limit="+limit,
+                "url": apiIp + "/news?radius=" + radius + "&centerpoint=lat49.008852:lng12.085179&limit=" + limit,
                 "method": "GET",
                 "headers": {
                     "Accept": "application/json",
@@ -94,7 +88,7 @@ NewsMap.DrawMap = (function () {
 
             }).error(function (response) {
                 console.log("error");
-            }).complete(function(){
+            }).complete(function () {
                 $loading.hide();
             });
 
@@ -103,7 +97,7 @@ NewsMap.DrawMap = (function () {
 
         setArticlesFromApi = function (artikelArray) {
             //console.log(artikelArray);
-            markersSet=false;
+            markersSet = false;
             addMarker(artikelArray);
 
         },
@@ -111,11 +105,11 @@ NewsMap.DrawMap = (function () {
         getAllArticles = function () {
 
             // 500 radius und 40 limit testweise gewählt später über select oder so
-           // getArticlesFromApi(500,40);
+            // getArticlesFromApi(500,40);
             // hier muss filter ausgelesen und getNews aus lokalrepModel aufgerufen werden?
         },
 
-        changeMapSize = function() {
+        changeMapSize = function () {
 
             map.invalidateSize();
         },
@@ -139,7 +133,7 @@ NewsMap.DrawMap = (function () {
         },
 
         enableExtraMarkers = function () {
-            extraMarkers=true;
+            extraMarkers = true;
         },
 
         addMarker = function (data) {
@@ -152,157 +146,166 @@ NewsMap.DrawMap = (function () {
             if (!markersSet) {
 
                 //damit neue marker zusätzlich angezeigt werden(wenn nach unten gescrollt wird und neue nachrichten geladen werden
-                if(extraMarkers==false){
+                if (extraMarkers == false) {
                     //Marker werden von Map gelöscht und Artikel wieder aus Artikelfenster
                     markers.clearLayers();
-                    var currWind= NewsMap.lokalreporterView.getCurrentWindow();
+                    var currWind = NewsMap.lokalreporterView.getCurrentWindow();
 
-                    switch(currWind){
+                    switch (currWind) {
                         case "news":
-                            if($("#news-list").children().length>10){
+                            if ($("#news-list").children().length > 10) {
                                 console.log($("#news-list").children().eq(4));
                                 $("#news-list").children().eq(4).nextAll('div').remove();
-                            };
+                            }
+                            ;
                             break;
                         case "top-news":
-                            if($("#top-list").children().length>10){
+                            if ($("#top-list").children().length > 10) {
                                 console.log($("#news-list").children().eq(4));
                                 $("#top-list").children().eq(4).nextAll('div').remove();
-                            };
+                            }
+                            ;
                             break;
                         case "suche":
-                            if($("#search-list").children().length>10){
+                            if ($("#search-list").children().length > 10) {
                                 console.log($("#news-list").children().eq(4));
                                 $("#search-list").children().eq(4).nextAll('div').remove();
-                            };
+                            }
+                            ;
                             break;
                         case "personal":
-                            if($("#personal-Personalisierter-Content").children().length>10){
+                            if ($("#personal-Personalisierter-Content").children().length > 10) {
                                 console.log($("#personal-Personalisierter-Content").children().eq(4));
                                 $("#personal-Personalisierter-Content").children().eq(4).nextAll('div').remove();
-                            };
+                            }
+                            ;
                     }
                 }
-                else{
-                    extraMarkers=false;
+                else {
+                    extraMarkers = false;
                 }
 
                 //for (i = 0; i < 10; i++) {
                 for (i = 0; i < data.length; i++) {
 
-                         pfad= data[i];
-                         tempData.push(data[i]);
+                    pfad = data[i];
+                    tempData.push(data[i]);
 
-                        if(data[i].geoData == undefined){
+                    if (data[i].geoData == undefined) {
 
-                            pfad=data[i]['news'];
+                        pfad = data[i]['news'];
 
+                    }
+
+
+                    //Nimmt Geo Information 2, falls nicht vorhanden -> 0, falls auch nicht vorhanden 1.
+
+                    if (pfad.geoData[2] != undefined) {
+                        if (pfad.geoData[2].geoPoint != undefined || pfad.geoData[2].geoPoint != null) {
+                            var lat = pfad.geoData[2].geoPoint.lat;
                         }
+                    }
+                    else if (pfad.geoData[0] != undefined) {
+                        if (pfad.geoData[0].geoPoint != undefined || pfad.geoData[0].geoPoint != null) {
+                            var lat = pfad.geoData[0].geoPoint.lat;
+                        }
+                    }
+                    else if (pfad.geoData[1] != undefined) {
+                        if (pfad.geoData[1].geoPoint != undefined || pfad.geoData[1].geoPoint != null) {
+                            var lat = pfad.geoData[1].geoPoint.lat;
+                        }
+                    }
+                    else {
+                        //alert("ERROR NO GEO INFORMATION AVAILIBLE -- LAT");
+                        // Setzen einer Standart Location falls keine Vorhanden!
+                        var lat = 50.14567;
+
+                    }
+
+                    if (pfad.geoData[2] != undefined) {
+                        if (pfad.geoData[2].geoPoint != undefined || pfad.geoData[2].geoPoint != null) {
+                            var lon = pfad.geoData[2].geoPoint.lon;
+                        }
+                    }
+                    else if (pfad.geoData[0] != undefined) {
+                        if (pfad.geoData[0].geoPoint != undefined || pfad.geoData[0].geoPoint != null) {
+                            var lon = pfad.geoData[0].geoPoint.lon;
+                        }
+                    }
+                    else if (pfad.geoData[1] != undefined) {
+                        if (pfad.geoData[1].geoPoint != undefined || pfad.geoData[1].geoPoint != null) {
+                            var lon = pfad.geoData[1].geoPoint.lon;
+                        }
+                    }
+                    else {
+                        //alert("ERROR NO GEO INFORMATION AVAILIBLE -- Lon");
+                        // Setzen einer Standart Location falls keine Vorhanden!
+                        var lon = 11.05928;
+                    }
 
 
-
-                            //Nimmt Geo Information 2, falls nicht vorhanden -> 0, falls auch nicht vorhanden 1.
-
-                            if (pfad.geoData[2] != undefined) {
-                                if (pfad.geoData[2].geoPoint != undefined || pfad.geoData[2].geoPoint != null) {
-                                    var lat = pfad.geoData[2].geoPoint.lat;
-                                }
-                            }
-                            else if (pfad.geoData[0] != undefined) {
-                                if (pfad.geoData[0].geoPoint != undefined || pfad.geoData[0].geoPoint != null) {
-                                    var lat = pfad.geoData[0].geoPoint.lat;
-                                }
-                            }
-                            else if (pfad.geoData[1] != undefined) {
-                                if (pfad.geoData[1].geoPoint != undefined || pfad.geoData[1].geoPoint != null) {
-                                    var lat = pfad.geoData[1].geoPoint.lat;
-                                }
-                            }
-                            else {
-                                //alert("ERROR NO GEO INFORMATION AVAILIBLE -- LAT");
-                                // Setzen einer Standart Location falls keine Vorhanden!
-                                var lat = 50.14567;
-
-                            }
-
-                            if (pfad.geoData[2] != undefined) {
-                                if (pfad.geoData[2].geoPoint != undefined || pfad.geoData[2].geoPoint != null) {
-                                    var lon = pfad.geoData[2].geoPoint.lon;
-                                }
-                            }
-                            else if (pfad.geoData[0] != undefined) {
-                                if (pfad.geoData[0].geoPoint != undefined || pfad.geoData[0].geoPoint != null) {
-                                    var lon = pfad.geoData[0].geoPoint.lon;
-                                }
-                            }
-                            else if (pfad.geoData[1] != undefined) {
-                                if (pfad.geoData[1].geoPoint != undefined || pfad.geoData[1].geoPoint != null) {
-                                    var lon = pfad.geoData[1].geoPoint.lon;
-                                }
-                            }
-                            else {
-                                //alert("ERROR NO GEO INFORMATION AVAILIBLE -- Lon");
-                                // Setzen einer Standart Location falls keine Vorhanden!
-                                var lon = 11.05928;
-                            }
+                    var id = pfad.id;
 
 
-                            var id = pfad.id;
+                    var title = pfad.title;
 
 
-                            var title = pfad.title;
+                    var marker = L.marker([lat, lon]);
+                    $(marker).attr("data-id", id);
+                    $(marker).attr("title", title);
+                    var markerPopup = "<div class='marker-popup' data-id='" + id + "' ><h3 class='marker-title'>" + title + "</h3></div>";
+
+                    //marker.bindPopup(markerPopup);
+                    marker.on("click", function () {
+                        var id = $(this)[0]['data-id'];
+                        console.log(this);
+                        console.log(id);
+                        console.log($(this)[0]['title']);
+                        var currentWindow;
+                        if ($("#personal-content").is(':visible')) {
+                            currentWindow = "personal-content";
+                        }
+                        else if ($("#favorite-content").is(':visible')) {
+                            currentWindow = "favorite-content";
+                        }
+                        else if ($("#news-content").is(':visible')) {
+                            currentWindow = "news-content";
+                        }
+                        else if ($("#live-content").is(':visible')) {
+                            currentWindow = "live-content";
+                        }
+                        else if ($("#search-content").is(':visible')) {
+                            currentWindow = "search-content";
+                        }
+                        var listElement = $($("#" + currentWindow).find("#" + id)).parent();
+
+                        listElement.css("border", "10px solid #3a9bd8");
+
+                        $('#scroll-wrapper').scrollTop(0);
+
+                        var scrollTop = $('#scroll-wrapper').scrollTop();
+
+                        var from = $("#lokalreporter-header").height();
 
 
+                        $('#scroll-wrapper').animate({
+                            scrollTop: listElement.offset().top - scrollTop - from
+                        });//, 1000);
 
-                            var marker = L.marker([lat, lon]);
-                            $(marker).attr("data-id", id);
-                            $(marker).attr("title", title);
-                            var markerPopup = "<div class='marker-popup' data-id='" + id + "' ><h3 class='marker-title'>" + title + "</h3></div>";
 
-                           //marker.bindPopup(markerPopup);
-                            marker.on("click", function () {
-                                var id= $(this)[0]['data-id'];
-                                console.log(this);
-                                console.log(id);
-                                console.log($(this)[0]['title']);
-                                var currentWindow;
-                                if($("#personal-content").is(':visible')){
-                                    currentWindow="personal-content";
-                                }
-                                else if($("#favorite-content").is(':visible')){
-                                    currentWindow="favorite-content";
-                                }
-                                else if($("#news-content").is(':visible')){
-                                    currentWindow="news-content";
-                                }
-                                else if($("#live-content").is(':visible')){
-                                    currentWindow="live-content";
-                                }
-                                else if($("#search-content").is(':visible')){
-                                    currentWindow="search-content";
-                                }
-                                var listElement =$($("#"+currentWindow).find("#"+id)).parent();
-                                listElement.css("border","10px solid #3a9bd8");
+                        setTimeout(function () {
+                            listElement.css("border", "");
 
-                                var from =$("#lokalreporter-header").height();
-                                console.log(from);
-                                $('#scroll-wrapper').animate({
-                                    scrollTop: listElement.offset().top - from
-                                });//, 1000);
+                        }, 7000);
 
-                                setTimeout(function () {
-                                    listElement.css("border","");
+                    });
 
-                                }, 7000);
+                    $(markerPopup).attr("id", pfad.id);
 
-                            });
-
-                            $(markerPopup).attr("id", pfad.id);
-
-                            markers.addLayer(marker);
-                  //  }
+                    markers.addLayer(marker);
+                    //  }
                 }
-                if(markers != null && map != null) {
+                if (markers != null && map != null) {
                     map.addLayer(markers);
                 }
                 if (initLoading) {
@@ -321,8 +324,6 @@ NewsMap.DrawMap = (function () {
                 markersSet = true;
 
 
-
-
             }
 
             map.on('popupopen', function (e) {
@@ -335,17 +336,17 @@ NewsMap.DrawMap = (function () {
 
         changeMarkerColor = function (id) {
 
-            var allMarkers= markers.getLayers();
+            var allMarkers = markers.getLayers();
             console.log(markers.getLayers());
-            for(var i=0; i<allMarkers.length; i++){
+            for (var i = 0; i < allMarkers.length; i++) {
 
                 console.log($(allMarkers[i]).attr("data-id"));
-                if($(allMarkers[i]).attr("data-id")==id){
+                if ($(allMarkers[i]).attr("data-id") == id) {
                     markers.refreshClusters();
                     markers.zoomToShowLayer(allMarkers[i], function () {
                         console.log(allMarkers[i]);
                     });
-                    map.setView([allMarkers[i]._latlng.lat,allMarkers[i]._latlng.lng],16);
+                    map.setView([allMarkers[i]._latlng.lat, allMarkers[i]._latlng.lng], 16);
                     markers.refreshClusters();
                 }
             }
@@ -378,7 +379,6 @@ NewsMap.DrawMap = (function () {
              }});
              */
         },
-
 
         calculateDistance = function (lat1, lon1, lat2, lon2) {
 
@@ -417,40 +417,40 @@ NewsMap.DrawMap = (function () {
                 region;
             for (i = 0; i < data.length; i++) {
 
-              //  if (i != 0 && data[i - 1].title != data[i].title) {  //|| data.length == 2 mit in schleife ?
+                //  if (i != 0 && data[i - 1].title != data[i].title) {  //|| data.length == 2 mit in schleife ?
 
-                    EIDI = "a" + i;
-                    artikelTitel = data[i].title;
-                    artikelLink = data[i].link;
+                EIDI = "a" + i;
+                artikelTitel = data[i].title;
+                artikelLink = data[i].link;
 
-                        if(data[i].geoData[2] != undefined){
-                            if(data[i].geoData[2].name != undefined){
-                                artikelOrt= data[i].geoData[2].name;
-                            }
-                            else artikelOrt= "Unbekannt";
-                        }
-                        else artikelOrt= "Unbekannt";
+                if (data[i].geoData[2] != undefined) {
+                    if (data[i].geoData[2].name != undefined) {
+                        artikelOrt = data[i].geoData[2].name;
+                    }
+                    else artikelOrt = "Unbekannt";
+                }
+                else artikelOrt = "Unbekannt";
 
-                    pubDate = data[i].date;
+                pubDate = data[i].date;
 
-                        if(data[i].geoData[0] != undefined){
-                            if(data[i].geoData[0].name != undefined){
-                                region= data[i].geoData[0].name;
-                            }
-                            else region= "Unbekannt";
-                        }
-                        else region= "Unbekannt";
+                if (data[i].geoData[0] != undefined) {
+                    if (data[i].geoData[0].name != undefined) {
+                        region = data[i].geoData[0].name;
+                    }
+                    else region = "Unbekannt";
+                }
+                else region = "Unbekannt";
 
-                    accord = $('<li class="accordion-navigation">' +
-                        '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
-                        '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + ',' + region + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                accord = $('<li class="accordion-navigation">' +
+                    '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
+                    '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + ',' + region + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
-                        '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
-                        '</div> </li>');
+                    '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
+                    '</div> </li>');
 
-                    $("#chrono-wrapper").append(accord);
-                    $("#chrono-wrapper").css("position", "absolute");
-                    $("#chrono-wrapper").css("width", "100%");
+                $("#chrono-wrapper").append(accord);
+                $("#chrono-wrapper").css("position", "absolute");
+                $("#chrono-wrapper").css("width", "100%");
 
             }
             $(document).foundation();
@@ -504,7 +504,6 @@ NewsMap.DrawMap = (function () {
             }
             $('#autocomplete').empty().hide();
         },
-
 
         autocomplete = function () {
 
@@ -702,21 +701,6 @@ NewsMap.DrawMap = (function () {
             });
         },
 
-    /*
-     compare string similarity
-     UNUSED
-     */
-        stringSimilarity = function (a, b) {
-            for (var result = 0, i = a.length; i--;) {
-                if (typeof b[i] == 'undefined' || a[i] == b[i]);
-                else if (a[i].toLowerCase() == b[i].toLowerCase())
-                    result++;
-                else
-                    result += 4;
-            }
-            return 1 - (result + 4 * Math.abs(a.length - b.length)) / (2 * (a.length + b.length));
-        },
-
         _getArticle = function (articleID) {
             for (var i = 0; i < foundArticles.length; i++) {
                 if (articleID == foundArticles[i].post_id) {
@@ -828,7 +812,7 @@ NewsMap.DrawMap = (function () {
                             getAllArticles();
                         }
                         else
-                        getArticleByQuery();
+                            getArticleByQuery();
                     } else {
                         swal("Suchanfrage existiert bereits");
                     }
@@ -896,7 +880,7 @@ NewsMap.DrawMap = (function () {
             }
         };
 
-    that.changeMarkerColor=changeMarkerColor;
+    that.changeMarkerColor = changeMarkerColor;
     that.getArticlesFromApi = getArticlesFromApi;
     that.setArticlesFromApi = setArticlesFromApi;
     that.setUpEmailLink = setUpEmailLink;
@@ -912,7 +896,7 @@ NewsMap.DrawMap = (function () {
     that.showFavArticle = showFavArticle;
     that.removeQuery = removeQuery;
     that.changeMapSize = changeMapSize;
-    that.enableExtraMarkers=enableExtraMarkers;
+    that.enableExtraMarkers = enableExtraMarkers;
     that.init = init;
 
     return that;

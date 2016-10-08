@@ -106,50 +106,6 @@ NewsMap.NewsMapView = (function () {
             $('#newsmap-content').hide();
         },
 
-        showMap = function () {
-            document.location.hash = "map";
-
-            $('.main-menu-item').removeClass('menu-item-activated');
-            $(this).addClass('menu-item-activated');
-
-            $('.main-content').hide();
-
-            if ($('#newsmap-content').hasClass('not-visible-for-init')) {
-                $('#newsmap-content').removeClass('not-visible-for-init');
-                $('#newsmap-content').show();
-
-            }
-            else {
-                $('#newsmap-content').toggle();
-
-            }
-
-        },
-
-        showLive = function (e) {
-            document.location.hash = "top-news";
-
-            $('.main-menu-item').removeClass('menu-item-activated');
-            $(this).addClass('menu-item-activated');
-
-            $('.main-content').hide();
-            $('#newsmap-content').hide();
-
-            $('#live-content').toggle();
-        },
-
-        showNews = function () {
-            document.location.hash = "news";
-
-            $('.main-menu-item').removeClass('menu-item-activated');
-            $(this).addClass('menu-item-activated');
-
-            $('.main-content').hide();
-            $('#newsmap-content').hide();
-
-            $('#news-content').toggle();
-        },
-
         showCategories = function() {
             $('.main-menu-item').removeClass('menu-item-activated');
             $(this).addClass('menu-item-activated');
@@ -159,15 +115,6 @@ NewsMap.NewsMapView = (function () {
             //$('#category-content').toggle();
         },
 
-        showMediathek = function () {
-            document.location.hash = "mediathek";
-            $('.main-menu-item').removeClass('menu-item-activated');
-            $(this).addClass('menu-item-activated');
-            $('.main-content').hide();
-            $('#newsmap-content').hide();
-
-            $('#mediathek-content').toggle();
-        },
         removeQuery = function () {
             $('body').on('click', '.remove-query', function () {
                 var query = $(this).closest('li').attr("data-show");
@@ -190,11 +137,6 @@ NewsMap.NewsMapView = (function () {
             });
         },
 
-        closeMenuRight = function () {
-            $timelineMenu.hide();
-            $favoritesMenu.hide();
-        },
-
         addToFavorites = function () {
             $(that).trigger("addedToFavorites");
 
@@ -210,7 +152,6 @@ NewsMap.NewsMapView = (function () {
 
 
         },
-
 
         showFavoritesOnMap = function () {
 

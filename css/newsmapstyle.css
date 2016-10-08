@@ -1723,13 +1723,16 @@ label {
     #login-modal-content{
         width: 80%;
     }
-}
 
-@media(min-width: 100px) and (max-width: 1024px){
     #register-modal-content{
         width: 80%;
     }
+
+    #impressum-modal-content{
+        width: 80%;
+    }
 }
+
 
 @media(min-width: 100px) and (max-width: 1024px){
     #share-modal-content{
