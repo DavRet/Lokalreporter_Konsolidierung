@@ -182,9 +182,15 @@ a:hover {
     }
 }
 
-#single-news-content {
 
+@media(max-width: 40em) {
+    #single-news-content {
+        padding: 1rem;
+    }
 }
+
+
+
 
 .article-title {
     font-size: 1.25rem;
@@ -439,6 +445,17 @@ a:hover {
         top: 5rem;
     }
 }
+
+@media (min-width: 700px) and (max-width: 1024px) {
+    #map-content{
+        width: 10%;
+        height: 90%;
+        margin-left: 10%;
+        margin-top: 0!important;
+        top: 3rem;
+    }
+}
+
 
 .map-content-after-scroll {
     margin-top: 0!important;
@@ -717,7 +734,7 @@ a:hover {
 
 @media (max-width: 40em) {
     #main {
-        padding: 0.5rem;
+        padding: 0!important;
     }
 }
 
@@ -1706,13 +1723,16 @@ label {
     #login-modal-content{
         width: 80%;
     }
-}
 
-@media(min-width: 100px) and (max-width: 1024px){
     #register-modal-content{
         width: 80%;
     }
+
+    #impressum-modal-content{
+        width: 80%;
+    }
 }
+
 
 @media(min-width: 100px) and (max-width: 1024px){
     #share-modal-content{
