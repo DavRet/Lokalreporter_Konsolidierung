@@ -279,6 +279,12 @@ NewsMap.DrawMap = (function () {
                         }
                         var listElement = $($("#" + currentWindow).find("#" + id)).parent();
 
+                        if($(window).width() < 1024) {
+
+                            NewsMap.lokalreporterView.moveMap();
+                        }
+
+
                         listElement.css("border", "10px solid #3a9bd8");
 
                         $('#scroll-wrapper').scrollTop(0);
