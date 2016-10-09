@@ -173,6 +173,11 @@ NewsMap.lokalreporterView = (function () {
                 $('#error-modal').hide();
             });
 
+            $("#close-loginError-modal").on("click", function () {
+                $("#loginError-modal").hide();
+
+            })
+
 
             $(document).on("click", '#fav-button', function () {
                 $('.main-menu-item').removeClass('menu-item-activated');
@@ -594,7 +599,10 @@ NewsMap.lokalreporterView = (function () {
                 $('#login-modal').hide();
                 changeMenuAfterLogin();
                 isLoggedIn = true;
-
+            }).error(function () {
+                console.log("login error");
+                //$(".modal").hide();
+                $("#loginError-modal").show();
             });
         },
 

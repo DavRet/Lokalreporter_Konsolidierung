@@ -124,6 +124,18 @@
             </div>
         </header>
 
+        <div id="loginError-modal" class="modal">
+
+            <div class="modal-content animate" id="loginError-modal-content">
+                <div class="container">
+                    <div id="close-loginError-modal"><i class="fi-x share-x"></i></div>
+                    <h4 class="loginError-headline">Login Error</h4>
+                    <p>Sie haben entweder eine ungültige Email Adresse oder ein falsches Kennwort eingegeben.</p>
+                </div>
+            </div>
+        </div>
+
+
         <div id="impressum-modal" class="modal">
 
             <div class="modal-content animate" id="impressum-modal-content">
@@ -147,7 +159,7 @@
             <div class="modal-content animate" id="login-modal-content">
                 <div class="container">
                     <label><b>Benutzername</b></label>
-                    <input id="login-username" type="text" placeholder="Enter Username" name="uname" required>
+                    <input id="login-username" type="text" placeholder="Enter Email Adress" name="uname" required>
 
                     <label><b>Passwort</b></label>
                     <input id="login-password" type="password" placeholder="Enter Password" name="psw" required>
