@@ -32,9 +32,7 @@ NewsMap.lokalreporterView = (function () {
 
             selectedTyp = "?";
 
-            if(localStorage.getItem('isLoggedIn') == true) {
-                console.log(localStorage.getItem('isLoggedIn'));
-                console.log(localStorage.getItem('token'));
+            if(localStorage.getItem('isLoggedIn') == "true") {
 
                 isLoggedIn = true;
                 token = localStorage.getItem('token');
@@ -187,7 +185,7 @@ NewsMap.lokalreporterView = (function () {
             $("#close-loginError-modal").on("click", function () {
                 $("#loginError-modal").hide();
 
-            })
+            });
 
 
             $(document).on("click", '#fav-button', function () {
@@ -636,6 +634,10 @@ NewsMap.lokalreporterView = (function () {
 
         logout = function () {
             isLoggedIn = false;
+
+            localStorage.setItem('isLoggedIn', false);
+            localStorage.setItem('token', null);
+
 
             $("#collapse-menu").hide();
 
