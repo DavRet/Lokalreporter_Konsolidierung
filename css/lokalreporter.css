@@ -734,8 +734,8 @@ a:hover {
 
 @media (max-width: 40em) {
     #main {
-        padding: 0!important;
-    }
+        padding-left: 1rem;
+        padding-right: 0;    }
 }
 
 .main-content {
@@ -1659,6 +1659,7 @@ label {
     margin: 0;
     height: 100%;
     overflow-x: hidden;
+    list-style-type: none;
 }
 
 #drop1 {
@@ -1733,6 +1734,12 @@ label {
     }
 }
 
+
+@media(max-width: 1024px) {
+    .filter-select {
+        padding: 0!important;
+    }
+}
 
 @media(min-width: 100px) and (max-width: 1024px){
     #share-modal-content{
