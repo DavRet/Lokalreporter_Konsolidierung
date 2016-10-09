@@ -340,6 +340,8 @@ NewsMap.lokalreporterView = (function () {
                      $("#map-content").css("height","100%");
                      $("#map-content").css("margin","3% 3% 3% 3%"); */
                     NewsMap.DrawMap.changeMapSize();
+
+                    moveMap();
                 }
                 else {
                     var id = $(this).parent().parent().attr('id');
