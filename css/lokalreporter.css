@@ -1659,6 +1659,7 @@ label {
     margin: 0;
     height: 100%;
     overflow-x: hidden;
+    list-style-type: none;
 }
 
 #drop1 {
