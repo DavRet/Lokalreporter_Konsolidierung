@@ -608,18 +608,22 @@ NewsMap.lokalreporterView = (function () {
 
         logout = function () {
             isLoggedIn = false;
+
+            $("#collapse-menu").hide();
+
             $('#login-open').html('Login');
             $('#collapse-login').html('Login');
             $('#login-open').show();
-            $('#collapse-login').hide();
+            $('#collapse-login').show();
 
             $('#register-open').html('Register');
             $('#register-open').off("click");
             $('#collapse-register').html('Register');
             $('#collapse-register').off("click");
-            $('#login-open').on('click', NewsMap.NewsMapView.showLogin);
-            $('#register-open').on('click', NewsMap.NewsMapView.showRegister);
+
             $("#live-button").html("Top-News");
+
+            $("#collapse-topnews").html("Top-News");
 
             $('.favorite-icon').show();
             $('.favorite-icon').css('display', 'block');
@@ -634,6 +638,12 @@ NewsMap.lokalreporterView = (function () {
             $("#live-content").css('display', 'block');
             $('.main-menu-item').removeClass('menu-item-activated');
             $('#live-button').addClass('menu-item-activated');
+
+            $('#collapse-login').on('click', NewsMap.NewsMapView.showLogin);
+            $('#collapse-register').on('click', NewsMap.NewsMapView.showRegister);
+
+            $('#login-open').on('click', NewsMap.NewsMapView.showLogin);
+            $('#register-open').on('click', NewsMap.NewsMapView.showRegister);
         },
 
         changeMenuAfterLogin = function () {
@@ -647,6 +657,7 @@ NewsMap.lokalreporterView = (function () {
             $('#register-open').off("click");
             $('#register-open').on("click", logout);
             $('#collapse-register').html('Logout');
+            $('#collapse-register').off("click");
             $('#collapse-register').on("click", logout);
 
             $('#live-button').html('Ihre News');
@@ -890,6 +901,8 @@ NewsMap.lokalreporterView = (function () {
                 token = "Bearer " + response['access_token'];
                 changeMenuAfterLogin();
                 isLoggedIn = true;
+            }).error(function () {
+                $("#loginError-modal").show();
             });
         },
 
