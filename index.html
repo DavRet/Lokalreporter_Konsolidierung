@@ -160,9 +160,10 @@
                 <div class="container">
                     <label><b>Benutzername</b></label>
                     <input id="login-username" type="text" placeholder="Enter Email Adress" name="uname" required>
+                    <input id="login-username" type="text" placeholder="E-Mail" name="uname" required>
 
                     <label><b>Passwort</b></label>
-                    <input id="login-password" type="password" placeholder="Enter Password" name="psw" required>
+                    <input id="login-password" type="password" placeholder="Passwort" name="psw" required>
 
                     <button id="login-button">Login</button>
                     <input type="checkbox" checked="checked"> Login merken
@@ -170,7 +171,7 @@
 
                 <div class="container" style="background-color:#f1f1f1">
                     <button id="cancel-login" type="button" class="cancelbtn">Abbrechen</button>
-                    <span class="psw"><a href="#">Passwort vergessen?</a></span>
+                    <!--<span class="psw"><a href="#">Passwort vergessen?</a></span>-->
                 </div>
             </div>
         </div>
@@ -191,12 +192,12 @@
             <div class="modal-content animate" id="register-modal-content">
                 <div class="container">
                     <label><b>Benutzername</b></label>
-                    <input id="register-username" type="text" placeholder="Enter Email Adress" name="uname" required>
+                    <input id="register-username" type="text" placeholder="E-Mail" name="uname" required>
 
                     <label><b>Passwort</b></label>
-                    <input id="register-password" type="password" placeholder="Enter Password" name="psw" required>
+                    <input id="register-password" type="password" placeholder="Passwort" name="psw" required>
                     <label><b>Passwort wiederholen</b></label>
-                    <input id="register-password-again" type="password" placeholder="Enter Password again"
+                    <input id="register-password-again" type="password" placeholder="Passwort wiederholen"
                            name="psw-again"
                            required>
 
@@ -275,8 +276,9 @@
 
             <div class="large-8 medium-12 columns left-content">
                 <div class="large-12 small-12 columns filter-select">
-                    <select id="select-category">
+                    <select placeholder="Kategorie" id="select-category">
                         <optgroup label="Kategorie">
+                            <option value="" disabled selected hidden>Kategorie</option>
                             <option value="alle">Alle</option>
                             <option value="wetter">Wetter</option>
                             <option value="sport">Sport</option>
@@ -301,7 +303,8 @@
                     </select>
 
                     <select id="select-radius">
-                        <option value="">Alle</option>
+                        <option value="" disabled selected hidden>Umkreis</option>
+                        <option value="">Unbegrenzt</option>
                         <option value="200">200 km</option>
                         <option value="100">100 km</option>
                         <option value="50">50 km</option>

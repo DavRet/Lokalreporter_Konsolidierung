@@ -598,25 +598,21 @@ a:hover {
 .collapse-menu-item{
     text-align: left;
     width: 100%;
-
     line-height: 2rem;
-    padding: 1.8rem 1.2rem 1.8rem 1.2rem;
+    padding: 1.5rem 1.2rem 1.5rem 1.2rem;
     color: #ffffff;
-
-
+    white-space: nowrap;
     list-style: none;
 }
 
 @media(min-width: 40em) {
     #loading-content {
-        height: 100rem;
-        width: 65rem;
+        text-align: center;
     }
 }
 
 
 .loading-gif {
-    margin-left: 25%;
 }
 
 
@@ -734,6 +730,8 @@ a:hover {
     background: #f2f2f1;
     height: 100%;
     display: inline-block;
+    min-height: 50rem;
+    width: 100%;
 }
 
 @media (max-width: 40em) {

@@ -233,6 +233,7 @@ NewsMap.lokalreporterModel = (function () {
         },
 
         getNewsWithPagingLink = function (pagingLink) {
+            console.log(pagingLink);
             var settings = {
                 "async": true,
                 "crossDomain": true,
@@ -247,6 +248,7 @@ NewsMap.lokalreporterModel = (function () {
             };
 
             $.ajax(settings).done(function (response) {
+                console.log(response);
                 var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
                 var currWind = NewsMap.lokalreporterView.getCurrentWindow();
                 switch (currWind) {
