@@ -31,7 +31,7 @@ NewsMap.lokalreporterView = (function () {
             selectedRadius = "&radius=50";
 
             selectedTyp = "?";
-            
+
             if(localStorage.getItem('isLoggedIn') == true) {
                 console.log(localStorage.getItem('isLoggedIn'));
                 console.log(localStorage.getItem('token'));
@@ -183,6 +183,11 @@ NewsMap.lokalreporterView = (function () {
             $('#close-error-modal').on('click', function () {
                 $('#error-modal').hide();
             });
+
+            $("#close-loginError-modal").on("click", function () {
+                $("#loginError-modal").hide();
+
+            })
 
 
             $(document).on("click", '#fav-button', function () {
@@ -622,22 +627,22 @@ NewsMap.lokalreporterView = (function () {
                 $('#login-modal').hide();
                 changeMenuAfterLogin();
                 isLoggedIn = true;
-
+            }).error(function () {
+                console.log("login error");
+                //$(".modal").hide();
+                $("#loginError-modal").show();
             });
         },
 
         logout = function () {
             isLoggedIn = false;
 
+            $("#collapse-menu").hide();
 
-            localStorage.setItem('isLoggedIn', false);
-            localStorage.setItem('token', null);
-
-
-            $('#login-open').html('LOGIN');
+            $('#login-open').html('Login');
             $('#collapse-login').html('Login');
             $('#login-open').show();
-            $('#collapse-login').hide();
+            $('#collapse-login').show();
 
             $('#register-open').html('REGISTRIEREN');
             $('#register-open').off("click");
@@ -678,6 +683,7 @@ NewsMap.lokalreporterView = (function () {
             $('#register-open').off("click");
             $('#register-open').on("click", logout);
             $('#collapse-register').html('Logout');
+            $('#collapse-register').off("click");
             $('#collapse-register').on("click", logout);
 
             //$('#live-button').html('Ihre News');
@@ -930,6 +936,8 @@ NewsMap.lokalreporterView = (function () {
                 token = "Bearer " + response['access_token'];
                 changeMenuAfterLogin();
                 isLoggedIn = true;
+            }).error(function () {
+                $("#loginError-modal").show();
             });
         },
 
@@ -1273,6 +1281,17 @@ NewsMap.lokalreporterView = (function () {
 
         showContent = function () {
             $('#loading-content').show();
+
+            setTimeout(function () {
+                //$("#moveMapButton").effect("highlight", {}, 3000);
+                for(i=0;i<3;i++) {
+                    $("#moveMapButton").fadeTo('slow', 0.8).fadeTo('fast', 2.5);
+                    $('#map-content')
+                        .animate({borderColor:'#b0dffd'}, 400)
+                        .delay(400)
+                        .animate({borderColor:'#3a9bd8'}, 1000);
+                }
+            },2000);
 
             $('.article-video').each(function () {
                 $(this).get(0).pause();
