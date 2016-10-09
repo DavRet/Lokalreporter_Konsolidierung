@@ -47,6 +47,7 @@ NewsMap.lokalreporterModel = (function () {
                 NewsMap.lokalreporterView.setTopNews(response, pagingInfo);
                 NewsMap.DrawMap.setArticlesFromApi(response.items);
                 currentTopNews = response.items;
+                console.log(currentTopNews);
             }).error(function (response) {
                 console.log("error");
             });
@@ -160,7 +161,6 @@ NewsMap.lokalreporterModel = (function () {
                 return currentTopNews;
             }
             if (x == 'news') {
-
                 return currentNews;
             }
         },

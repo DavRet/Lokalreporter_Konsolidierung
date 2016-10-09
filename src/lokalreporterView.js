@@ -84,6 +84,7 @@ NewsMap.lokalreporterView = (function () {
             NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
             // muss getNews aufgerufen werden mit aktuellen bzw standart filter.
 
+
             $('#lokalreporter-image').on('click', function () {
 
                 document.location.hash = "top-news";
@@ -1582,13 +1583,16 @@ NewsMap.lokalreporterView = (function () {
         },
 
         showTop = function (e) {
+            console.log("in ShowTop");
             $("#select-category").prop('disabled', false);
             $('.main-content').hide();
             $('#live-content').toggle();
             $("#search-input").val("");
             $("#select-radius,#select-category,#select-typ").hide();
             var data = NewsMap.lokalreporterModel.getCurrentNews('topnews');
+            console.log(data);
             if (data != null && data != undefined) {
+                console.log("in drawmap set data");
                 NewsMap.DrawMap.setArticlesFromApi(data);
             }
 
