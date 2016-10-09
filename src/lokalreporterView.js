@@ -1247,6 +1247,16 @@ NewsMap.lokalreporterView = (function () {
         showContent = function () {
             $('#loading-content').show();
 
+            setTimeout(function () {
+                //$("#moveMapButton").effect("highlight", {}, 3000);
+                for(i=0;i<3;i++) {
+                    $("#moveMapButton").fadeTo('slow', 0.8).fadeTo('fast', 2.5);
+                    $('#map-content')
+                        .animate({borderColor:'#b0dffd'}, 400)
+                        .delay(400)
+                        .animate({borderColor:'#3a9bd8'}, 1000);
+                }
+            },2000);
 
             $('.article-video').each(function () {
                 $(this).get(0).pause();
