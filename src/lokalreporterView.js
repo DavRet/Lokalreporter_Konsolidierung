@@ -747,7 +747,6 @@ NewsMap.lokalreporterView = (function () {
             }
         },
 
-
         setFavoriteItems = function (data) {
             loadNewsEnabled = true;
             if (data.items.length == 0 || data == undefined || data.items == undefined) {
@@ -1126,7 +1125,7 @@ NewsMap.lokalreporterView = (function () {
             loadNewsEnabled = true;
             latestPagingInfoTop = pagingInfo;
             //$("#top-list").empty();
-            var widthForArticleClass = " article-list-for-map";
+            var widthForArticleClass = "article-list-for-map";
             var width = $(window).width(), height = $(window).height();
 
             if (width <= 512) {
@@ -1157,13 +1156,14 @@ NewsMap.lokalreporterView = (function () {
                 artikelLink = data['items'][i]['originalLink'];
                 pubDate = data['items'][i]['date'];
                 content = data['items'][i]['abstract'];
-                if (data['items'][i]['thumbnail'] != null) {
+                if (data['items'][i]['thumbnail'] != undefined) {
                     imageSrc = data['items'][i]['thumbnail']['source'];
-
+                }
+                else {
+                    imageSrc = undefined;
                 }
                 commentCount = data['items'][i]['properties']['comments.count'];
-
-
+                
                 if (imageSrc == '' || imageSrc == undefined) {
                     imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
                 }
