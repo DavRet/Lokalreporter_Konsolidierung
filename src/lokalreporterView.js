@@ -51,26 +51,30 @@ NewsMap.lokalreporterView = (function () {
                     switch (currentWindow) {
                         case "news":
                             if (loadNewsEnabled) {
+                                $('#loading-content').show();
                                 loadNewsEnabled = false;
                                 NewsMap.lokalreporterModel.getNewsWithPagingLink(latestPagingInfo);
                             }
                             break;
                         case "top-news":
                             if (loadNewsEnabled) {
+                                $('#loading-content').show();
                                 loadNewsEnabled = false;
-                                NewsMap.lokalreporterModel.getNewsWithPagingLink(latestPagingInfo);
+                                NewsMap.lokalreporterModel.getNewsWithPagingLink(latestPagingInfoTop);
                             }
                             break;
                         case "suche":
                             if (loadNewsEnabled) {
+                                $('#loading-content').show();
                                 loadNewsEnabled = false;
-                                NewsMap.lokalreporterModel.getNewsWithPagingLink(latestPagingInfo);
+                                NewsMap.lokalreporterModel.getNewsWithPagingLink(latestPagingInfoSearch);
                             }
                             break;
                         case "personal":
                             if (loadNewsEnabled) {
+                                $('#loading-content').show();
                                 loadNewsEnabled = false;
-                                NewsMap.lokalreporterModel.getNewsWithPagingLink(latestPagingInfo);
+                                NewsMap.lokalreporterModel.getNewsWithPagingLink(latestPagingInfoPerso);
                             }
                             break;
                     }
@@ -1261,10 +1265,10 @@ NewsMap.lokalreporterView = (function () {
                         getRelatedItems();
                         showPersonal();
                     }
-
                     break;
                 case "#nachrichten":
                     currentWindow = "news";
+                    $('.filter-select').show();
                     showNews();
                     break;
                 case "#top-news":
@@ -1285,6 +1289,8 @@ NewsMap.lokalreporterView = (function () {
                     showMap();
                     break;
                 case "#favoriten":
+                    $('#loading-content').hide();
+                    $('.filter-select').hide();
                     currentWindow = "favorites";
                     showFavorites();
 
@@ -1447,24 +1453,6 @@ NewsMap.lokalreporterView = (function () {
             $("#single-news-article").append(headLine, dateLine, image, content['content'], source);
 
 
-            var previousParagraph;
-
-            /*for (i = 2; i < content.length - 1; i++) {
-
-             var type = typeof content[i]['contents'];
-             if (type != "undefined") {
-             var paragraph = content[i]['contents'][0]['text'];
-
-             var articleElement = $('<p>' + paragraph + '</p>');
-
-             if (previousParagraph != paragraph)
-             $("#single-news-article").append(articleElement);
-
-             previousParagraph = paragraph;
-             }
-
-             }*/
-
             $('#news-tags').remove();
 
             $('#single-news-content').append('<ul id="news-tags"></ul>');
@@ -1489,9 +1477,6 @@ NewsMap.lokalreporterView = (function () {
                 $("#comment-list").append(commentListItem);
 
             }
-
-            /* $('#single-news-comments').height($('#single-news-content').height()); */
-
 
             for (i = 0; i < related['items'].length; i++) {
 
@@ -1574,6 +1559,8 @@ NewsMap.lokalreporterView = (function () {
             $('#news-button').addClass('menu-item-activated');
             $("#select-radius,#select-category,#select-typ").show();
 
+            $('#scroll-wrapper').scrollTop(0);
+
             NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
             var data = NewsMap.lokalreporterModel.getCurrentNews('news');
             if (data != null && data != undefined) {
@@ -1593,6 +1580,9 @@ NewsMap.lokalreporterView = (function () {
             $('#live-content').toggle();
             $("#search-input").val("");
             $("#select-radius,#select-category,#select-typ").hide();
+
+            $('#scroll-wrapper').scrollTop(0);
+
 
             NewsMap.lokalreporterModel.getTopNews();
             var data = NewsMap.lokalreporterModel.getCurrentNews('topnews');
@@ -1677,9 +1667,7 @@ NewsMap.lokalreporterView = (function () {
                 commentCount;
 
             /* var personalContentContainer = $('<div class="personal-container" id="container-' + tag + '"><h1 class="personal-title">' + tag.charAt(0).toUpperCase() + tag.slice(1) + ':</h1><ul class="results-list personal-list-" id="personal-' + tag + '"></ul><hr></div>'); */
-            var personalContentContainer = $('<div class="personal-container" id="container-' + tag + '"><ul class="results-list personal-list-" id="personal-' + tag + '"></ul><hr></div>');
-
-            var personalContentId = "#personal-" + tag;
+            var personalContentContainer = $('<div class="personal-container" id="personal-container"><ul class="results-list personal-list" id="personal-content-list' + '"></ul></div>');
 
             $('#personal-content').append(personalContentContainer);
 
@@ -1701,7 +1689,6 @@ NewsMap.lokalreporterView = (function () {
                 }
                 /* imageSrc = data['items'][i]['thumbnail']['source']; */
                 commentCount = data['items'][i]['properties']['comments.count'];
-
 
                 if (imageSrc == '') {
                     imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
@@ -1728,13 +1715,14 @@ NewsMap.lokalreporterView = (function () {
                         ;
                 }
 
-                $(personalContentId).append(articleListElement);
+                $('#personal-content-list').append(articleListElement);
 
 
             }
 
             $('#loading-content').hide();
 
+            var personalContentId = "#personal-content-list";
             var idForRow = personalContentId + ' > li';
 
             if ($(document).width() > 1100) {
