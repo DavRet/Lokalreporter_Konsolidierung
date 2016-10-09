@@ -100,9 +100,12 @@ a:hover {
 
 }
 
+.gallery {
+    list-style-type: none;
+}
+
 #close-share-modal {
     float: right;
-    margin-top: -4.5rem;
     cursor: pointer;
 }
 
@@ -436,10 +439,10 @@ a:hover {
 @media (min-width: 100px) and (max-width: 600px) {
     #map-content {
         width: 10%;
-        height: 90%;
+        height: 100%;
         margin-left: 10%;
         margin-top: 0 !important;
-        top: 5rem;
+        top: 2rem;
     }
 }
 
