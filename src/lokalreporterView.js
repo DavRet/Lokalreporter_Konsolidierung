@@ -625,7 +625,6 @@ NewsMap.lokalreporterView = (function () {
             $("#collapse-menu").hide();
 
             $('#login-open').html('Login');
-            $('#login-open').html('LOGIN');
             $('#collapse-login').html('Login');
             $('#login-open').show();
             $('#collapse-login').show();
@@ -669,6 +668,7 @@ NewsMap.lokalreporterView = (function () {
             $('#register-open').off("click");
             $('#register-open').on("click", logout);
             $('#collapse-register').html('Logout');
+            $('#collapse-register').off("click");
             $('#collapse-register').on("click", logout);
 
             //$('#live-button').html('Ihre News');
