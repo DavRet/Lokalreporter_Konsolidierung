@@ -80,8 +80,8 @@ NewsMap.lokalreporterView = (function () {
             var headerHeight = $('#lokalreporter-header').height();
             $('#main').css('margin-top', headerHeight);
 
-            NewsMap.lokalreporterModel.getTopNews(); //getTopNews();
-            NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
+            //NewsMap.lokalreporterModel.getTopNews(); //getTopNews();
+            //NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
             // muss getNews aufgerufen werden mit aktuellen bzw standart filter.
 
             $('#lokalreporter-image').on('click', function () {
@@ -1194,6 +1194,8 @@ NewsMap.lokalreporterView = (function () {
 
             }
 
+            $('#loading-content').hide();
+
             if ($(document).width() > 1100) {
                 $('#top-list > li').each(function (i) {
                     if (i % 2 == 0) {
@@ -1571,6 +1573,8 @@ NewsMap.lokalreporterView = (function () {
             $("#search-input").val("");
             $('#news-button').addClass('menu-item-activated');
             $("#select-radius,#select-category,#select-typ").show();
+
+            NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
             var data = NewsMap.lokalreporterModel.getCurrentNews('news');
             if (data != null && data != undefined) {
                 NewsMap.DrawMap.setArticlesFromApi(data);
@@ -1589,6 +1593,8 @@ NewsMap.lokalreporterView = (function () {
             $('#live-content').toggle();
             $("#search-input").val("");
             $("#select-radius,#select-category,#select-typ").hide();
+
+            NewsMap.lokalreporterModel.getTopNews();
             var data = NewsMap.lokalreporterModel.getCurrentNews('topnews');
             if (data != null && data != undefined) {
                 NewsMap.DrawMap.setArticlesFromApi(data);
