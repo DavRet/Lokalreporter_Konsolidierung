@@ -31,6 +31,18 @@ NewsMap.lokalreporterView = (function () {
             selectedRadius = "&radius=50";
 
             selectedTyp = "?";
+            
+            if(localStorage.getItem('isLoggedIn') == true) {
+                console.log(localStorage.getItem('isLoggedIn'));
+                console.log(localStorage.getItem('token'));
+
+                isLoggedIn = true;
+                token = localStorage.getItem('token');
+
+                changeMenuAfterLogin();
+
+
+            }
 
             $('#scroll-wrapper').on('scroll', function () {
 
@@ -582,7 +594,6 @@ NewsMap.lokalreporterView = (function () {
             var username = $('#login-username').val();
             var password = $('#login-password').val();
 
-
             var settings = {
                 "async": true,
                 "crossDomain": true,
@@ -604,6 +615,10 @@ NewsMap.lokalreporterView = (function () {
 
             $.ajax(settings).done(function (response) {
                 token = "Bearer " + response['access_token'];
+
+                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('token', token);
+
                 $('#login-modal').hide();
                 changeMenuAfterLogin();
                 isLoggedIn = true;
@@ -613,6 +628,12 @@ NewsMap.lokalreporterView = (function () {
 
         logout = function () {
             isLoggedIn = false;
+
+
+            localStorage.setItem('isLoggedIn', false);
+            localStorage.setItem('token', null);
+
+
             $('#login-open').html('LOGIN');
             $('#collapse-login').html('Login');
             $('#login-open').show();
