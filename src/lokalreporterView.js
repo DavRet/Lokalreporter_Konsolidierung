@@ -558,7 +558,6 @@ NewsMap.lokalreporterView = (function () {
                     if ($("#personal-content").find("#favorite-alert").length > 0) {
                         $("#favorite-alert").remove();
                     }
-                    console.log(response);
                     var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
                     NewsMap.lokalreporterView.setPersonalContent(response, "Personalisierter-Content", pagingInfo);
                     NewsMap.DrawMap.setArticlesFromApi(response.items);
@@ -713,8 +712,10 @@ NewsMap.lokalreporterView = (function () {
             $('.favorite-icon').css('display', 'block');
 
             NewsMap.lokalreporterModel.getFavoriteItems(token);
+            NewsMap.lokalreporterModel.getRelatedItems(token);
 
-            getRelatedItems();
+
+            //getRelatedItems();
             showPersonal();
 
         },
@@ -1348,7 +1349,6 @@ NewsMap.lokalreporterView = (function () {
                         currentWindow = "personal";
                         $('.main-menu-item').removeClass('menu-item-activated');
                         $('#personal-button').addClass('menu-item-activated');
-                        getRelatedItems();
                         showPersonal();
                     }
                     else {
@@ -1688,37 +1688,15 @@ NewsMap.lokalreporterView = (function () {
 
             document.location.hash = "personal-news";
 
+            NewsMap.lokalreporterModel.getRelatedItems(token);
 
-            /* if($.find("#favorite-alert").length==0){
-             $("#map-content").hide();
-             }
-             else{
-             $("#map-content").css("display","block");
 
-             }*/
+            $('#scroll-wrapper').scrollTop(0);
 
-            /*
-             $("#personal-tags").tagit({
-             availableTags: ["wetter", "sport", "verkehr", "polizei", "ratgeber", "kultur", "religion", "oberfranken", "mittelfranken", "niederbayern", "oberpfalz", "oberbayern", "unterfranken"],
-             placeholderText: "Themen hinzufügen",
-             onTagClicked: function (event, ui) {
-             // do something special
-             },
-
-             afterTagAdded: function (event, ui) {
-             // do something special
-             var tag = ui.tag[0].innerText;
-             getPersonalContent(tag);
-             $('#map-content').show();
-             },
-
-             afterTagRemoved: function (event, ui) {
-             // do something special
-             var tag = ui.tag[0].firstChild.innerText;
-             removePersonalContent(tag);
-             }
-             });
-             */
+            setTimeout(function () {
+                $('#map-content').show();
+                NewsMap.DrawMap.changeMapSize();
+            }, 1000);
 
         },
 

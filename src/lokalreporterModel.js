@@ -47,7 +47,6 @@ NewsMap.lokalreporterModel = (function () {
                 NewsMap.lokalreporterView.setTopNews(response, pagingInfo);
                 NewsMap.DrawMap.setArticlesFromApi(response.items);
                 currentTopNews = response.items;
-                console.log(currentTopNews);
             }).error(function (response) {
                 console.log("error");
             });
@@ -165,6 +164,43 @@ NewsMap.lokalreporterModel = (function () {
             }
         },
 
+        getRelatedItems = function (token) {
+            var settings = {
+                "async": true,
+                "url": apiIp + "/news/recommended?limit=20",
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "authorization": token
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+
+                if (response.items.length == 0) {
+                    if ($("#personal-content").find("#favorite-alert").length == 0) {
+                        var missingFavourites = '<div id="favorite-alert"><h1>Fügen sie zuerst Favoriten hinzu.</h1><p>Hier wird ihnen eine Reihe von Artikeln vorgeschlagen, auf Basis ihrer Favoriten.</p></div>';
+                        $("#personal-content").append(missingFavourites);
+                    }
+                    $("#map-content").hide();
+                }
+                else {
+                    if ($("#personal-content").find("#favorite-alert").length > 0) {
+                        $("#favorite-alert").remove();
+                    }
+                    var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
+                    NewsMap.lokalreporterView.setPersonalContent(response, "Personalisierter-Content", pagingInfo);
+                    NewsMap.DrawMap.setArticlesFromApi(response.items);
+                }
+
+
+            }).error(function (response) {
+                console.log("error");
+            });
+
+        },
+
+
         getFavoriteItems = function (token) {
             var settings = {
                 "async": true,
@@ -233,7 +269,6 @@ NewsMap.lokalreporterModel = (function () {
         },
 
         getNewsWithPagingLink = function (pagingLink) {
-            console.log(pagingLink);
             var settings = {
                 "async": true,
                 "crossDomain": true,
@@ -248,7 +283,6 @@ NewsMap.lokalreporterModel = (function () {
             };
 
             $.ajax(settings).done(function (response) {
-                console.log(response);
                 var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
                 var currWind = NewsMap.lokalreporterView.getCurrentWindow();
                 switch (currWind) {
@@ -384,6 +418,7 @@ NewsMap.lokalreporterModel = (function () {
     that.getlastSearchResponse = getlastSearchResponse;
     that.getCurrentFavorite = getCurrentFavorite;
     that.getFavoriteItems = getFavoriteItems;
+    that.getRelatedItems = getRelatedItems;
 
 
     return that;
