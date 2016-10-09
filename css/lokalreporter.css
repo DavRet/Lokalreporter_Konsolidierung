@@ -1775,3 +1775,10 @@ label {
 #single-news-article video{
     width: 100%;
 }
+
+@media (min-width: 100px) and (max-width: 1024px) {
+
+    #error-modal-content{
+        width: 80% !important;
+    }
+}
