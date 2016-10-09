@@ -1690,7 +1690,8 @@ label {
     color: #000000;
     padding: 0;
     margin: 0;
-    left: -3.5rem;
+    left: -1rem;
+    width: 3rem;
 }
 
 #moveMapButton:focus{
@@ -1702,8 +1703,7 @@ label {
 }
 
 .move-map-arrow {
-    width: 50%;
-    float: right;
+
 }
 
 .map-header {

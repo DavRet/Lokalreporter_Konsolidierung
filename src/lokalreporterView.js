@@ -32,6 +32,8 @@ NewsMap.lokalreporterView = (function () {
 
             selectedTyp = "?";
 
+
+
             if(localStorage.getItem('isLoggedIn') == "true") {
 
                 isLoggedIn = true;
@@ -41,6 +43,12 @@ NewsMap.lokalreporterView = (function () {
 
 
             }
+
+            $(document).on("click", function(e) {
+                if (!$(e.target).is(".top-menu-items") && !$(e.target).is(".modal").child()) {
+                        $('.modal').hide();
+                }
+            });
 
             $('#scroll-wrapper').on('scroll', function () {
 
@@ -534,42 +542,6 @@ NewsMap.lokalreporterView = (function () {
             //http://twitter.com/share?text=Im Sharing on Twitter&url=http://stackoverflow.com/users/2943186/youssef-subehi&hashtags=stackoverflow,example,youssefusf
         },
 
-        getRelatedItems = function () {
-            var settings = {
-                "async": true,
-                "url": apiIp + "/news/recommended?limit=20",
-                "method": "GET",
-                "headers": {
-                    "Accept": "application/json",
-                    "authorization": token
-                }
-            };
-
-            $.ajax(settings).done(function (response) {
-
-                if (response.items.length == 0) {
-                    if ($("#personal-content").find("#favorite-alert").length == 0) {
-                        var missingFavourites = '<div id="favorite-alert"><h1>Fügen sie zuerst Favoriten hinzu.</h1><p>Hier wird ihnen eine Reihe von Artikeln vorgeschlagen, auf Basis ihrer Favoriten.</p></div>';
-                        $("#personal-content").append(missingFavourites);
-                    }
-                    $("#map-content").hide();
-                }
-                else {
-                    if ($("#personal-content").find("#favorite-alert").length > 0) {
-                        $("#favorite-alert").remove();
-                    }
-                    var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
-                    NewsMap.lokalreporterView.setPersonalContent(response, "Personalisierter-Content", pagingInfo);
-                    NewsMap.DrawMap.setArticlesFromApi(response.items);
-                }
-
-
-            }).error(function (response) {
-                console.log("error");
-            });
-
-        },
-
         bookmarkArticle = function (id) {
             var settings = {
                 "async": true,
@@ -937,6 +909,10 @@ NewsMap.lokalreporterView = (function () {
             $.ajax(settings).done(function (response) {
                 $('#register-modal').hide();
                 token = "Bearer " + response['access_token'];
+
+                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('token', token);
+
                 changeMenuAfterLogin();
                 isLoggedIn = true;
             }).error(function () {
