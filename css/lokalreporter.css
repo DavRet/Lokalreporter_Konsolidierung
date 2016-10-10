@@ -398,9 +398,6 @@ a:hover {
     padding-left: 0.9375rem;
 }
 
-.personal-container {
-    padding-top: 1rem;
-}
 
 .personal-list-item {
 
@@ -451,6 +448,7 @@ a:hover {
     cursor: pointer;
     padding: 0.5rem;
     font-size: 0.7rem;
+    white-space: nowrap;
 }
 
 #show-map-checkbox {
@@ -719,7 +717,7 @@ a:hover {
 
 @media (max-width: 40em) {
     .first-headline {
-        padding-left: 0;
+        padding-left: 0!important;
     }
 }
 

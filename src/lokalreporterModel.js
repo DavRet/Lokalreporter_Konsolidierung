@@ -222,6 +222,7 @@ NewsMap.lokalreporterModel = (function () {
 
                 currentFavorite = response.items;
                 NewsMap.lokalreporterView.setFavoriteItems(response);
+                console.log(response);
 
 
             });
