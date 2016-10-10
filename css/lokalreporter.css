@@ -446,6 +446,19 @@ a:hover {
     }
 }
 
+#show-map-radio-container {
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 0.7rem;
+}
+
+#show-map-checkbox {
+    margin-left: 0.5rem;
+    top: 0.65rem;
+    position: absolute;
+}
+
 @media (min-width: 700px) and (max-width: 1024px) {
     #map-content {
         width: 10%;
@@ -1784,11 +1797,6 @@ label {
     border: #3a9bd8 3px solid;
 }
 
-@media (min-width: 640px){
-    #favorite-list{
-        padding-left: 15px;
-    }
-}
 
 @media (min-width: 200px) and (max-width: 640px){
     #favorite-list{
@@ -1803,4 +1811,16 @@ label {
     padding-left: 15px;
 }
 
+
+@media (min-width:40em) {
+    .article-list-without-map {
+        width: 30%!important;
+    }
+}
+
+@media (max-width:40em) {
+    .left-content-without-map {
+        padding-right: 1rem!important;
+    }
+}
 
