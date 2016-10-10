@@ -32,6 +32,24 @@ NewsMap.lokalreporterView = (function () {
 
             selectedTyp = "?";
 
+
+
+            if(localStorage.getItem('isLoggedIn') == "true") {
+
+                isLoggedIn = true;
+                token = localStorage.getItem('token');
+
+                changeMenuAfterLogin();
+
+
+            }
+
+         /*  $(document).on("click", function(e) {
+                if (!$(e.target).is(".top-menu-items")) {
+                        $('.modal').hide();
+                }
+            });*/
+
             $('#scroll-wrapper').on('scroll', function () {
 
                 var scrollTop = $('#scroll-wrapper').scrollTop();
@@ -175,7 +193,7 @@ NewsMap.lokalreporterView = (function () {
             $("#close-loginError-modal").on("click", function () {
                 $("#loginError-modal").hide();
 
-            })
+            });
 
 
             $(document).on("click", '#fav-button', function () {
@@ -321,6 +339,8 @@ NewsMap.lokalreporterView = (function () {
                      $("#map-content").css("height","100%");
                      $("#map-content").css("margin","3% 3% 3% 3%"); */
                     NewsMap.DrawMap.changeMapSize();
+
+                    moveMap();
                 }
                 else {
                     var id = $(this).parent().parent().attr('id');
@@ -523,43 +543,6 @@ NewsMap.lokalreporterView = (function () {
             //http://twitter.com/share?text=Im Sharing on Twitter&url=http://stackoverflow.com/users/2943186/youssef-subehi&hashtags=stackoverflow,example,youssefusf
         },
 
-        getRelatedItems = function () {
-            var settings = {
-                "async": true,
-                "url": apiIp + "/news/recommended?limit=20",
-                "method": "GET",
-                "headers": {
-                    "Accept": "application/json",
-                    "authorization": token
-                }
-            };
-
-            $.ajax(settings).done(function (response) {
-
-                if (response.items.length == 0) {
-                    if ($("#personal-content").find("#favorite-alert").length == 0) {
-                        var missingFavourites = '<div id="favorite-alert"><h1>Fügen sie zuerst Favoriten hinzu.</h1><p>Hier wird ihnen eine Reihe von Artikeln vorgeschlagen, auf Basis ihrer Favoriten.</p></div>';
-                        $("#personal-content").append(missingFavourites);
-                    }
-                    $("#map-content").hide();
-                }
-                else {
-                    if ($("#personal-content").find("#favorite-alert").length > 0) {
-                        $("#favorite-alert").remove();
-                    }
-                    console.log(response);
-                    var pagingInfo = response['pagingInfo']['properties']['links']['paging'];
-                    NewsMap.lokalreporterView.setPersonalContent(response, "Personalisierter-Content", pagingInfo);
-                    NewsMap.DrawMap.setArticlesFromApi(response.items);
-                }
-
-
-            }).error(function (response) {
-                console.log("error");
-            });
-
-        },
-
         bookmarkArticle = function (id) {
             var settings = {
                 "async": true,
@@ -586,7 +569,6 @@ NewsMap.lokalreporterView = (function () {
             var username = $('#login-username').val();
             var password = $('#login-password').val();
 
-
             var settings = {
                 "async": true,
                 "crossDomain": true,
@@ -608,6 +590,10 @@ NewsMap.lokalreporterView = (function () {
 
             $.ajax(settings).done(function (response) {
                 token = "Bearer " + response['access_token'];
+
+                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('token', token);
+
                 $('#login-modal').hide();
                 changeMenuAfterLogin();
                 isLoggedIn = true;
@@ -620,6 +606,10 @@ NewsMap.lokalreporterView = (function () {
 
         logout = function () {
             isLoggedIn = false;
+
+            localStorage.setItem('isLoggedIn', false);
+            localStorage.setItem('token', null);
+
 
             $("#collapse-menu").hide();
 
@@ -695,9 +685,11 @@ NewsMap.lokalreporterView = (function () {
             $('.favorite-icon').css('display', 'block');
 
             NewsMap.lokalreporterModel.getFavoriteItems(token);
+            NewsMap.lokalreporterModel.getRelatedItems(token);
 
-            getRelatedItems();
-            showPersonal();
+
+            //getRelatedItems();
+            //showPersonal();
 
         },
 
@@ -847,14 +839,14 @@ NewsMap.lokalreporterView = (function () {
                         thumbnailSrc = data['items'][i]['news']['attachments']['items'][0]['thumbnailUrl'];
                         videoSrc = data['items'][i]['news']['attachments']['items'][0]['url'];
 
-                        var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
+                        var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
                                 + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                                 + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                             )
                             ;
                     }
                     else {
-                        var articleListElement = $('<li class="large-6 small-12 medium-6 columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
+                        var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
                                 + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                                 + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                             )
@@ -918,6 +910,10 @@ NewsMap.lokalreporterView = (function () {
             $.ajax(settings).done(function (response) {
                 $('#register-modal').hide();
                 token = "Bearer " + response['access_token'];
+
+                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('token', token);
+
                 changeMenuAfterLogin();
                 isLoggedIn = true;
             }).error(function () {
@@ -1330,7 +1326,6 @@ NewsMap.lokalreporterView = (function () {
                         currentWindow = "personal";
                         $('.main-menu-item').removeClass('menu-item-activated');
                         $('#personal-button').addClass('menu-item-activated');
-                        getRelatedItems();
                         showPersonal();
                     }
                     else {
@@ -1670,37 +1665,15 @@ NewsMap.lokalreporterView = (function () {
 
             document.location.hash = "personal-news";
 
+            NewsMap.lokalreporterModel.getRelatedItems(token);
 
-            /* if($.find("#favorite-alert").length==0){
-             $("#map-content").hide();
-             }
-             else{
-             $("#map-content").css("display","block");
 
-             }*/
+            $('#scroll-wrapper').scrollTop(0);
 
-            /*
-             $("#personal-tags").tagit({
-             availableTags: ["wetter", "sport", "verkehr", "polizei", "ratgeber", "kultur", "religion", "oberfranken", "mittelfranken", "niederbayern", "oberpfalz", "oberbayern", "unterfranken"],
-             placeholderText: "Themen hinzufügen",
-             onTagClicked: function (event, ui) {
-             // do something special
-             },
-
-             afterTagAdded: function (event, ui) {
-             // do something special
-             var tag = ui.tag[0].innerText;
-             getPersonalContent(tag);
-             $('#map-content').show();
-             },
-
-             afterTagRemoved: function (event, ui) {
-             // do something special
-             var tag = ui.tag[0].firstChild.innerText;
-             removePersonalContent(tag);
-             }
-             });
-             */
+            setTimeout(function () {
+                $('#map-content').show();
+                NewsMap.DrawMap.changeMapSize();
+            }, 1000);
 
         },
 
