@@ -311,7 +311,7 @@ NewsMap.lokalreporterModel = (function () {
         },
 
         getNews = function (categoryTyp, category, radius, typ) {
-
+            console.log(radius);
             //Set Standort
 
             var timeout = 0;
@@ -337,18 +337,23 @@ NewsMap.lokalreporterModel = (function () {
                         CatTyp = "&metadataid=" + category;
                     }
                 }
-                if (myPos == undefined) {
+                if (radius == "") {
+                    centerpoint = "";
+                }
+                else if (myPos == undefined) {
                     centerpoint = radius + "&centerpoint=lat49.008852:lng12.085179";
                 }
-                else {
-                    if (radius == "") {
-                        centerpoint = "";
-                    }
-                    else {
-                        centerpoint = radius + "&centerpoint=lat" + myPos.lat + ":lng" + myPos.long;
-                    }
+                else if(myPos!=undefined && radius != ""){
+                    centerpoint = radius + "&centerpoint=lat" + myPos.lat + ":lng" + myPos.long;
                 }
 
+
+
+
+
+
+
+                console.log("news request: "+apiIp + "/news" + typ + "limit=20" + centerpoint + CatTyp);
                 var settings = {
                     "async": true,
                     "crossDomain": true,
