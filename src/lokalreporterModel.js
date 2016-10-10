@@ -179,10 +179,14 @@ NewsMap.lokalreporterModel = (function () {
 
                 if (response.items.length == 0) {
                     if ($("#personal-content").find("#favorite-alert").length == 0) {
-                        var missingFavourites = '<div id="favorite-alert"><h1>Fügen sie zuerst Favoriten hinzu.</h1><p>Hier wird ihnen eine Reihe von Artikeln vorgeschlagen, auf Basis ihrer Favoriten.</p></div>';
+                        var missingFavourites = '<div id="favorite-alert"><h4>Fügen sie zuerst Favoriten hinzu.</h4>' +
+                                '<p>Hier wird ihnen eine Reihe von Artikeln vorgeschlagen, auf Basis ihrer Favoriten.</p>'+
+                                '<img src="img/instructFav.png">'+
+                                '</div>';
                         $("#personal-content").append(missingFavourites);
                     }
-                    $("#map-content").hide();
+                    $('#loading-content').hide();
+                    $("#map-content").css("display", "none");
                 }
                 else {
                     if ($("#personal-content").find("#favorite-alert").length > 0) {

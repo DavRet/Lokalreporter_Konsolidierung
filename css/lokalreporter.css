@@ -1301,6 +1301,7 @@ a:hover {
 #favorites-list {
     list-style-type: none;
     margin-left: 0 !important;
+
 }
 
 #favorites-list li {
@@ -1782,3 +1783,24 @@ label {
 #map-content {
     border: #3a9bd8 3px solid;
 }
+
+@media (min-width: 640px){
+    #favorite-list{
+        padding-left: 15px;
+    }
+}
+
+@media (min-width: 200px) and (max-width: 640px){
+    #favorite-list{
+        padding-left: 0px;
+    }
+    #favorit-list img{
+
+    }
+}
+
+#favorite-alert{
+    padding-left: 15px;
+}
+
+

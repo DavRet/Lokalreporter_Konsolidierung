@@ -785,8 +785,11 @@ NewsMap.lokalreporterView = (function () {
         setFavoriteItems = function (data) {
             loadNewsEnabled = true;
             if (data.items.length == 0 || data == undefined || data.items == undefined) {
-                $('#favorite-list').append($('<li><h3>Leider haben sie noch keine Favoriten hinzugefügt.</h3><p>Dazu Wählen sie einfach das Herz Symbol bei einem Artikel aus</p></li>'));
+                $('#favorite-list').append($('<li><h4>Leider haben sie noch keine Favoriten hinzugefügt.</h4></li>' +
+                    '<li><p>Wähle das Herz Symbol bei einem Artikel aus</p></li>'+
+                    '<li><img src="img/instructFav.png"></li>'));
                 $("#map-content").css("display", "none");
+                $('#loading-content').hide();
             }
             else {
                 $('#favorite-list').empty();
@@ -1669,11 +1672,12 @@ NewsMap.lokalreporterView = (function () {
 
 
             $('#scroll-wrapper').scrollTop(0);
-
-            setTimeout(function () {
-                $('#map-content').show();
-                NewsMap.DrawMap.changeMapSize();
-            }, 1000);
+            if(!$("#favorite-alert").is(':visible')){
+                setTimeout(function () {
+                    $('#map-content').show();
+                    NewsMap.DrawMap.changeMapSize();
+                }, 1000);
+            }
 
         },
 
