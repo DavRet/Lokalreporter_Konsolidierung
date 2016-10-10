@@ -297,7 +297,6 @@ NewsMap.lokalreporterView = (function () {
 
             $(document).on('click', '.show-map-button', function () {
                 if ($("#collapse-div").is(':visible')) {
-
                     $("#map-content").show();
 
                     var id = $(this).parent().parent().attr('id');
