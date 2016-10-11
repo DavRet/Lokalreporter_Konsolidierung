@@ -21,6 +21,7 @@ NewsMap.lokalreporterView = (function () {
         currentWindow,
         filterChanged = false,
         lastQuery = "",
+        mapVisible = true,
         init = function () {
 
             NewsMap.lokalreporterModel.init();
@@ -33,8 +34,7 @@ NewsMap.lokalreporterView = (function () {
             selectedTyp = "?";
 
 
-
-            if(localStorage.getItem('isLoggedIn') == "true") {
+            if (localStorage.getItem('isLoggedIn') == "true") {
 
                 isLoggedIn = true;
                 token = localStorage.getItem('token');
@@ -44,11 +44,41 @@ NewsMap.lokalreporterView = (function () {
 
             }
 
-         /*  $(document).on("click", function(e) {
-                if (!$(e.target).is(".top-menu-items")) {
-                        $('.modal').hide();
+            if (localStorage.getItem('mapVisible') == "true") {
+                mapVisible = true;
+                $("#show-map-checkbox").prop("checked", true);
+            }
+            else if (localStorage.getItem('mapVisible') == "false") {
+                mapVisible = false;
+                $("#show-map-checkbox").prop("checked", false);
+            }
+            else {
+                $("#show-map-checkbox").prop("checked", true);
+                mapVisible = true;
+            }
+
+
+            $('#show-map-checkbox').change(function () {
+                if ($(this).is(":checked")) {
+                    //'checked' event code
+                    mapVisible = true;
+                    localStorage.setItem('mapVisible', true);
+                    showOrHideMap();
                 }
-            });*/
+                else {
+                    mapVisible = false;
+                    localStorage.setItem('mapVisible', false);
+                    showOrHideMap();
+                }
+            });
+
+            showOrHideMap();
+
+            /*  $(document).on("click", function(e) {
+             if (!$(e.target).is(".top-menu-items")) {
+             $('.modal').hide();
+             }
+             });*/
 
             $('#scroll-wrapper').on('scroll', function () {
 
@@ -428,6 +458,42 @@ NewsMap.lokalreporterView = (function () {
             });
         },
 
+        showOrHideMap = function () {
+            if (mapVisible) {
+                $('.right-content').show();
+                $('.left-content').removeClass('large-12 left-content-without-map').addClass('large-8');
+                $('#top-list').empty();
+                $('#news-list').empty();
+                $('#personal-content-list').empty();
+                $('#search-list').empty();
+                $('#favorites-list').empty();
+                $('#loading-content').show();
+
+                showContent();
+
+
+                NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
+                NewsMap.lokalreporterModel.getTopNews();
+                NewsMap.lokalreporterModel.getFavoriteItems(token);
+            }
+            else {
+                $('.right-content').hide();
+                $('.left-content').removeClass('large-8').addClass('large-12 left-content-without-map');
+                $('#top-list').empty();
+                $('#news-list').empty();
+                $('#personal-content-list').empty();
+                $('#search-list').empty();
+                $('#favorites-list').empty();
+                $('#loading-content').show();
+
+                showContent();
+                NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
+                NewsMap.lokalreporterModel.getTopNews();
+                NewsMap.lokalreporterModel.getFavoriteItems(token);
+
+            }
+        },
+
         moveMap = function () {
 
             if (toggleCount == 1) {
@@ -613,7 +679,7 @@ NewsMap.lokalreporterView = (function () {
 
             $("#collapse-menu").hide();
 
-            $('#login-open').html('Login');
+            $('#login-open').html('LOGIN');
             $('#collapse-login').html('Login');
             $('#login-open').show();
             $('#collapse-login').show();
@@ -786,7 +852,7 @@ NewsMap.lokalreporterView = (function () {
             loadNewsEnabled = true;
             if (data.items.length == 0 || data == undefined || data.items == undefined) {
                 $('#favorite-list').append($('<li><h4>Leider haben sie noch keine Favoriten hinzugefügt.</h4></li>' +
-                    '<li><p>Wähle das Herz Symbol bei einem Artikel aus</p></li>'+
+                    '<li><p>Wähle das Herz Symbol bei einem Artikel aus</p></li>' +
                     '<li><img src="img/instructFav.png"></li>'));
                 $("#map-content").css("display", "none");
                 $('#loading-content').hide();
@@ -812,7 +878,18 @@ NewsMap.lokalreporterView = (function () {
                     content,
                     region,
                     imageSrc,
-                    commentCount;
+                    commentCount,
+                    classesForElement,
+                    rowCount;
+
+                if (mapVisible) {
+                    classesForElement = 'large-6 small-10 medium-6';
+                    rowCount = 2;
+                }
+                else {
+                    classesForElement = 'large-3 small-12 medium-6 article-list-without-map';
+                    rowCount = 3;
+                }
                 for (i = 0; i < data['items'].length; i++) {
 
                     if (data['items'][i]['news']['geoData'].length) {
@@ -842,14 +919,14 @@ NewsMap.lokalreporterView = (function () {
                         thumbnailSrc = data['items'][i]['news']['attachments']['items'][0]['thumbnailUrl'];
                         videoSrc = data['items'][i]['news']['attachments']['items'][0]['url'];
 
-                        var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
+                        var articleListElement = $('<li class="'+classesForElement+' columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
                                 + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                                 + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                             )
                             ;
                     }
                     else {
-                        var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
+                        var articleListElement = $('<li class="'+classesForElement+' columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
                                 + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                                 + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                             )
@@ -864,15 +941,15 @@ NewsMap.lokalreporterView = (function () {
 
                 if ($(document).width() > 1100) {
                     $('#favorite-list > li').each(function (i) {
-                        if (i % 2 == 0) {
-                            $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
+                        if (i % rowCount == 0) {
+                            $(this).nextAll().andSelf().slice(0, rowCount).wrapAll('<div class="row large-12 columns news-row"></div>');
                         }
                     });
                 }
                 else if ($(document).width() > 600) {
                     $('#favorite-list > li').each(function (i) {
-                        if (i % 2 == 0) {
-                            $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
+                        if (i % rowCount == 0) {
+                            $(this).nextAll().andSelf().slice(0, rowCount).wrapAll('<div class="row large-12 columns news-row"></div>');
                         }
                     });
                 }
@@ -1092,7 +1169,18 @@ NewsMap.lokalreporterView = (function () {
                     imageSrc,
                     thumbnailSrc,
                     videoSrc,
-                    commentCount;
+                    commentCount,
+                    classesForElement,
+                    rowCount;
+
+                if (mapVisible) {
+                    classesForElement = 'large-6 small-10 medium-6';
+                    rowCount = 2;
+                }
+                else {
+                    classesForElement = 'large-3 small-12 medium-6 article-list-without-map';
+                    rowCount = 3;
+                }
                 for (i = 0; i < data['items'].length; i++) {
 
                     if (data['items'][i]['geoData'].length) {
@@ -1124,14 +1212,14 @@ NewsMap.lokalreporterView = (function () {
                         thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
                         videoSrc = data['items'][i]['attachments']['items'][0]['url'];
 
-                        var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list' + widthForArticleClass + '">' + '<article class="news-article" id="' + EIDI + '">'
+                        var articleListElement = $('<li class="' + classesForElement + ' columns article-list' + widthForArticleClass + '">' + '<article class="news-article" id="' + EIDI + '">'
                                 + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                                 + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                             )
                             ;
                     }
                     else {
-                        var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list' + widthForArticleClass + '">' + '<article class="news-article" id="' + EIDI + '">'
+                        var articleListElement = $('<li class="' + classesForElement + ' columns article-list' + widthForArticleClass + '">' + '<article class="news-article" id="' + EIDI + '">'
                                 + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                                 + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>' + '<i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                             )
@@ -1147,15 +1235,15 @@ NewsMap.lokalreporterView = (function () {
 
             if ($(document).width() > 1100) {
                 $('#search-list > li').each(function (i) {
-                    if (i % 2 == 0) {
-                        $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
+                    if (i % rowCount == 0) {
+                        $(this).nextAll().andSelf().slice(0, rowCount).wrapAll('<div class="row large-12 columns news-row"></div>');
                     }
                 });
             }
             else if ($(document).width() > 600) {
                 $('#search-list > li').each(function (i) {
-                    if (i % 2 == 0) {
-                        $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
+                    if (i % rowCount == 0) {
+                        $(this).nextAll().andSelf().slice(0, rowCount).wrapAll('<div class="row large-12 columns news-row"></div>');
                     }
                 });
             }
@@ -1188,7 +1276,19 @@ NewsMap.lokalreporterView = (function () {
                 imageSrc,
                 videoSrc,
                 thumbnailSrc,
-                commentCount;
+                commentCount,
+                classesForElement,
+                rowCount;
+
+            if (mapVisible) {
+                classesForElement = 'large-6 small-10 medium-6';
+                rowCount = 2;
+            }
+            else {
+                classesForElement = 'large-3 small-12 medium-6 article-list-without-map';
+                rowCount = 3;
+            }
+
 
             for (i = 0; i < data['items'].length; i++) {
 
@@ -1219,14 +1319,14 @@ NewsMap.lokalreporterView = (function () {
                     thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
                     videoSrc = data['items'][i]['attachments']['items'][0]['url'];
 
-                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list ' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="' + classesForElement + ' columns article-list ' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
                         ;
                 }
                 else {
-                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list ' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="' + classesForElement + ' columns article-list ' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>' + '<i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
@@ -1242,15 +1342,15 @@ NewsMap.lokalreporterView = (function () {
 
             if ($(document).width() > 1100) {
                 $('#top-list > li').each(function (i) {
-                    if (i % 2 == 0) {
-                        $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
+                    if (i % rowCount == 0) {
+                        $(this).nextAll().andSelf().slice(0, rowCount).wrapAll('<div class="row large-12 columns news-row"></div>');
                     }
                 });
             }
             else if ($(document).width() > 600) {
                 $('#top-list > li').each(function (i) {
-                    if (i % 2 == 0) {
-                        $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
+                    if (i % rowCount == 0) {
+                        $(this).nextAll().andSelf().slice(0, rowCount).wrapAll('<div class="row large-12 columns news-row"></div>');
                     }
                 });
             }
@@ -1267,14 +1367,14 @@ NewsMap.lokalreporterView = (function () {
 
             setTimeout(function () {
                 //$("#moveMapButton").effect("highlight", {}, 3000);
-                for(i=0;i<3;i++) {
+                for (i = 0; i < 3; i++) {
                     $("#moveMapButton").fadeTo('slow', 0.8).fadeTo('fast', 2.5);
                     $('#map-content')
-                        .animate({borderColor:'#b0dffd'}, 400)
+                        .animate({borderColor: '#b0dffd'}, 400)
                         .delay(400)
-                        .animate({borderColor:'#3a9bd8'}, 1000);
+                        .animate({borderColor: '#3a9bd8'}, 1000);
                 }
-            },2000);
+            }, 2000);
 
             $('.article-video').each(function () {
                 $(this).get(0).pause();
@@ -1672,7 +1772,7 @@ NewsMap.lokalreporterView = (function () {
 
 
             $('#scroll-wrapper').scrollTop(0);
-            if(!$("#favorite-alert").is(':visible')){
+            if (!$("#favorite-alert").is(':visible')) {
                 setTimeout(function () {
                     $('#map-content').show();
                     NewsMap.DrawMap.changeMapSize();
@@ -1705,7 +1805,19 @@ NewsMap.lokalreporterView = (function () {
                 imageSrc,
                 thumbnailSrc,
                 videoSrc,
-                commentCount;
+                commentCount,
+                classesForElement,
+                rowCount;
+
+            if (mapVisible) {
+                classesForElement = 'large-6 small-10 medium-6';
+                rowCount = 2;
+            }
+            else {
+                classesForElement = 'large-3 small-12 medium-6 article-list-without-map';
+                rowCount = 3;
+            }
+
 
             /* var personalContentContainer = $('<div class="personal-container" id="container-' + tag + '"><h1 class="personal-title">' + tag.charAt(0).toUpperCase() + tag.slice(1) + ':</h1><ul class="results-list personal-list-" id="personal-' + tag + '"></ul><hr></div>'); */
             var personalContentContainer = $('<div class="personal-container" id="personal-container"><ul class="results-list personal-list" id="personal-content-list"></ul></div>');
@@ -1742,14 +1854,14 @@ NewsMap.lokalreporterView = (function () {
                     thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
                     videoSrc = data['items'][i]['attachments']['items'][0]['url'];
 
-                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="' + classesForElement + ' columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
                         ;
                 }
                 else {
-                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="' + classesForElement + ' columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>' + '<i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
@@ -1769,15 +1881,15 @@ NewsMap.lokalreporterView = (function () {
             if ($(document).width() > 1100) {
                 $(idForRow).each(function (i) {
 
-                    if (i % 2 == 0) {
-                        $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
+                    if (i % rowCount == 0) {
+                        $(this).nextAll().andSelf().slice(0, rowCount).wrapAll('<div class="row large-12 columns news-row"></div>');
                     }
                 });
             }
             else if ($(document).width() > 600) {
                 $(idForRow).each(function (i) {
-                    if (i % 2 == 0) {
-                        $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
+                    if (i % rowCount == 0) {
+                        $(this).nextAll().andSelf().slice(0, rowCount).wrapAll('<div class="row large-12 columns news-row"></div>');
                     }
                 });
             }
@@ -1850,7 +1962,19 @@ NewsMap.lokalreporterView = (function () {
                 imageSrc,
                 thumbnailSrc,
                 videoSrc,
-                commentCount;
+                commentCount,
+                classesForElement,
+                rowCount;
+
+            if (mapVisible) {
+                classesForElement = 'large-6 small-10 medium-6';
+                rowCount = 2;
+            }
+            else {
+                classesForElement = 'large-3 small-12 medium-6 article-list-without-map';
+                rowCount = 3;
+            }
+
             for (i = 0; i < data['items'].length; i++) {
 
                 if (data['items'][i]['geoData'].length) {
@@ -1891,14 +2015,14 @@ NewsMap.lokalreporterView = (function () {
                     thumbnailSrc = data['items'][i]['attachments']['items'][0]['thumbnailUrl'];
                     videoSrc = data['items'][i]['attachments']['items'][0]['url'];
 
-                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="' + classesForElement + ' columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns video-box text-center"><video class="article-video" controls poster="' + thumbnailSrc + '"><source src="' + videoSrc + '" type="video/mp4"></video></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div><i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
                         ;
                 }
                 else {
-                    var articleListElement = $('<li class="large-6 small-10 medium-6 columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
+                    var articleListElement = $('<li class="' + classesForElement + ' columns article-list' + widthForArticleClass + '"><article class="news-article" id="' + EIDI + '">'
                             + '<div class="row">' + '<div class="large-12 columns image-box text-center"><img class="article-image" src="' + imageSrc + '"></div>' + '</div>' + '<div class="row">' + '<div class="large-12 columns">' + '<h3 class="article-title">' + artikelTitel + '</h3>' + '<div class="pub-date">' + pubDate[0] + ' ' + pubDate[1] + ', ' + artikelOrt + '</div>' + '<br>' + '<div class="article-entry-summary" id="entry-' + i + '">' + content + '</div>'
                             + '<div class="row text-center">' + '</div>' + '</div>' + '</div>' + '<div class="row">' + '<div class="comment-preview"><img class="comment-icon" height="48" width="48" src="img/chat.png"/> <div  id="comment-count-' + EIDI + '" class="comment-count">' + commentCount + '</div></div>' + '<div class="show-map-button"><img class="map-icon" height="48" width="48" src="img/map-location.png"/></div>' + '<i class="fi-heart favorite-icon small-fav-icon" id="favorite-' + EIDI + '"></i><i class="fi-share share-icon small-share-icon" id="share-' + EIDI + '"></i>' + '</div>' + '</article>' + '</li>'
                         )
@@ -1912,15 +2036,15 @@ NewsMap.lokalreporterView = (function () {
 
             if ($(document).width() > 1100) {
                 $('#news-list > li').each(function (i) {
-                    if (i % 2 == 0) {
-                        $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
+                    if (i % rowCount == 0) {
+                        $(this).nextAll().andSelf().slice(0, rowCount).wrapAll('<div class="row large-12 columns news-row"></div>');
                     }
                 });
             }
             else if ($(document).width() > 600) {
                 $('#news-list > li').each(function (i) {
-                    if (i % 2 == 0) {
-                        $(this).nextAll().andSelf().slice(0, 2).wrapAll('<div class="row large-12 columns news-row"></div>');
+                    if (i % rowCount == 0) {
+                        $(this).nextAll().andSelf().slice(0, rowCount).wrapAll('<div class="row large-12 columns news-row"></div>');
                     }
                 });
             }
