@@ -218,12 +218,8 @@ NewsMap.lokalreporterModel = (function () {
             };
 
             $.ajax(settings).done(function (response) {
-
                 currentFavorite = response.items;
                 NewsMap.lokalreporterView.setFavoriteItems(response);
-                console.log(response);
-
-
             });
         },
 
@@ -315,7 +311,6 @@ NewsMap.lokalreporterModel = (function () {
         },
 
         getNews = function (categoryTyp, category, radius, typ) {
-            console.log(radius);
             //Set Standort
 
             var timeout = 0;
@@ -351,13 +346,6 @@ NewsMap.lokalreporterModel = (function () {
                     centerpoint = radius + "&centerpoint=lat" + myPos.lat + ":lng" + myPos.long;
                 }
 
-
-
-
-
-
-
-                console.log("news request: "+apiIp + "/news" + typ + "limit=20" + centerpoint + CatTyp);
                 var settings = {
                     "async": true,
                     "crossDomain": true,
