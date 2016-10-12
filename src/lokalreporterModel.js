@@ -186,7 +186,6 @@ NewsMap.lokalreporterModel = (function () {
                         $("#personal-content").append(missingFavourites);
                     }
                     $('#loading-content').hide();
-                    $("#map-content").css("display", "none");
                 }
                 else {
                     if ($("#personal-content").find("#favorite-alert").length > 0) {

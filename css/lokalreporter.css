@@ -467,6 +467,10 @@ a:hover {
     }
 }
 
+#favorite-alert2 {
+    padding-left: 15px;
+}
+
 .map-content-after-scroll {
     margin-top: 0 !important;
     top: 8rem;
