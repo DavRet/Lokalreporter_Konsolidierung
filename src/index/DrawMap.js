@@ -154,31 +154,27 @@ NewsMap.DrawMap = (function () {
                     switch (currWind) {
                         case "news":
                             if ($("#news-list").children().length > 10) {
-                                console.log($("#news-list").children().eq(4));
                                 $("#news-list").children().eq(4).nextAll('div').remove();
                             }
-                            ;
+
                             break;
                         case "top-news":
                             if ($("#top-list").children().length > 10) {
-                                console.log($("#news-list").children().eq(4));
                                 $("#top-list").children().eq(4).nextAll('div').remove();
                             }
-                            ;
+
                             break;
                         case "suche":
                             if ($("#search-list").children().length > 10) {
-                                console.log($("#news-list").children().eq(4));
                                 $("#search-list").children().eq(4).nextAll('div').remove();
                             }
-                            ;
+
                             break;
                         case "personal":
                             if ($("#personal-Personalisierter-Content").children().length > 10) {
-                                console.log($("#personal-Personalisierter-Content").children().eq(4));
                                 $("#personal-Personalisierter-Content").children().eq(4).nextAll('div').remove();
                             }
-                            ;
+
                     }
                 }
                 else {
@@ -258,9 +254,6 @@ NewsMap.DrawMap = (function () {
                     //marker.bindPopup(markerPopup);
                     marker.on("click", function () {
                         var id = $(this)[0]['data-id'];
-                        console.log(this);
-                        console.log(id);
-                        console.log($(this)[0]['title']);
                         var currentWindow;
                         if ($("#personal-content").is(':visible')) {
                             currentWindow = "personal-content";
@@ -279,7 +272,7 @@ NewsMap.DrawMap = (function () {
                         }
                         var listElement = $($("#" + currentWindow).find("#" + id)).parent();
 
-                        if($(window).width() < 1024) {
+                        if ($(window).width() < 1024) {
 
                             NewsMap.lokalreporterView.moveMap();
                         }
@@ -343,14 +336,10 @@ NewsMap.DrawMap = (function () {
         changeMarkerColor = function (id) {
 
             var allMarkers = markers.getLayers();
-            console.log(markers.getLayers());
             for (var i = 0; i < allMarkers.length; i++) {
-
-                console.log($(allMarkers[i]).attr("data-id"));
                 if ($(allMarkers[i]).attr("data-id") == id) {
                     markers.refreshClusters();
                     markers.zoomToShowLayer(allMarkers[i], function () {
-                        console.log(allMarkers[i]);
                     });
                     map.setView([allMarkers[i]._latlng.lat, allMarkers[i]._latlng.lng], 16);
                     markers.refreshClusters();
@@ -684,13 +673,11 @@ NewsMap.DrawMap = (function () {
                     $loading.show();
                 },
                 success: function (data) {
-                    console.log(JSON.parse(data));
                     if (JSON.parse(data).length == 0) {
                         console.log("Keine Ergebnisse");
                         swal("Keine Ergebnisse zu Ihrer Anfrage gefunden", null, "error");
                     }
                     else {
-                        console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
                         markersSet = false;
                         addMarker(JSON.parse(data));
 
@@ -723,7 +710,6 @@ NewsMap.DrawMap = (function () {
 
         radiusSelectChanged = function () {
             var radiusSelectVal = radiusSelect.val();
-            console.log("in radiusSelectChanged" + radiusSelectVal);
             markersSet = false;
             addMarker(lastData);
             $(that).trigger("identifyLocation");

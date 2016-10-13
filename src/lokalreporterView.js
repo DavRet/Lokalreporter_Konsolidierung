@@ -754,6 +754,8 @@ NewsMap.lokalreporterView = (function () {
             NewsMap.lokalreporterModel.getRelatedItems(token);
 
 
+            $('#map-content').show();
+
             //getRelatedItems();
             //showPersonal();
 
@@ -850,11 +852,11 @@ NewsMap.lokalreporterView = (function () {
 
         setFavoriteItems = function (data) {
             loadNewsEnabled = true;
+            $('#favorite-list').empty();
             if (data.items.length == 0 || data == undefined || data.items == undefined) {
-                $('#favorite-list').append($('<li><h4>Leider haben sie noch keine Favoriten hinzugefügt.</h4></li>' +
+                $('#favorite-list').append($('<div id="favorite-alert2"<li><h4>Leider haben sie noch keine Favoriten hinzugefügt.</h4></li>' +
                     '<li><p>Wähle das Herz Symbol bei einem Artikel aus</p></li>' +
-                    '<li><img src="img/instructFav.png"></li>'));
-                $("#map-content").css("display", "none");
+                    '<li><img src="img/instructFav.png"></li></div>'));
                 $('#loading-content').hide();
             }
             else {
@@ -1392,6 +1394,8 @@ NewsMap.lokalreporterView = (function () {
 
             if (res[0] == "#suche") {
                 currentWindow = "suche";
+                $('.filter-select').show();
+
                 NewsMap.lokalreporterModel.getSearchQuery(res[1].toLowerCase());
             }
 
@@ -1926,7 +1930,6 @@ NewsMap.lokalreporterView = (function () {
             else {
                 $('#newsmap-content').toggle();
                 $('#map-content').toggle();
-
             }
 
         },
