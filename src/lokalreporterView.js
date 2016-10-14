@@ -1593,16 +1593,16 @@ NewsMap.lokalreporterView = (function () {
                 imageSrc = article['items'][0]['thumbnail']['source'];
             }
             //var topContent = content[0]['contents'][0]['text'];
-            var location;
+            var location = article['items'][0]['geoData'][0]['name'];
 
 
-            for (i = 0; i < article['items'][0]['geoData'].length; i++) {
+            /*for (i = 0; i < article['items'][0]['geoData'].length; i++) {
                 if (i == 0) {
                     location = article['items'][0]['geoData'][i]['name'];
                 }
                 else
                     location = location + ', ' + article['items'][0]['geoData'][i]['name'];
-            }
+            }*/
 
             if (imageSrc == '') {
                 imageSrc = "http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg";
@@ -1613,12 +1613,13 @@ NewsMap.lokalreporterView = (function () {
             date[1] = date[1].substring(0, 8);
 
             var id = article['items'][0]['id'];
-            var headLine = $('<h2 class="single-article-title">' + title + '</h2><i class="fi-heart favorite-icon" id="favorite-' + id + '"></i>');
+            var buttonContainer = $('<div class="article-button-container"><i class="fi-heart favorite-icon favorite-icon-for-single" id="favorite-' + id + '"></i><i class="fi-share share-icon share-icon-for-single small-share-icon" id="share-' + id + '"></i></div>');
+            var headLine = $('<h2 class="single-article-title">' + title + '</h2>');
             var dateLine = $('<div class="pub-date">' + date[0] + ' ' + date[1] + ', ' + location + '</div>');
             //var content1 = $('<p class="top-paragraph">' + topContent + '</p>');
             var image = $('<img class="single-article-image" src="' + imageSrc + '">');
 
-            $("#single-news-article").append(headLine, dateLine, image, content['content'], source);
+            $("#single-news-article").append(buttonContainer, headLine, dateLine, image, content['content'], source);
 
 
             $('#news-tags').remove();
