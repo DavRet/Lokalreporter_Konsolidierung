@@ -1385,7 +1385,6 @@ NewsMap.lokalreporterView = (function () {
         showContent = function () {
             $('#loading-content').show();
 
-            console.log("show content");
             setTimeout(function () {
                 //$("#moveMapButton").effect("highlight", {}, 3000);
                 for (i = 0; i < 3; i++) {
