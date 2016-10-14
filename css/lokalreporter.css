@@ -350,6 +350,10 @@ a:hover {
     margin-right: -1rem;
 }
 
+.personal-list {
+    overflow-x: inherit!important;
+}
+
 .share-icon-for-single {
     float: left;
     margin-top: 2px;

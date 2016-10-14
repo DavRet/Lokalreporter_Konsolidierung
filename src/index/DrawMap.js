@@ -249,10 +249,18 @@ NewsMap.DrawMap = (function () {
                     var marker = L.marker([lat, lon]);
                     $(marker).attr("data-id", id);
                     $(marker).attr("title", title);
+                    $(marker).addClass('marker-class');
                     var markerPopup = "<div class='marker-popup' data-id='" + id + "' ><h3 class='marker-title'>" + title + "</h3></div>";
 
-                    //marker.bindPopup(markerPopup);
+                    marker.bindPopup(markerPopup);
+
+                    marker.on('mouseover', function (e) {
+                        marker.closePopup();
+                        this.openPopup();
+                    });
+
                     marker.on("click", function () {
+                        $('.article-list').css('border', 'none');
                         var id = $(this)[0]['data-id'];
                         var currentWindow;
                         if ($("#personal-content").is(':visible')) {
@@ -293,7 +301,7 @@ NewsMap.DrawMap = (function () {
 
 
                         setTimeout(function () {
-                            listElement.css("border", "");
+                            listElement.css("border", "none");
 
                         }, 7000);
 
@@ -325,10 +333,10 @@ NewsMap.DrawMap = (function () {
 
             }
 
-            map.on('popupopen', function (e) {
+            /*map.on('popupopen', function (e) {
                 $(".marker-popup").dotdotdot();
 
-            });
+            });*/
 
             changeMapSize();
         },

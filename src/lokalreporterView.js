@@ -22,6 +22,9 @@ NewsMap.lokalreporterView = (function () {
         filterChanged = false,
         lastQuery = "",
         mapVisible = true,
+        loadForInitCompleted = false,
+        topNewsInitCompleted = false,
+        newsInitCompleted = false,
         init = function () {
 
             NewsMap.lokalreporterModel.init();
@@ -469,12 +472,17 @@ NewsMap.lokalreporterView = (function () {
                 $('#favorites-list').empty();
                 $('#loading-content').show();
 
-                showContent();
+                newsInitCompleted = false;
+                topNewsInitCompleted = false;
+
+                if(loadForInitCompleted) {
+                    showContent();
+                }
 
 
-                NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
+               /* NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
                 NewsMap.lokalreporterModel.getTopNews();
-                NewsMap.lokalreporterModel.getFavoriteItems(token);
+                NewsMap.lokalreporterModel.getFavoriteItems(token);*/
             }
             else {
                 $('.right-content').hide();
@@ -486,10 +494,16 @@ NewsMap.lokalreporterView = (function () {
                 $('#favorites-list').empty();
                 $('#loading-content').show();
 
-                showContent();
-                NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
-                NewsMap.lokalreporterModel.getTopNews();
-                NewsMap.lokalreporterModel.getFavoriteItems(token);
+                newsInitCompleted = false;
+                topNewsInitCompleted = false;
+
+                if(loadForInitCompleted) {
+                    showContent();
+                }
+
+                /* NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
+                 NewsMap.lokalreporterModel.getTopNews();
+                 NewsMap.lokalreporterModel.getFavoriteItems(token);*/
 
             }
         },
@@ -711,7 +725,6 @@ NewsMap.lokalreporterView = (function () {
             $("#container-Personalisierter-Content").remove();
             $("#favorite-list div").remove();
 
-            NewsMap.lokalreporterModel.getTopNews();
             $("#live-content").css('display', 'block');
             $('.main-menu-item').removeClass('menu-item-activated');
             $('#live-button').addClass('menu-item-activated');
@@ -756,8 +769,8 @@ NewsMap.lokalreporterView = (function () {
             $('.favorite-icon').show();
             $('.favorite-icon').css('display', 'block');
 
-            NewsMap.lokalreporterModel.getFavoriteItems(token);
-            NewsMap.lokalreporterModel.getRelatedItems(token);
+            //NewsMap.lokalreporterModel.getFavoriteItems(token);
+            //NewsMap.lokalreporterModel.getRelatedItems(token);
 
 
             $('#map-content').show();
@@ -1041,8 +1054,6 @@ NewsMap.lokalreporterView = (function () {
         },
 
         setCategoryResults = function (data, query, type) {
-
-
             query = query.charAt(0).toUpperCase() + query.slice(1);
 
             $('#category-headline').html(type + ' "' + query + '":');
@@ -1264,7 +1275,6 @@ NewsMap.lokalreporterView = (function () {
         setTopNews = function (data, pagingInfo) {
             loadNewsEnabled = true;
             latestPagingInfoTop = pagingInfo;
-            //$("#top-list").empty();
             var widthForArticleClass = "article-list-for-map";
             var width = $(window).width(), height = $(window).height();
 
@@ -1348,6 +1358,7 @@ NewsMap.lokalreporterView = (function () {
 
             $('#loading-content').hide();
 
+
             if ($(document).width() > 1100) {
                 $('#top-list > li').each(function (i) {
                     if (i % rowCount == 0) {
@@ -1363,6 +1374,7 @@ NewsMap.lokalreporterView = (function () {
                 });
             }
 
+
             if (isLoggedIn) {
                 $('.favorite-icon').show();
             }
@@ -1373,6 +1385,7 @@ NewsMap.lokalreporterView = (function () {
         showContent = function () {
             $('#loading-content').show();
 
+            console.log("show content");
             setTimeout(function () {
                 //$("#moveMapButton").effect("highlight", {}, 3000);
                 for (i = 0; i < 3; i++) {
@@ -1382,7 +1395,7 @@ NewsMap.lokalreporterView = (function () {
                         .delay(400)
                         .animate({borderColor: '#3a9bd8'}, 1000);
                 }
-            }, 2000);
+            }, 1000);
 
             $('.article-video').each(function () {
                 $(this).get(0).pause();
@@ -1455,6 +1468,8 @@ NewsMap.lokalreporterView = (function () {
                     if (isLoggedIn) {
                         $('#loading-content').hide();
                         $('.filter-select').hide();
+                        $('.main-menu-item').removeClass('menu-item-activated');
+                        $('#fav-button').addClass('menu-item-activated');
                         currentWindow = "favorites";
                         showFavorites();
                     }
@@ -1464,6 +1479,8 @@ NewsMap.lokalreporterView = (function () {
 
                     break;
             }
+            loadForInitCompleted = true;
+
         },
 
         getSingleArticle = function (id) {
@@ -1713,9 +1730,10 @@ NewsMap.lokalreporterView = (function () {
             $('.main-content').hide();
 
             $('#favorite-content').toggle();
+            NewsMap.lokalreporterModel.getFavoriteItems(token);
             var data = NewsMap.lokalreporterModel.getCurrentFavorite();
             if (data != null && data != undefined) {
-
+                $('#map-content').show();
                 NewsMap.DrawMap.setArticlesFromApi(data);
             }
         },
@@ -1728,9 +1746,15 @@ NewsMap.lokalreporterView = (function () {
             $('#news-button').addClass('menu-item-activated');
             $("#select-radius,#select-category,#select-typ").show();
 
+            //$('#news-list').empty();
+
+
             $('#scroll-wrapper').scrollTop(0);
 
-            NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
+            if(!newsInitCompleted) {
+                NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
+                newsInitCompleted = true;
+            }
             var data = NewsMap.lokalreporterModel.getCurrentNews('news');
             if (data != null && data != undefined) {
                 NewsMap.DrawMap.setArticlesFromApi(data);
@@ -1750,11 +1774,17 @@ NewsMap.lokalreporterView = (function () {
             $("#search-input").val("");
             $("#select-radius,#select-category,#select-typ").hide();
 
+            //$('#top-list').empty();
+
             $('#scroll-wrapper').scrollTop(0);
 
 
-            NewsMap.lokalreporterModel.getTopNews();
+            if(!topNewsInitCompleted) {
+                NewsMap.lokalreporterModel.getTopNews();
+                topNewsInitCompleted = true;
+            }
             var data = NewsMap.lokalreporterModel.getCurrentNews('topnews');
+
             if (data != null && data != undefined) {
                 NewsMap.DrawMap.setArticlesFromApi(data);
             }
@@ -1772,6 +1802,9 @@ NewsMap.lokalreporterView = (function () {
             $('#select-typ').hide();
             $('#select-radius').hide();
             $('.main-content').hide();
+
+            $('#personal-content-list').empty();
+
 
             $('#loading-content').show();
 
@@ -1831,9 +1864,6 @@ NewsMap.lokalreporterView = (function () {
 
 
             /* var personalContentContainer = $('<div class="personal-container" id="container-' + tag + '"><h1 class="personal-title">' + tag.charAt(0).toUpperCase() + tag.slice(1) + ':</h1><ul class="results-list personal-list-" id="personal-' + tag + '"></ul><hr></div>'); */
-            var personalContentContainer = $('<div class="personal-container" id="personal-container"><ul class="results-list personal-list" id="personal-content-list"></ul></div>');
-
-            $('#personal-content').append(personalContentContainer);
 
             for (i = 0; i < data['items'].length; i++) {
 
