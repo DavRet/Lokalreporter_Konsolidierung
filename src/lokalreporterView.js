@@ -521,6 +521,8 @@ NewsMap.lokalreporterView = (function () {
                 $("#category-list div").find("li").addClass("article-list-for-map");
                 $("#favorite-list div").find("li").addClass("article-list-for-map");
                 $("#media-list div").find("li").addClass("article-list-for-map");
+                $("#personal-content-list div").find("li").addClass("article-list-for-map");
+
 
                 $("#moveMapButton img").attr("src", "img/left-arrow.png");
 
@@ -552,6 +554,8 @@ NewsMap.lokalreporterView = (function () {
                 $("#category-list div").find("li").removeClass("article-list-for-map");
                 $("#favorite-list div").find("li").removeClass("article-list-for-map");
                 $("#media-list div").find("li").removeClass("article-list-for-map");
+                $("#personal-content-list div").find("li").removeClass("article-list-for-map");
+
 
 
                 $(".left-content").removeClass("large-8 columns").addClass("large-4 columns");
@@ -562,6 +566,8 @@ NewsMap.lokalreporterView = (function () {
                 $("#category-list div").find("li").css("width", "100%");
                 $("#favorite-list div").find("li").css("width", "100%");
                 $("#media-list div").find("li").css("width", "100%");
+                $("#personal-content-list div").find("li").css("width", "100%");
+
 
                 $("#moveMapButton img").attr("src", "img/right-arrow.png");
 
