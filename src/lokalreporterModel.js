@@ -220,6 +220,8 @@ NewsMap.lokalreporterModel = (function () {
             $.ajax(settings).done(function (response) {
                 currentFavorite = response.items;
                 NewsMap.lokalreporterView.setFavoriteItems(response);
+                NewsMap.DrawMap.setArticlesFromApi(currentFavorite);
+
             });
         },
 
