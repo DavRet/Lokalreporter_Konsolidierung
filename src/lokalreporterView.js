@@ -1130,6 +1130,7 @@ NewsMap.lokalreporterView = (function () {
 
         setSearchResults = function (data, query, pagingInfo) {
             if (data == null || data == undefined || data.items.length == 0) {
+                $("#select-typ #select-category #select-radius").show();
                 $("#search-list").empty();
                 $("#search-content").hide();
                 $("#error-modal").show();
@@ -1956,8 +1957,7 @@ NewsMap.lokalreporterView = (function () {
             if (width <= 512) {
                 widthForArticleClass = "";
             }
-
-            // auskommentiert damit bei Scroll Bottom neue Nachrichten appendet werden und die alten nicht gelöscht werden
+            
             //$("#news-list").empty();
             var EIDI,
                 artikelTitel,
