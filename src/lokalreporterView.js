@@ -326,8 +326,14 @@ NewsMap.lokalreporterView = (function () {
                 $("#collapse-menu").hide();
             });
 
+            $('#login-open').on('click', showLogin);
+            $('#register-open').on('click', showRegister);
+            $('#cancel-login').on('click', hideLogin);
+            $('#cancel-register').on('click', hideRegister);
+            $(document).on('click', hideLoginBodyClick);
 
-            $(document).on("click", '.favorite-icon', function () {
+
+                $(document).on("click", '.favorite-icon', function () {
                 $(this).addClass('favorite-icon-activated');
                 var id = $(this).attr('id');
                 var idSplitted = id.split("-");
@@ -459,6 +465,29 @@ NewsMap.lokalreporterView = (function () {
                 }
                 NewsMap.lokalreporterModel.getNews(selectedCatTyp, selectedCat, selectedRadius, selectedTyp);
             });
+        },
+
+        showLogin = function () {
+            $('.modal').hide();
+            $('#login-modal').show();
+        },
+        showRegister = function () {
+            $('.modal').hide();
+            $('#register-modal').show();
+        },
+
+        hideRegister = function () {
+            $('#register-modal').hide();
+        },
+
+        hideLoginBodyClick = function (event) {
+            var modal = $('#login-modal');
+
+        },
+
+        hideLogin = function () {
+
+            $('#login-modal').hide();
         },
 
         showOrHideMap = function () {
