@@ -10,7 +10,6 @@ NewsMap.MainController = (function () {
             newsMapView = NewsMap.NewsMapView.init();
             drawMap = NewsMap.DrawMap.init();
             lokalreporterView = NewsMap.lokalreporterView.init();
-
             checkForUrlChange();
 
 
@@ -27,8 +26,8 @@ NewsMap.MainController = (function () {
             $(newsMapView).on("radiusSelectChanged", changeRadiusSelect);
             $(newsMapView).on("queryRemoved", removeQuery);
             $(drawMap).on("identifyLocation", identifyLocation);
-
             $(lokalreporterView).on("mapSizeChanged", changeMapSize);
+            $(lokalreporterView).on("loadTopNews", getTopNews);
 
             return this;
         },
@@ -99,6 +98,23 @@ NewsMap.MainController = (function () {
 
         identifyLocation = function () {
             newsMapView.identifyLocation();
+        },
+
+        getTopNews = function () {
+            console.log("im trigger in Maincontroller");
+            NewsMap.lokalreporterModel.getTopNews();
+        },
+
+        getNews = function () {
+
+        },
+
+        getSearchResults = function () {
+
+        },
+
+        getFilteredSearchResults = function () {
+
         };
 
     that.init = init;
