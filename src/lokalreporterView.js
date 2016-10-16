@@ -1782,8 +1782,7 @@ NewsMap.lokalreporterView = (function () {
 
 
             if(!topNewsInitCompleted) {
-                $(that).trigger("loadTopNews");
-                //NewsMap.lokalreporterModel.getTopNews();
+                NewsMap.lokalreporterModel.getTopNews();
                 topNewsInitCompleted = true;
             }
             var data = NewsMap.lokalreporterModel.getCurrentNews('topnews');
