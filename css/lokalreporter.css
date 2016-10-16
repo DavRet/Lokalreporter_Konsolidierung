@@ -33,6 +33,10 @@ span.psw {
     padding-top: 60px;
 }
 
+#share-modal-content{
+    border-radius: 10px;
+}
+
 #loginError-modal {
     z-index: 9999;
 }
