@@ -3,7 +3,8 @@
  */
 NewsMap.lokalreporterModel = (function () {
     var that = {},
-        apiIp = "http://132.199.141.129:9000",
+        apiIp = NewsMap.MainController.apiIp,
+        oAuthIp = NewsMap.MainController.oAuthIp,
         init = function () {
             /*
              $.ajax({

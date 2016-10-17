@@ -12,7 +12,8 @@ NewsMap.lokalreporterView = (function () {
         selectedCatTyp,
         selectedRadius,
         selectedTyp,
-        apiIp = "http://132.199.141.129:9000",
+        apiIp = NewsMap.MainController.apiIp,
+        oAuthIp = NewsMap.MainController.oAuthIp,
         latestPagingInfo,
         latestPagingInfoTop,
         latestPagingInfoSearch,
@@ -677,7 +678,7 @@ NewsMap.lokalreporterView = (function () {
             var settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "http://132.199.141.129:9560/token",
+                "url": oAuthIp + "/token",
                 "method": "PUT",
                 "headers": {
                     "cache-control": "no-cache",
@@ -1003,7 +1004,7 @@ NewsMap.lokalreporterView = (function () {
             var settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "http://132.199.141.129:9560/token",
+                "url": oAuthIp + "/token",
                 "method": "PUT",
                 "headers": {
                     "cache-control": "no-cache",
