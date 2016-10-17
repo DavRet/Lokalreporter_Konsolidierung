@@ -10,13 +10,13 @@ NewsMap.MainController = (function () {
         // REST API IPs
 
         // IPs des Live-Servers (wahrscheinlich nicht mehr online)
-        apiIp = "http://132.199.141.129:9000",
-        oAuthIp = "http://132.199.141.129:9560",
+       /* apiIp = "http://132.199.141.129:9000",
+        oAuthIp = "http://132.199.141.129:9560",*/
 
         // Lokale IPs
 
-        /*apiIp = "http://localhost:9000",
-        oAuthIp = "http://localhost:9100",*/
+        apiIp = "http://localhost:9000",
+        oAuthIp = "http://localhost:9100",
 
 
 
