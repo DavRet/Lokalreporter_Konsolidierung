@@ -1778,6 +1778,7 @@ label {
 
 .filter-select {
     float: none !important;
+
 }
 
 @media (max-width: 1024px) {
@@ -1795,6 +1796,9 @@ label {
 @media (min-width: 100px) and (max-width: 640px) {
     #select-category {
         width: 30%;
+    }
+    .filter-select {
+        margin-top: 5%;
     }
 }
 
