@@ -1795,7 +1795,7 @@ label {
 
 @media (min-width: 100px) and (max-width: 640px) {
     #select-category {
-        width: 30%;
+        width: 28%;
     }
     .filter-select {
         margin-top: 5%;
@@ -1804,13 +1804,13 @@ label {
 
 @media (min-width: 100px) and (max-width: 640px) {
     #select-radius {
-        width: 30%;
+        width: 28%;
     }
 }
 
 @media (min-width: 100px) and (max-width: 640px) {
     #select-typ {
-        width: 30%;
+        width: 28%;
     }
 }
 
