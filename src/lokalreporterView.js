@@ -1154,7 +1154,8 @@ NewsMap.lokalreporterView = (function () {
 
         setSearchResults = function (data, query, pagingInfo) {
             if (data == null || data == undefined || data.items.length == 0) {
-                $("#select-typ #select-category #select-radius").show();
+                $("#select-typ,#select-category,#select-radius").show();
+                console.log("showing filters in Search");
                 $("#search-list").empty();
                 $("#search-content").hide();
                 $("#error-modal").show();
@@ -1165,6 +1166,8 @@ NewsMap.lokalreporterView = (function () {
 
             }
             else {
+                console.log("showing filters in Search");
+                $("#select-typ,#select-category,#select-radius").show();
                 loadNewsEnabled = true;
                 latestPagingInfoSearch = pagingInfo;
                 $('.main-content').hide();
