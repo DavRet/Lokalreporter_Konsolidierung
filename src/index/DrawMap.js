@@ -22,7 +22,7 @@ NewsMap.DrawMap = (function () {
         tempLat,
         tempLon,
         greenIcon,
-        apiIp = "http://132.199.141.129:9000",
+        apiIp = NewsMap.MainController.apiIp,
         extraMarkers = false,
 
         map = null,

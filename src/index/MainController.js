@@ -6,6 +6,20 @@ NewsMap.MainController = (function () {
         currentClickedArticle = null,
 
 
+
+        // REST API IPs
+
+        // IPs des Live-Servers (wahrscheinlich nicht mehr online)
+        apiIp = "http://132.199.141.129:9000",
+        oAuthIp = "http://132.199.141.129:9560",
+
+        // Lokale IPs
+
+        /*apiIp = "http://localhost:9000",
+        oAuthIp = "http://localhost:9100",*/
+
+
+
         init = function () {
             newsMapView = NewsMap.NewsMapView.init();
             drawMap = NewsMap.DrawMap.init();
@@ -100,6 +114,8 @@ NewsMap.MainController = (function () {
         };
 
     that.init = init;
+    that.apiIp = apiIp;
+    that.oAuthIp = oAuthIp;
 
     return that;
 }());
